@@ -2,7 +2,7 @@
 <p>SmartDash is a dashboard system for Homey platform.</p>
 <p>It work on Homey Pro 2023 and with a workaround on Homey Pro 2016/2019 (See topic on Homey forum community), it use the Homey Web Api and need creating a Key Api</p>
 
-<p>Main features:</p>
+<p><strong>Main features</strong></p>
 <ul><li>local and remote login</li>
 <li>6 customizable panels</li>
 <li>customizable widget for every panel: socket, sensor, presence, light, thermostat, powerwall, blind, solarpanel, camera, insight and more</li>
