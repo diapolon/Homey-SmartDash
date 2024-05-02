@@ -11,4 +11,4 @@
 <li>backup system</li>
 <li>custom CSS support</li>
   </ul>
-<p>More info on official topic: https://community.homey.app/t/android-ios-pro-dashboard-homey-smartdash-v0-240104-2/83385and a url for retrieve bearer token for Homey Pro 2016-2019</p>
+<p>More info on official topic: https://community.homey.app/t/android-ios-pro-dashboard-homey-smartdash-v0-240104-2/83385</p>
