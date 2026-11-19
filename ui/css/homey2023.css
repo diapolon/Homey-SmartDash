@@ -1,0 +1,220 @@
+@charset "UTF-8";
+
+.blink { -webkit-animation: mdi-blink 1.5s infinite; animation: mdi-blink 1.5s infinite }
+
+.color_white { color: #ffffff !important }
+.color_blue { color: #4d6ab4 !important }
+.color_green { color: #00b765 !important }
+.color_red { color: #f5413b !important }
+.color_orange { color: #febb1b !important }
+.color_yellow { color: #f5ec06 !important }
+.color_violet { color: #a066ae !important }
+.color_grey { color: #969696 !important }
+.color_black { color: #39393a !important }
+.color_transparent { color: rgba(255, 255, 255, .50) !important }
+
+#wrapper_login .logo { background-size: 50% auto }
+
+#top_bar #nav_bar { height: 100% }
+#top_bar #nav_bar { background-color: transparent }
+#top_bar #nav_bar .button { color: #ffffff }
+#top_bar #nav_bar .button.on { color: #ffe75a }
+#top_bar #nav_bar #button_menu { right: 0 }
+#top_bar #nav_bar #button_notify { right: 13.1%; color: #f0f0f0 }
+#top_bar #nav_bar #button_notify .mdi { font-size: 100% }
+#top_bar #nav_title { position: absolute; height: 100%; top: 0; z-index: -1 }
+#top_bar #nav_title #title { color: #ffffff; font-size: 90%; text-align: center }
+
+#bottom_bar li.row { font-size: 80% }
+#bottom_bar li.row.tapped { border-radius: 8px }
+
+#menu_bar #bar { background: #f2f2f4 }
+#menu_bar #menu_title .title { display: none }
+#menu_bar #menu_title .logo { width: 100%; background-size: auto 40% }
+#menu_bar li.row { border-bottom: 1px solid #ebebed; border-top: 1px solid #f5f5f7 }
+#menu_bar li.row .icon .mdi { color: #647d8c }
+
+#content { z-index: 3 }
+
+li.row .image img { background: #000000 }
+
+.lists ul.rows { padding: 15px }
+.lists li.row { height: auto; padding: 10px 0 10px 10px; margin-bottom: 10px }
+.lists li.row .content { padding: 0 }
+.lists li.row .content h2 { color: #07acf0; font-size: 120%; padding: 2% 0; border-bottom: 1px solid #07acf0 }
+.lists li.row .content h3 { color: #292b33; font-size: 120% }
+.lists li.row .content h3 .title { font-weight: bold }
+
+.rows li.row .content { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); -webkit-perspective: 1000; perspective: 1000; -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transition: All 100ms ease; transition: All 100ms ease }
+.rows li.row.tapped .content { -webkit-transform: scale(0.95); transform: scale(0.95) }
+
+.lists li.row.light .content div, .lists li.row.light .content h3, .lists li.row.light .icon { color: #c0c0c0 }
+
+.lists li.row.html { border: 0; background: transparent; padding: 0 10px 10px 10px; margin: 0 }
+.lists li.row.html .content .b1b { border-bottom: 1px solid #d9dbdc }
+.lists li.row.html .title { padding-top: 10px }
+
+.lists li.row.link { border: 0 }
+.lists li.row.link .btn { margin: 0 auto; padding: 4% 10%; width: 66%; background-color: #007bff; color: #ffffff; border-radius: 5px }
+
+.lists li.row.empty { height: 80% }
+.lists li.row.empty .mdi { font-size: 600%; color: #dddddd }
+.lists li.row.empty div { padding-top: 5% }
+
+.lists li.row.tapped { background-color: transparent }
+.lists li.row.tapped, .lists li.row.tapped .content, .lists li.row.tapped h3 { color: #67b73c }
+
+#list_devices li.row.menu { width: 32%; height: 25%; float: left; border: 0; padding: 10px 0 0 10px }
+#list_devices li.row.menu .content { position: relative; text-align: center; vertical-align: top; padding: 5px; border: 1px solid #d9dbdc; border-radius: 5px; background-color: #ffffff }
+#list_devices li.row.menu .content h3 { font-size: 90%; padding-top: 2px }
+#list_devices li.row.menu .content .p5t { position: absolute; width: 100%; left: 0; bottom: 5px; font-size: 70% }
+#list_devices li.row.menu .content .img { position: absolute; width: 100%; height: 100%; left: 0; top: 0%; display: flex; align-items: center; justify-content: center }
+#list_devices li.row.menu .content .img img { width: 30%; height: auto }
+#list_devices li.row.menu.tapped .content { background-color: #efefef; color: initial }
+#list_devices li.row.menu.tapped .content h3 { color: initial }
+
+.lists li.field.selectlist { border: 1px solid #dbdbdb; padding: 10px 0; margin-bottom: 10px; background: #ffffff; border: 0 }
+.lists li.field.selectlist .content { padding: 0 }
+.lists li.field.selectlist select { padding: 10px }
+.lists li.field.selectlist select:focus
+.lists li.field.selectlist select:hover { color: #000000; background-color: #dcdcdc }
+
+li.field.pushbutton .btn.first, li.field.pushbutton .btn.last { border-color: #f2f2f4 }
+ 
+.lists li.field.textbox { border: 1px solid #dbdbdb; padding: 10px 0; margin-bottom: 10px; background: #ffffff; border: 0 }
+.lists li.field.textbox input { padding: 10px }
+
+#wizard_choose li.row { position: relative; float: left; padding: 10px 5px; margin: 0; border: 0 }
+#wizard_choose li.row.tapped { border-color: transparent; background-color: transparent }
+#wizard_choose li.row .content { width: 100%; height: 100%; background: #efefef; text-align: center; vertical-align: bottom; padding-bottom: 10px; border-radius: 5px }
+#wizard_choose li.row.tapped .content { background-color: #dcdcdc }
+#wizard_choose li.row .content h3 { font-size: 80% }
+#wizard_choose li.row .icon { position: absolute; z-index: 2; left: 0; top: 30%; display: block; width: 100%; height: auto }
+#wizard_choose li.row .icon .mdi { font-size: 200% }
+
+#wizard_choose_info li.row { position: relative; padding: 10px 5px; margin: 0; border: 0; width: 100%; height: 100% }
+#wizard_choose_info li.row.tapped { border-color: transparent; background-color: transparent }
+#wizard_choose_info li.row .content { width: 100%; height: 100%; background: #efefef; text-align: center; padding: 0 10px; border-radius: 5px }
+#wizard_choose_info li.row.tapped .content { background-color: #dcdcdc }
+#wizard_choose_info li.row .content .mdi { color: #666666 }
+#wizard_choose_info li.row .content .p5t { padding-top: 20px }
+#wizard_choose_info li.row .content .p5t p { line-height: 1.2rem }
+#wizard_choose_info li.row .content .p5t div { position: absolute; bottom: 8%; width: 90%; left: 5%; padding: 15px 0; background-color: #007bff; color: #ffffff; box-shadow: rgba(0, 0, 0, 0.2) 0 3px 1px -2px, rgba(0, 0, 0, 0.14) 0 2px 2px 0, rgba(0, 0, 0, 0.12) 0 1px 5px 0 }
+
+.forms ul.form { padding: 15px }
+.forms li.field { padding: 0 10px 10px 10px; border: 0 }
+.forms li.field .content { padding: 0 }
+.forms li.field .content h2 { color: #07acf0; font-size: 120%; padding: 2% 0; border-bottom: 1px solid #07acf0 }
+.forms li.field .content h3 { color: #292b33; font-size: 120% }
+.forms li.field .content h4 { color: #292b33; font-size: 110%; padding: 10px 0 }
+
+.forms li.field.page.tapped .content { color: #67b73c }
+
+.forms li.field.html h4.title { padding-bottom: 0 }
+.forms li.field.html .type { text-align: right; text-transform: uppercase; font-size: 80%; color: #292b33 }
+
+.forms li.field.textbox .content, .forms li.field.textarea .content, .forms li.field.selectlist .content { color: #666666 }
+.forms li.field.textbox .content .control, .forms li.field.textarea .content .control, .forms li.field.selectlist .content .control, .forms li.field.html .content .control { background-color: #efefef }
+.forms li.field.textbox input, .forms li.field.texta2rea textarea, .forms li.field.selectlist select { padding: 10px }
+
+.forms li.field.textarea.nowrap { padding: 10px; height: 80% }
+.forms li.field.textarea.nowrap .content { vertical-align: top }
+.forms li.field.textarea.nowrap .content .control { width: 100%; height: 100%; padding: 2px }
+.forms li.field.textarea.nowrap textarea { height: 100%; white-space: nowrap; overflow: scroll }
+
+.rule { background: #efefef; padding: 4px; color: #008080 }
+
+.forms li.field.textbox input:focus, .forms li.field.textarea textarea:focus, .forms li.field.selectlist select:focus
+.forms li.field.textbox input:hover, .forms li.field.textarea textarea:hover, .forms li.field.selectlist select:hover { color: #000000; background-color: #dcdcdc }
+.forms li.field.textbox input:focus::placeholder, .forms li.field.textarea textarea:focus::placeholder,
+.forms li.field.textbox input:hover::placeholder, .forms li.field.textarea textarea:hover::placeholder { color: #000000 }
+
+.forms li.field.iconpicker .control, .forms li.field.colorpicker .control { display: table; width: 100%; height: 100% }
+.forms li.field.iconpicker .input, .forms li.field.colorpicker .input { padding: 10px; color: #666666; background-color: #efefef }
+
+.forms li.field.pushbutton { padding-top: 10px; border: 0; background-color: transparent }
+
+.forms li.field.color .content { background-color: #efefef; padding: 4px 5px }
+
+.forms li.field.fl { float: left }
+.forms li.field.fr { float: right }
+.forms li.field.fl, .forms li.field.fr { width: 50% }
+.forms li.field.fl.xs, .forms li.field.fr.xs { width: 20% }
+.forms li.field.fl.s, .forms li.field.fr.s { width: 25% }
+.forms li.field.fl.m, .forms li.field.fr.m { width: 30% }
+.forms li.field.fl.l, .forms li.field.fr.l { width: 75% }
+
+.forms li.field.selectlist.fl.xs select { background-image: none; text-align: center }
+
+.fixed { position: fixed; right: 12px; top: 0; z-index: 10; width: 50% }
+.fixed > .button.cmd { display: table; position: absolute; right: 0; top: 0; width: 26%; height: 100% }
+.fixed > .button.cmd.hide { display: none }
+.fixed > .button.cmd .mdi { display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: center; color: #ffffff; font-size: 160% }
+.fixed > .button.cmd.on .mdi { color: #ffe75a }
+.fixed #button_edit, 
+.fixed #button_import,
+.fixed #button_options,
+.fixed #button_preview,
+.fixed #button_debug { right: 26.1% }
+.fixed #submenu { position: fixed; right: 2%; top: 9%; z-index: 10; width: 35%; background-color: #ffffff; border-radius: 5px }
+.fixed #submenu .button.cmd { width: 100%; padding: 15% 10% }
+.fixed #submenu .button.cmd .mdi { text-align: left }
+
+#site.dashboard #top_bar { display: none }
+#site.dashboard #bottom_bar { display: none }
+#site.others #top_bar { background-color: #07acf0 }
+
+body.ios #site.others #wrapper_container { background-color: #07acf0 }
+
+#body.square #top_bar { height: 15.1% }
+#body.square #bottom_bar { height: 15.1% }
+#body.square #content { height: 70%; bottom: 15% }
+#body.square #site.dashboard #content { height: 100%; bottom: 0 }
+#body.square #menu_bar li.row { height: 20% }
+#body.square .fixed { height: 15.1% }
+#body.square #wizard_choose li.row { width: 33.333333%; height: 50% }
+#body.square #list_devices li.row.menu { height: 60% }
+
+@media only screen and (orientation:portrait) {
+	#body.portrait #top_bar { height: 10.1% }
+	#body.portrait #bottom_bar { height: 10.1% }
+	#body.portrait #content { height: 80%; bottom: 10% }
+	#body.portrait #site.dashboard #content { height: 100%; bottom: 0 }
+	#body.portrait #menu_bar li.row { height: 20% }
+	#body.portrait .fixed { height: 10.1% }
+	#body.portrait #wizard_choose li.row { width: 50%; height: 20% }
+}
+
+@media only screen and (orientation:landscape) {
+	#body.landscape #top_bar { height: 15.1% }
+	#body.landscape #top_bar #nav_bar .button { width: 9% }	
+	#body.landscape #bottom_bar { display: block; width: 12.1%; height: 85% }
+	#body.landscape #bottom_bar li.row { display: block; width: 100%; height: 20% }
+	#body.landscape #content { width: 88%; height: 85%; left: 12%; bottom: 0 }
+	#body.landscape #site.dashboard #bottom_bar { display: none }
+	#body.landscape #site.dashboard #content { width: 100%; height: 100%; left: 0 }
+	#body.landscape #menu_bar li.row { height: 20% }
+	#body.landscape .fixed { height: 15.1% }
+	#body.landscape .fixed .button.cmd { width: 13% }
+	#body.landscape .fixed #button_edit, 
+	#body.landscape .fixed #button_import,
+	#body.landscape .fixed #button_options,
+	#body.landscape .fixed #button_debug { right: 13.1% }
+	#body.landscape .fixed #submenu { width: 20% }
+	#body.landscape .fixed #submenu .button.cmd { width: 100%; padding: 15% 20% }
+	#body.landscape li.row .content.mini { width: 91% }
+	#body.landscape li.row .icon { width: 9% }
+	#body.landscape #wizard_choose li.row { width: 25%; height: 50% }
+	#body.landscape #wizard_choose li.row .content { width: 100% }
+	#body.landscape #wizard_choose li.row .icon { width: 100% }
+	
+	#body.landscape #list_devices li.row.menu { width: 20%; height: 50% }
+}
+@media only screen and (orientation:landscape) and (max-aspect-ratio: 9/5) {
+	#body.landscape #wizard_choose li.row { width: 20%; height: 40% }
+	#body.landscape #list_devices li.row.menu { height: 40% }
+}
+@media only screen and (orientation:landscape) and (max-aspect-ratio: 3/2) {
+	#body.landscape #wizard_choose li.row { width: 20%; height: 25% }
+	#body.landscape #list_devices li.row.menu { height: 25% }
+}

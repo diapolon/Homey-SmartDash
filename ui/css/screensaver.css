@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+@-webkit-keyframes x { 100% { transform: translateX(40%) } }
+@keyframes x { 100% { transform: translateX(40%) } }
+@-webkit-keyframes y { 100% { transform: translateY(70%) } }
+@keyframes y { 100% { transform: translateY(70%) } }
+
+#screensaver.opacity .scsaver { background-color: rgba(0, 0, 0, 0.1) }
+
+#screensaver .screensaver_time { width: 60%; height: 30%; font-size: 600% }
+#screensaver .screensaver_time.x { -webkit-animation: x 13s linear infinite alternate; animation: x 13s linear infinite alternate }
+#screensaver .screensaver_time .y { -webkit-animation: y 7s linear infinite alternate; animation: y 7s linear infinite alternate }
+
+#screensaver .screensaver_weather { width: 100%; height: 100%; color: #ffffff; display: flex; align-items: center; justify-content: center; flex-direction: column }
+#screensaver .screensaver_weather .weatherTitle { display: flex; width: 100%; height: 15%; align-items: center; justify-content: center; font-size: 150%; font-weight: bold }
+#screensaver .screensaver_weather .weatherIcon { display: flex; width: 100%; height: 40%; align-items: center; justify-content: space-around; font-size: 1000% }
+#screensaver .screensaver_weather .weatherInfo { display: flex; width: 100%; height: 30%; align-items: center }
+#screensaver .screensaver_weather .weatherInfo .temperature { display: flex; flex: 0 0 45%; width: 100%; font-size: 350%; justify-content: space-around }
+#screensaver .screensaver_weather .weatherInfo .description { display: flex; flex: 0 0 55%; width: 100%; height: 100%; flex-direction: column; justify-content: center }
+#screensaver .screensaver_weather .weatherInfo .description .condition { font-size: 180%; font-weight: bold; padding-bottom: 3% }
+#screensaver .screensaver_weather .weatherInfo .description .minmax { font-size: 100% }
+#screensaver .screensaver_weather .weatherInfos { display: flex; width: 100%; height: 15%; align-items: center; font-size: 90% }
+#screensaver .screensaver_weather .weatherInfos > div { display: flex; flex: 0 0 33%; width: 100%; justify-content: center; align-items: center }
+#screensaver .screensaver_weather .weatherInfos > div .icon { display: flex; flex: 0 0 30%; width: 100%; justify-content: end; padding-right: 3% }
+#screensaver .screensaver_weather .weatherInfos > div .info { display: flex; flex: 0 0 70%; width: 100%; flex-direction: column; justify-content: center; text-align: left }
+#screensaver .screensaver_weather .weatherInfos > div .info span { display: block; font-weight: bold }
+
+#screensaver .screensaver_iframe { position: relative; width: 100%; height: 100%; overflow: hidden }
+#screensaver .screensaver_iframe iframe { position: absolute; left: 0; top: 0; right: 0; bottom: 0; width: 100%; height: 100%; pointer-events: none }

@@ -1,0 +1,22 @@
+<div class="inner">
+	<div class="content">	
+		<div class="box">
+			{{#if data.measure_power}}
+				<div class="fl flex c col6 row12">
+					<div class="state"><span class="mdi mdi-{{#if widget.icon}}{{{widget.icon}}}{{else}}power{{/if}}"></span></div>						
+				</div>		
+				<div class="fr flex c col6 row12">
+					<div class="value"><span class="strong">{{{data.measure_power.value}}}</span> <span class="size_xs">{{{data.measure_power.units}}}</span></div>
+				</div>				
+				<div class="clear"></div>
+			{{else}}
+				<div class="flex c col12 row12">
+					<div class="state"><span class="mdi mdi-{{#if widget.icon}}{{{widget.icon}}}{{else}}power{{/if}}"></span></div>						
+				</div>		
+			{{/if}}
+		</div>			
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

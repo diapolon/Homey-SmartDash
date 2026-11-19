@@ -1,0 +1,12 @@
+<div class="inner">
+	<div class="content">	
+		<div class="box f">
+			<div class="flex c col12 row12">
+				<div class="state"><span class="mdi mdi-{{#if widget.icon}}{{{widget.icon}}}{{else}}lock{{/if}}"></span></div>						
+			</div>		
+		</div>			
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

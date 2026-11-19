@@ -1,0 +1,18 @@
+<div class="content">			
+	<div class="control">
+		<div class="cell">			
+			{{#if name}}{{{name}}}{{/if}}	
+			<input {{#if id}}id="{{id}}"{{/if}} class="input hidden" type="hidden" value="{{{value}}}" />
+			<div class="clear"></div>	
+		</div>
+		<div class="icon"><div class="button" rel="picker"><span class="preview mdi mdi-square color_{{{value}}}"></span></div></div>
+	</div>	
+</div>
+<div class="colors hide">
+	<div>
+		{{#each options}}
+			<div class="button" rel="{{@index}}"><span class="radio mdi mdi-square color_{{{icon}}}"></span> {{{icon}}}</div>
+		{{/each}}
+		<div class="clear"></div>
+	</div>
+</div>

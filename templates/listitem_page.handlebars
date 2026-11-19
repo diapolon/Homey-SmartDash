@@ -1,0 +1,10 @@
+{{#if image}}
+	<div class="image">
+		<img src="{{image}}" onerror="ImgError(this);" alt="" />
+	</div>
+{{/if}}
+<div class="content{{#if image}} mini{{/if}}{{#if icon}} mini{{/if}}">
+	<div>{{{name}}}</div>
+	{{#if desc}}<div class="p5t">{{{desc}}}</div>{{/if}}
+</div>
+{{#if icon}}<div class="icon"><span class="mdi mdi-{{{icon}}}"></span></div>{{/if}}

@@ -1,0 +1,167 @@
+<div class="inner">
+	<div class="content">
+		<div class="box f">
+			{{#ifCond widget.image.mode '==' 'fullscreen'}}
+				{{#if cover}}
+					<div class="image fullscreen"><div class="imgbox"><img class="img {{{widget.image.fit}}}" src="{{{cover}}}" alt="{{{cover}}}" onerror="ImgError(this);" /></div></div>
+				{{/if}}
+			{{/ifCond}}
+			{{#ifCond widget.theme '==' 'horizontal'}}
+				{{#if data.speaker_track}}
+					<div class="table col12 row4">
+						<div class="cell middle">
+							<div class="track">{{#if data.speaker_track.value}}{{{data.speaker_track.value}}}{{else}}-{{/if}}</div>
+							<div class="artist">{{#if data.speaker_artist.value}}{{{data.speaker_artist.value}}}{{/if}}</div>
+						</div>
+					</div>	
+				{{/if}}					
+				<div class="fl col6 row8">
+					<div class="col12 row12 flex c">
+						{{#if buttons.l}}
+							<div class="buttons">					
+								{{#each buttons.l}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}
+							</div>
+						{{/if}}				
+						<div class="range flex c">
+							<input class="slider {{#if data.volume_mute.value}}mute{{else}}volume{{/if}}" data-op="set" type="range" min="0" max="{{{volume_max}}}" step="0.01" data-value="{{{toPercent data.volume_set.value}}}%" value="{{{data.volume_set.value}}}" />							
+						</div>					
+					</div>
+				</div>
+				<div class="fr col6 row8">
+					{{#if buttons.c}}							
+						<div class="buttons r">					
+							{{#if buttons.cl}}{{#each buttons.cl}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}{{/if}}
+							{{#each buttons.c}}<div class="button xl {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}
+							{{#if buttons.cr}}{{#each buttons.cr}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}{{/if}}
+						</div>
+					{{/if}}													
+				</div>				
+				<div class="clear"></div>
+			{{/ifCond}}
+			{{#ifCond widget.theme '==' 'vertical'}}				
+				{{#ifCond widget.image.mode '!=' 'fullscreen'}}
+					<div class="table col12 row4">				
+						<div class="cell middle">
+							{{#if cover}}
+								<div class="image {{{widget.image.mode}}}"><div class="imgbox"><img class="img {{{widget.image.fit}}}" src="{{{cover}}}" alt="{{{cover}}}" onerror="ImgError(this);" /></div></div>
+							{{else}}
+								<div class="state"><span class="mdi mdi-music-box"></span></div>
+							{{/if}}
+						</div>
+					</div>						
+				{{/ifCond}}
+				{{#if data.speaker_track}}
+					<div class="table col12 {{#ifCond widget.image.mode '!=' 'fullscreen'}}row2{{else}}row6{{/ifCond}}">
+						<div class="cell middle">
+							<div class="track">{{#if data.speaker_track.value}}{{{data.speaker_track.value}}}{{else}}-{{/if}}</div>
+							<div class="artist">{{#if data.speaker_artist.value}}{{{data.speaker_artist.value}}}{{/if}}</div>
+						</div>
+					</div>				
+				{{/if}}
+				<div class="col12 row2">					
+					{{#if buttons.c}}							
+						<div class="buttons c">					
+							{{#each buttons.c}}<div class="button xl {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}
+						</div>
+					{{/if}}													
+				</div>								
+				<div class="col12 row2">					
+					{{#if buttons.c}}							
+						<div class="buttons c">					
+							{{#if buttons.cl}}{{#each buttons.cl}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}{{/if}}							
+							{{#if buttons.cr}}{{#each buttons.cr}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}{{/if}}
+						</div>
+					{{/if}}													
+				</div>		
+				<div class="col12 row2 flex c">					
+					{{#if buttons.l}}
+						<div class="buttons">					
+							{{#each buttons.l}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}
+						</div>
+					{{/if}}				
+					<div class="range flex c">
+						<input class="slider {{#if data.volume_mute.value}}mute{{else}}volume{{/if}}" data-op="set" type="range" min="0" max="{{{volume_max}}}" step="0.01" data-value="{{{toPercent data.volume_set.value}}}%" value="{{{data.volume_set.value}}}" />							
+					</div>					
+				</div>																		
+			{{/ifCond}}
+			{{#ifCond widget.theme '==' 'mini'}}
+				{{#if buttons.c}}
+					<div class="col12 row6">					
+						<div class="buttons c">					
+							{{#if buttons.cl}}{{#each buttons.cl}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}{{/if}}
+							{{#each buttons.c}}<div class="button xl {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}
+							{{#if buttons.cr}}{{#each buttons.cr}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}{{/if}}
+						</div>
+					</div>
+				{{/if}}												
+				<div class="col12 row6 flex c">
+					{{#if buttons.l}}
+						<div class="buttons">					
+							{{#each buttons.l}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}
+						</div>
+					{{/if}}					
+					<div class="range flex c">
+						<input class="slider {{#if data.volume_mute.value}}mute{{else}}volume{{/if}}" data-op="set" type="range" min="0" max="{{{volume_max}}}" step="0.01" data-value="{{{toPercent data.volume_set.value}}}%" value="{{{data.volume_set.value}}}" />							
+					</div>					
+				</div>																			
+			{{/ifCond}}			
+			{{#ifCond widget.theme '==' 'default'}}
+				<div class="col12 row5">
+					<div class="fl table {{#ifCond widget.image.mode '!=' 'fullscreen'}}col9{{else}}col12{{/ifCond}} row12">
+						<div class="cell left middle">
+							<div class="track">{{#if data.speaker_track.value}}{{{data.speaker_track.value}}}{{else}}-{{/if}}</div>
+							<div class="artist">{{#if data.speaker_artist.value}}{{{data.speaker_artist.value}}}{{/if}}</div>
+						</div>
+					</div>			
+					{{#ifCond widget.image.mode '!=' 'fullscreen'}}	
+						<div class="fr table col3 row12">
+							<div class="cell right middle">
+								{{#if cover}}
+									<div class="image {{{widget.image.mode}}}"><div class="imgbox"><img class="img {{{widget.image.fit}}}" src="{{{cover}}}" alt="{{{cover}}}" onerror="ImgError(this);" /></div></div>
+								{{else}}
+									<div class="state"><span class="mdi mdi-music-box"></span></div>
+								{{/if}}
+							</div>
+						</div>	
+					{{/ifCond}}						
+					<div class="clear"></div>
+				</div>
+				<div class="col12 row2">
+					{{#if data.speaker_position}}
+						<div class="duration p5b">
+							<div class="fl size_s">{{{toMinute data.speaker_position.value}}}</div>
+							<div class="fr size_s">{{{toMinute data.speaker_duration.value}}}</div>
+							<div class="clear"></div>
+						</div>
+						<div class="range flex position">
+							<input class="slider" type="range" min="0" max="{{{data.speaker_duration.value}}}" step="1" value="{{{data.speaker_position.value}}}" />															
+						</div>						
+					{{/if}}
+				</div>
+				<div class="col12 row3">					
+					<div class="buttons c">					
+						{{#if buttons.c}}													
+								{{#if buttons.cl}}{{#each buttons.cl}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}{{/if}}
+								{{#each buttons.c}}<div class="button xl {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}
+								{{#if buttons.cr}}{{#each buttons.cr}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}{{/if}}
+						{{/if}}											
+					</div>
+				</div>
+				<div class="col12 row2 flex c">
+					{{#if buttons.l}}
+						<div class="buttons">					
+							{{#each buttons.l}}<div class="button {{#if active}}active {{/if}}{{{value}}}" data-op="{{{value}}}"><span class="mdi mdi-{{{icon}}}"></span></div>{{/each}}
+						</div>
+					{{/if}}				
+					<div class="range flex c">
+						<input class="slider {{#if data.volume_mute.value}}mute{{else}}volume{{/if}}" data-op="set" type="range" min="0" max="{{{volume_max}}}" step="0.01" data-value="{{{toPercent data.volume_set.value}}}%" value="{{{data.volume_set.value}}}" />							
+					</div>					
+				</div>									
+			{{/ifCond}}
+		</div>			
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}		
+		{{#if data.measure_battery}}<div class="battery"><span class="mdi mdi-battery{{#ifCond data.measure_battery.value '<' 10}}-outline color_red{{else}}{{#ifCond data.measure_battery.value '>' 90}} color_green{{else}}-50 color_orange{{/ifCond}}{{/ifCond}} mdi-rotate-270"></span></div>{{/if}}	
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+<div class="scrollable">
+	<form class="scrollable_inner">			
+		<ul class="form"></ul>
+	</form>
+</div>
+<div class="fixed">
+	{{#if css}}		
+		<div id="button_options" class="button cmd"><span class="mdi mdi-dots-vertical"></span></div>
+		<div id="submenu" class="hide">
+			<div id="button_css" class="button cmd">{{{language.buttons.css}}}</div>	
+		</div>
+	{{/if}}
+	<div id="button_save" class="button cmd{{#if hide}} hide{{/if}}"><span class="mdi mdi-content-save"></span></div>
+</div>

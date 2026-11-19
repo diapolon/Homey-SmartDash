@@ -1,0 +1,19 @@
+<div class="scrollable">
+	<form class="scrollable_inner">			
+		<ul class="form form_1"></ul>
+		<ul class="form form_2 hide"></ul>
+		<ul class="form form_3 hide"></ul>
+		<ul class="form form_4 hide"></ul>
+	</form>
+</div>
+<div class="fixed">	
+	{{#if edit}}		
+		<div id="button_options" class="button cmd"><span class="mdi mdi-dots-vertical"></span></div>
+		<div id="submenu" class="hide">
+			{{#if css}}<div id="button_css" class="button cmd">{{{language.buttons.css}}}</div>{{/if}}
+			<div id="button_copy" class="button cmd">{{{language.buttons.copy}}}</div>
+			<div id="button_remove" class="button cmd">{{{language.buttons.remove}}}</div>			
+		</div>
+	{{/if}}
+	<div id="button_save" class="button cmd"><span class="mdi mdi-content-save"></span></div>
+</div>

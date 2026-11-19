@@ -1,0 +1,20 @@
+<div class="content">		
+	{{#if name}}{{{name}}}{{/if}}	
+	<div class="control">
+		<div class="cell">
+			<input {{#if id}}id="{{id}}"{{/if}} class="input value" placeholder="{{{placeholder}}}" type="text" value="{{{value}}}" />
+			<div class="button" rel="picker"><span class="mdi mdi-image-edit color_white"></span></div>
+			<div class="button delete{{#if value}}{{else}} hide{{/if}}" rel="delete"><span class="cancel mdi mdi-delete color_white"></span></div>
+			<div class="clear"></div>	
+		</div>
+		<div class="icon"><span class="preview mdi mdi-{{{value}}} color_green"></span></div>
+	</div>
+</div>
+<div class="icons hide">
+	<div>
+		{{#each options}}
+			<div class="button" rel="{{@index}}"><span class="mdi mdi-{{{this}}}"></span></div>
+		{{/each}}
+		<div class="clear"></div>
+	</div>
+</div>

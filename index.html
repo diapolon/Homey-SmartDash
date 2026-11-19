@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>Homey SmartDash</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover" />
+		<meta name="format-detection" content="telephone=no" />
+		<link rel="stylesheet" href="ui/fonts/roboto/font.css" />
+		<link rel="stylesheet" href="ui/fonts/materialdesign/font.css" />
+		<link rel="stylesheet" href="framework/scsaver/scsaver.css" />		
+		<link rel="stylesheet" href="ui/css/framework.css" />		
+		<link rel="stylesheet" href="ui/css/pinpad.css" />
+		<link rel="stylesheet" href="ui/css/screensaver.css" />
+		<link rel="stylesheet" href="ui/css/style.css" />		
+		<link rel="stylesheet" href="ui/css/list.css" />		
+		<link rel="stylesheet" href="ui/css/dashboard.css" />
+		<link rel="stylesheet" href="ui/css/dashboard_p.css" />
+		<link rel="stylesheet" href="ui/css/dashboard_l.css" />
+		<link rel="stylesheet" href="ui/css/homey2023.css" />
+		<script src="cordova.js"></script>
+		<script src="app/config.js"></script>		
+		<script src="app/json_data.js"></script>
+		<script src="app/i18n/en.js"></script>		
+		<script src="app/i18n/it.js"></script>		
+		<script src="app/i18n/nl.js"></script>		
+		<script src="app/i18n/fr.js"></script>		
+		<script src="app/i18n.js"></script>		
+		<script src="framework/libs/h.js"></script>		
+		<script src="framework/libs/q.js"></script>
+        <script src="framework/libs/u.js"></script>
+        <script src="framework/libs/b.js"></script>        
+        <script src="framework/libs/j.js"></script>                
+        <script src="framework/libs/c.js"></script>        
+        <script src="framework/addons/h_helpers.js"></script>
+        <script src="framework/addons/b_helpers.js"></script>        
+        <script src="framework/dateformat/dateformat.js"></script>                
+        <script src="framework/dateformat/i18n.js"></script>                
+        <script src="framework/scsaver/scsaver.js"></script>                   
+        <script src="framework/capabilities.js"></script>
+        <script src="framework/misc.js"></script>             
+        <script src="framework/daemon.js"></script>
+        <script src="framework/database.js"></script>
+		<script src="framework/system.js"></script>
+		<script src="framework/server.js"></script>				
+		<script src="framework/homey.js"></script>			
+        <script src="app/templates.js"></script>		
+		<script src="app/data/collections.js"></script>
+		<script src="app/data/data.js"></script>
+		<script src="app/data/dataform.js"></script>		
+		<script src="app/classes/AbstractView.js"></script>
+		<script src="app/classes/AbstractList.js"></script>
+		<script src="app/classes/AbstractListItem.js"></script>
+		<script src="app/classes/AbstractWidget.js"></script>				
+		<script src="app/classes/listitem/ListItemDefault.js"></script>
+		<script src="app/classes/listitem/ListItemMenuBar.js"></script>
+		<script src="app/classes/listitem/ListItemBottomBar.js"></script>
+		<script src="app/classes/formitem/FormItemDefault.js"></script>
+		<script src="app/classes/formitem/FormItemPassword.js"></script>
+		<script src="app/classes/formitem/FormItemNumber.js"></script>
+		<script src="app/classes/formitem/FormItemCheckBox.js"></script>		
+		<script src="app/classes/formitem/FormItemOptionBox.js"></script>
+		<script src="app/classes/formitem/FormItemSelectList.js"></script>		
+		<script src="app/classes/formitem/FormItemSelectMultiple.js"></script>		
+		<script src="app/classes/formitem/FormItemSize.js"></script>		
+		<script src="app/classes/formitem/FormItemIconPicker.js"></script>				
+		<script src="app/classes/formitem/FormItemColorPicker.js"></script>		
+		<script src="app/classes/formitem/FormItemPushButton.js"></script>				
+		<script src="app/sections/List.js"></script>				
+		<script src="app/sections/Cover.js"></script>
+		<script src="app/sections/Intro.js"></script>
+		<script src="app/sections/Login.js"></script>				
+		<script src="app/sections/Info.js"></script>		
+		<script src="app/sections/ListPanels.js"></script>				
+		<script src="app/sections/FormPanels.js"></script>				
+		<script src="app/sections/ListPanel.js"></script>				
+		<script src="app/sections/FormPanelWidget.js"></script>		
+		<script src="app/sections/FormPanelWidgetCss.js"></script>		
+		<script src="app/sections/FormPanel.js"></script>		
+		<script src="app/sections/FormPanelCss.js"></script>		
+		<script src="app/sections/ListDevices.js"></script>				
+		<script src="app/sections/ListDevice.js"></script>				
+		<script src="app/sections/FormSettings.js"></script>		
+		<script src="app/container/PinPad.js"></script>				
+		<script src="app/container/ScreenSaver.js"></script>				
+		<script src="app/container/BottomBar.js"></script>
+		<script src="app/container/Container.js"></script>			
+		<script src="app/dashboard/Dashboard.js"></script>		
+		<script src="app/dashboard/toolbar/GridTitle.js"></script>
+		<script src="app/dashboard/toolbar/GridButton.js"></script>
+		<script src="app/dashboard/toolbar/GridNetwork.js"></script>
+		<script src="app/dashboard/toolbar/GridMenu.js"></script>		
+		<script src="app/dashboard/toolbar/GridAutoSwitch.js"></script>		
+		<script src="app/dashboard/widgets/Unknown.js"></script>
+		<script src="app/dashboard/widgets/Empty.js"></script>		
+		<script src="app/dashboard/widgets/Clock.js"></script>
+		<script src="app/dashboard/widgets/GenericCapability.js"></script>
+		<script src="app/dashboard/widgets/GenericAlert.js"></script>
+		<script src="app/dashboard/widgets/GenericSensor.js"></script>
+		<script src="app/dashboard/widgets/GenericSocket.js"></script>
+		<script src="app/dashboard/widgets/GenericLight.js"></script>
+		<script src="app/dashboard/widgets/GenericFan.js"></script>
+		<script src="app/dashboard/widgets/GenericThermostat.js"></script>
+		<script src="app/dashboard/widgets/GenericSpeaker.js"></script>
+		<script src="app/dashboard/widgets/Iframe.js"></script>
+		<script src="app/dashboard/widgets/Insight.js"></script>
+		<script src="app/dashboard/widgets/Lock.js"></script>
+		<script src="app/dashboard/widgets/Timeline.js"></script>
+		<script src="app/dashboard/widgets/PresenceSensor.js"></script>
+		<script src="app/dashboard/widgets/THSensor.js"></script>
+		<script src="app/dashboard/widgets/ComfortSensor.js"></script>
+		<script src="app/dashboard/widgets/SMSensor.js"></script>				
+		<script src="app/dashboard/widgets/VirtualButton.js"></script>
+		<script src="app/dashboard/widgets/VirtualCamera.js"></script>		
+		<script src="app/dashboard/widgets/VideoPlayer.js"></script>				
+		<script src="app/dashboard/widgets/HomeyImage.js"></script>		
+		<script src="app/dashboard/widgets/LightRGB.js"></script>
+		<script src="app/dashboard/widgets/BlindCurtain.js"></script>
+		<script src="app/dashboard/widgets/Powerwall.js"></script>
+		<script src="app/dashboard/widgets/EnergyFlow.js"></script>
+		<script src="app/dashboard/widgets/JsonVariable.js"></script>
+		<script src="app/dashboard/widgets/Weather.js"></script>
+		<script src="app/dashboard/widgets/SolarPanel.js"></script>
+		<script src="app/dashboard/widgets/Separator.js"></script>				
+		<script src="app/dashboard/widgets/Dummy.js"></script>				
+		<script src="app/dashboard/widgets/Test.js"></script>				
+        <script src="app/app.js"></script>
+        <script src="app/main.js"></script>
+    </head>
+    <body id="body" class="font_roboto"> 
+		<div id="site"></div>
+		<div id="mask" class="hide"></div>
+		<div id="spinner" class="hide"><span class="mdi mdi-dots-circle mdi-spin"></span><div id="spinner_msg"></div></div>
+		<div id="css"></div>
+    </body>
+</html>

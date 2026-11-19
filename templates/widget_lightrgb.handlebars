@@ -1,0 +1,58 @@
+<div class="inner">
+	<div class="content">			
+		<div class="box f">			
+			{{#if data.light_mode}}		
+				<div class="flex col col12 row12">			
+					<div class="flex c f1">
+						<div class="buttons">		
+							<div class="button onoff" data-op="onoff"><span class="mdi mdi-{{#if widget.icon}}{{{widget.icon}}}{{else}}lightbulb{{/if}}"></span></div>								
+							<div class="button{{#ifCond data.light_mode.value '==' 'color'}} active{{/ifCond}}" data-op="mode" data-value="color"><span class="mdi mdi-palette"></span></div>
+							<div class="button{{#ifCond data.light_mode.value '==' 'temperature'}} active{{/ifCond}}" data-op="mode" data-value="temperature"><span class="mdi mdi-thermometer-lines"></span></div>
+						</div>
+					</div>
+					<div class="flex c f1 range h">
+						{{#ifCond data.light_mode.value '==' 'color'}}
+							<input class="slider hue" data-op="hue" type="range" min="{{{data.light_hue.min}}}" max="{{{data.light_hue.max}}}" step="0.01" value="{{{data.light_hue.value}}}" />						
+						{{/ifCond}}
+						{{#ifCond data.light_mode.value '==' 'temperature'}}
+							<input class="slider temp" data-op="temperature" type="range" min="{{{data.light_temperature.min}}}" max="{{{data.light_temperature.max}}}" step="0.01" value="{{{data.light_temperature.value}}}" />						
+						{{/ifCond}}
+					</div>			
+					{{#if data.dim}}		
+						<div class="flex c f1 range h">
+							<input class="slider dim" data-op="dim" type="range" min="0" max="1" step="0.01" data-value="{{{toPercent data.dim.value}}}%" value="{{{data.dim.value}}}" />							
+						</div>						
+					{{/if}}																		
+				</div>
+			{{else}}
+				<div class="fl flex c col2 row12">
+					<div class="button state" data-op="onoff">							
+						<span class="mdi mdi-{{#if widget.icon}}{{{widget.icon}}}{{else}}lightbulb{{/if}}"></span> 
+					</div>	
+				</div>		
+				<div class="fr flex col col10 row12">			
+					{{#if data.light_hue}}
+						<div class="flex c f1 range h">
+							<input class="slider hue" data-op="hue" type="range" min="{{{data.light_hue.min}}}" max="{{{data.light_hue.max}}}" step="0.01" value="{{{data.light_hue.value}}}" />													
+						</div>						
+					{{/if}}																
+					{{#if data.light_temperature}}
+						<div class="flex c f1 range h">
+							<input class="slider temp" data-op="temperature" type="range" min="{{{data.light_temperature.min}}}" max="{{{data.light_temperature.max}}}" step="0.01" value="{{{data.light_temperature.value}}}" />										
+						</div>						
+					{{/if}}																
+					{{#if data.dim}}		
+						<div class="flex c f1 range h">
+							<input class="slider dim" data-op="dim" type="range" min="0" max="1" step="0.01" data-value="{{{toPercent data.dim.value}}}%" value="{{{data.dim.value}}}" />							
+						</div>						
+					{{/if}}																
+				</div>
+			{{/if}}																										
+			<div class="clear"></div>			
+		</div>	
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}		
+		{{#if data.measure_battery}}<div class="battery"><span class="mdi mdi-battery{{#ifCond data.measure_battery.value '<' 10}}-outline color_red{{else}}{{#ifCond data.measure_battery.value '>' 90}} color_green{{else}}-50 color_orange{{/ifCond}}{{/ifCond}} mdi-rotate-270"></span></div>{{/if}}	
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

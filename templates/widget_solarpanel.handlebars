@@ -1,0 +1,29 @@
+<div class="inner">
+	<div class="content">
+		<div class="box">
+			<div class="fl table col6 row12">
+				<div class="cell middle">
+					<div class="value"><span class="strong">{{#ifCond data.measure_power.value '>' 0}}{{{data.measure_power.value}}}{{else}}0{{/ifCond}}</span> <span class="size_xs">{{{data.measure_power.units}}}</span></div>
+					<div class="capability p5t">{{{lang.labels.solarpanel.power}}}</div>
+				</div>
+			</div>
+			<div class="fr table col6 row12">
+				<div class="cell middle">
+					<div class="value"><span class="strong">
+						{{#if data.meter_power_daily}}
+							{{#ifCond data.meter_power_daily.value '>' 0}}{{data.meter_power_daily.value}}{{else}}0{{/ifCond}}</span> <span class="size_xs">{{{data.meter_power_daily.units}}}
+						{{else}}
+							{{#ifCond data.meter_power.value '>' 0}}{{data.meter_power.value}}{{else}}0{{/ifCond}}</span> <span class="size_xs">{{{data.meter_power.units}}}
+						{{/if}}
+					</span></div>
+					<div class="capability p5t">{{{lang.labels.solarpanel.production_daily}}}</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}
+		{{#ifCond widget.hideupdatetime '==' 0}}<div class="update">{{{update}}}</div>{{/ifCond}}
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>	

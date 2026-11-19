@@ -1,0 +1,36 @@
+<div class="inner">
+	<div class="content">
+		<div class="box f">
+			<div class="table col12 row12">
+				<div class="cell middle">
+					<div>
+						<div class="fl col6">
+							<div class="value"><span class="strong">{{#ifCond data.solar_power.value '>' 0}}{{{data.solar_power.value}}}{{else}}0{{/ifCond}}</span> <span class="size_xs">{{{data.solar_power.units}}}</span></div>
+							<div class="capability p5t">{{{lang.labels.powerwall.solar}}}</div>
+						</div>
+						<div class="fr col6">
+							<div class="value"><span class="strong">{{#ifCond data.home_power.value '>' 0}}{{{data.home_power.value}}}{{else}}0{{/ifCond}}</span> <span class="size_xs">{{{data.home_power.units}}}</span></div>
+							<div class="capability p5t">{{{lang.labels.powerwall.home}}}</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="p20t">
+						<div class="fl col6">
+							<div class="value"><span class="strong">{{ceil data.measure_battery.value}}</span><span class="size_xs">{{{data.measure_battery.units}}}</span><span class="mdi mdi-battery{{#ifCond data.measure_battery.value '==' 100}}{{else}}{{#ifCond data.battery_power.value '<' 0}}-charging-50{{else}}-arrow-up-outline{{/ifCond}}{{/ifCond}}"></span></div>
+							<div class="capability p5t">{{{lang.labels.powerwall.battery}}}</div>
+						</div>
+						<div class="fr col6">
+							<div class="value"><span class="strong">{{{data.grid_power.value}}}</span> <span class="size_xs">{{{data.grid_power.units}}}</span>{{#ifCond data.grid_power.value '!=' 0}}<span class="mdi mdi-transmission-tower-{{#ifCond data.grid_power.value '>' 0}}import{{else}}export{{/ifCond}}"></span>{{/ifCond}}</div>
+							<div class="capability p5t">{{{lang.labels.powerwall.grid}}}</div>
+						</div>
+						<div class="clear"></div>
+					</div>	
+				</div>
+			</div>
+		</div>
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}
+		{{#ifCond widget.hideupdatetime '==' 0}}<div class="update">{{{update}}}</div>{{/ifCond}}
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

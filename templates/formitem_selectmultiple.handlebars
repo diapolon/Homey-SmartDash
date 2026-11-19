@@ -1,0 +1,10 @@
+<div class="content">
+	{{#each options}}
+		<div class="button" rel="{{@index}}">
+			{{#if name}}{{{name}}}<br />{{/if}}
+			<span class="radio mdi mdi-{{{icon}}}{{#if checked}} checked{{/if}}"></span>		
+		</div>
+	{{/each}}
+	<div class="clear"></div>
+	<input {{#if id}}id="{{id}}"{{/if}} class="hidden" type="hidden" value="{{#if value}}{{{value}}}{{/if}}" />
+</div>

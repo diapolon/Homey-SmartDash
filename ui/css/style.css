@@ -1,0 +1,110 @@
+@charset "UTF-8";
+:root { --sat: env(safe-area-inset-top); --sar: env(safe-area-inset-right); --sab: env(safe-area-inset-bottom); --sal: env(safe-area-inset-left) }
+* { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent }
+body { -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-user-select: none }
+body { color: #666666; width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden }
+
+img.responsive { width: 100%; height: auto; max-width: 500px }
+
+@-webkit-keyframes fadeIn { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+@keyframes fadeIn { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+.slide { z-index: 1; position: absolute; left: 0; top: 0; width: 100%; height: 100% }
+.slide { -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-animation: fadeIn 250ms; animation: fadeIn 250ms; animation-timing-function: ease-in }
+
+/* tapped animation */
+.button { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); -webkit-perspective: 1000; perspective: 1000; -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transition: All 100ms ease; transition: All 100ms ease }
+.button.tapped { -webkit-transform: scale(0.98); transform: scale(0.98) }
+
+/* scroll */
+iframe::-webkit-scrollbar { display: none }
+.scrollable { z-index: 1; position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch }
+.scrollable::-webkit-scrollbar { display: none }
+.scrollable .scrollable_inner { width: 100%; height: 100%; position: relative; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); -webkit-perspective: 1000; perspective: 1000; -webkit-backface-visibility: hidden; backface-visibility: hidden }
+/* Underlay */ /* <--- This was the problem! */
+.scrollable::after { display: none; position: fixed; z-index: -1; top: 0; left: 0; right: 0; bottom: 0; background-color: transparent; content: "" }
+
+#site { z-index: 1; position: absolute; width: 100%; height: 100vh; left: 0; top: 0; overflow: hidden }
+#css { position: absolute; z-index: -1 }
+
+#mask { z-index: 99; position: absolute; width: 100%; height: 100%; left: 0; top: 0; overflow: hidden }
+#spinner { display: table; z-index: 99; position: absolute; left: 40%; top: 45%; width: 20%; height: 10%; color: #07acf0 }
+#spinner.hide { display: none }
+#spinner .mdi { display: table-cell; text-align: center; vertical-align: middle; width: 100%; height: 100%; font-size: 250% }
+#spinner #spinner_msg { text-align: center; left: 2%; bottom: 2%; width: 96%; position: absolute; font-size: 70% }
+
+.wrapper { position: absolute; width: 100%; height: 100%; left: 0; top: 0; overflow: hidden }
+
+#wrapper_cover { background: #000000 }
+#wrapper_cover .logo { position: absolute; left: 0; top: 20%; width: 100%; height: 30%; background: url("../images/logo.png") no-repeat center center; background-size: 70% auto }
+#wrapper_cover .copyright { position: absolute; left: 0; bottom: 2%; width: 100%; text-align: center }
+
+#wrapper_login { background: #000000 }
+#wrapper_login .logo { position: absolute; left: 0; top: 0; width: 100%; height: 20%; background: url("../images/logo.png") no-repeat center center; background-size: 70% auto }
+#wrapper_login .copyright { position: absolute; left: 0; bottom: 2%; width: 100%; text-align: center }
+#wrapper_login .section_content { z-index: 1; position: fixed; width: 80%; height: 80%; left: 10%; top: 20%; overflow: hidden }
+#wrapper_login .section_content li.field { border: 0 }
+#wrapper_login .section_content li.field .content { padding: 0; color: #dddddd }
+#wrapper_login .section_content li.field.html { border: 0; margin-bottom: 2%; background: transparent }
+#wrapper_login .section_content li.field.textbox input { color: #000000; max-width: 95% }
+#wrapper_login .section_content li.field.textbox input::placeholder { color: #666666 }
+#wrapper_login .section_content li.field.checkbox { background: transparent }
+#wrapper_login .section_content li.field.checkbox .icon { text-align: left; width: 10% }
+#wrapper_login .section_content li.field.checkbox .content.mini { width: 90% }
+#wrapper_login .section_content li.field.checkbox .fa-check-square { color: #009246 }
+#wrapper_login .section_content li.field.textbox .control,
+#wrapper_login .section_content li.field.selectlist .control { border: 1px solid #dbdbdb; padding: 10px 0; margin-bottom: 10px; background: #ffffff; border: 0; text-indent: 10px }
+#wrapper_login .section_content li.field.pushbutton .btn.first, 
+#wrapper_login .section_content li.field.pushbutton .btn.last { border-color: #000000 }
+
+#main { z-index: 1; position: absolute; left: 0; top: 0; width: 100%; height: 100%; transition: 500ms }
+#main.mask { z-index: -1; opacity: 0.1 }
+
+#top_bar { z-index: 2; position: fixed; overflow: hidden; top: 0; left: 0; width: 100%; height: 18.1%; background-color: #ffffff }
+#top_bar #nav_bar { position: relative; width: 100%; height: 50.1%; background-color: #67b73c; color: #ffffff }
+#top_bar #nav_bar .button { position: absolute; top: 0;  display: table; width: 13%; height: 100% }
+#top_bar #nav_bar .button .mdi { display: table-cell; width: 100%; height: 100%; font-size: 160%; text-align: center; vertical-align: middle }
+#top_bar #nav_bar .button.hide { display: none }
+#top_bar #nav_title { position: relative; display: table; width: 100%; height: 50% }
+#top_bar #nav_title #title { display: table-cell; width: 100%; height: 100%; vertical-align: middle; font-size: 150%; font-weight: bold; color: #666666 }
+
+#content { z-index: 1; position: absolute; width: 100%; height: 66.9%; left: 0; bottom: 9%; background: #f7f6fb }
+
+#bottom_bar { z-index: 2; position: fixed; overflow: hidden; left: 0; bottom: 0; width: 100%; height: 9.1%; background: #ffffff; border-top: 1px solid #e9e9ea; color: #e9e9ea; font-size: 100% }
+#bottom_bar .rows { display: table }
+#bottom_bar li.row { display: table-cell; float: left; width: 20%; height: 100%; border: 0; font-size: 85% }
+#bottom_bar li.row .content { display: table; width: 100%; height: 100%; padding: 5% }
+#bottom_bar li.row .content > div { display: table-cell; text-align: center; vertical-align: middle; width: 100%; height: 100% }
+#bottom_bar li.row .mdi { color: #d2d2d2; font-size: 160% }
+#bottom_bar li.row.selected .content, #bottom_bar li.row.selected .mdi { color: #000000 }
+#bottom_bar li.row.tapped .content, #bottom_bar li.row.tapped .mdi { color: #000000 }
+
+#menu_bar { z-index: 99; position: absolute; top: 0; width: 100%; height: 100%; overflow-x: hidden; transition: all 250ms ease }
+#menu_bar.ltr { left: -101% }
+#menu_bar.ltr.open { left: 0 }
+#menu_bar.rtl { right: -101% }
+#menu_bar.rtl.open { right: 0 }
+#menu_bar #bar { z-index: 2; position: absolute; top: 0; width: 80%; height: 100%; color: #a0a0a0; background: #fafafa; overflow-x: hidden }
+#menu_bar.ltr #bar { left: 0 }
+#menu_bar.rtl #bar { right: 0 }
+#menu_bar #bar_close { z-index: 1; position: absolute; top: 0; width: 20.1%; height: 100% }
+#menu_bar.ltr #bar_close { right: 0 }
+#menu_bar.rtl #bar_close { left: 0 }
+#menu_bar #button_close { z-index: 2; position: absolute; right: 0; top: 0; display: table; width: 20%; height: 20% }
+#menu_bar #button_close span { display: table-cell; width: 100%; height: 100%; text-align: center; vertical-align: middle }
+#menu_bar #button_close .mdi { font-size: 200%; color: #ffffff }
+#menu_bar #menu_title { display: table; width: 100%; height: 20%; background: #000000 }
+#menu_bar #menu_title .logo { display: table-cell; width: 40%; height: 100%; background: url("../images/logo.png") no-repeat center center; background-size: auto 60% }
+#menu_bar #menu_title .title { display: table-cell; width: 60%; height: 100%; font-size: 90%; vertical-align: middle }
+#menu_bar .rows { height: 79% }
+#menu_bar li.row { height: 10% }
+#menu_bar li.row.selected .content, #menu_bar li.row.selected .stack .fa { color: #000000 }
+#menu_bar li.row.tapped .content, #menu_bar li.row.tapped .stack .fa { color: #000000 }
+
+#main, #menu_bar { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); -webkit-perspective: 1000; perspective: 1000; -webkit-backface-visibility: hidden; backface-visibility: hidden }
+
+body.ios #site { background-color: #000000 }
+body.ios #wrapper_cover, body.ios #wrapper_login { top: var(--sat); height: calc(100vh - var(--sat)) }
+body.ios #wrapper_container { background-color: #000000 }
+body.ios #main { top: var(--sat); height: calc(100vh - var(--sat)) }
+body.ios #menu_bar #button_close { top: calc(8px + var(--sat)) }

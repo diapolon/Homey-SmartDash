@@ -1,0 +1,8 @@
+<div class="inner">
+	<div class="content">
+		<div class="iframe"><iframe class="ifr" src="{{{widget.url}}}"></iframe></div>		
+		{{#ifCond widget.hidename '==' 0}}<div class="name"><div>{{{name}}}</div></div>{{/ifCond}}
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

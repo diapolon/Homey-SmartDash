@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; connect-src *;">
+<title>HomeyPanel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone-min.js"></script>
+<style>
+:root{
+  --bg:#080b10;--surface:#0f1419;--card:#141c24;--card-hi:#1c2635;
+  --border:#1e2d3d;--border-hi:#2a4060;
+  --teal:#00d4aa;--teal-dim:rgba(0,212,170,.12);
+  --amber:#ffb547;--red:#ff4757;--blue:#4fc3f7;--violet:#b39ddb;--green:#69f0ae;
+  --text:#c8d8e8;--text-dim:#5a7a9a;--text-muted:#2e4a62;
+  --mono:'Space Mono',monospace;--sans:'Barlow Condensed',sans-serif;--body:'Barlow',sans-serif;
+  --r:6px;--rl:12px;--shadow:0 8px 32px rgba(0,0,0,.6);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:14px;line-height:1.5}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+input,select{font:inherit;color:inherit}
+ul{list-style:none}svg{display:block}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--surface)}
+::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:2px}
+
+/* ── App shell ── */
+#app{display:flex;flex-direction:column;height:100vh;height:100dvh}
+#topbar{flex-shrink:0;height:52px;display:flex;align-items:center;
+  background:var(--surface);border-bottom:1px solid var(--border);z-index:10;overflow:hidden}
+#logo{flex-shrink:0;padding:0 16px;height:100%;display:flex;align-items:center;gap:7px;
+  font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:2px;
+  color:var(--teal);text-transform:uppercase;border-right:1px solid var(--border)}
+#logo em{color:var(--text-dim);font-style:normal;font-weight:300}
+#panel-tabs-wrap{flex:1;display:flex;align-items:center;overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;height:100%;gap:2px;padding:0 8px}
+#panel-tabs-wrap::-webkit-scrollbar{display:none}
+.panel-tab{flex-shrink:0;height:34px;padding:0 14px;border-radius:var(--r);
+  font-family:var(--sans);font-size:14px;font-weight:600;color:var(--text-dim);
+  border:1px solid transparent;cursor:pointer;transition:all .15s;white-space:nowrap}
+.panel-tab:hover{color:var(--text);background:var(--card)}
+.panel-tab.active{color:var(--teal);background:var(--teal-dim);border-color:rgba(0,212,170,.25)}
+.btn-tab-add{flex-shrink:0;width:30px;height:30px;border-radius:var(--r);
+  display:flex;align-items:center;justify-content:center;color:var(--text-dim);
+  border:1px dashed var(--border-hi);margin-left:4px;transition:all .15s}
+.btn-tab-add:hover{color:var(--teal);border-color:var(--teal)}
+#topbar-right{flex-shrink:0;display:flex;align-items:center;gap:6px;
+  padding:0 12px;border-left:1px solid var(--border);height:100%}
+.conn-pill{display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:20px;
+  border:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text-dim)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted)}
+.status-dot.online{background:var(--green);box-shadow:0 0 5px var(--green)}
+.status-dot.connecting{background:var(--amber);animation:pulse 1s infinite}
+.status-dot.offline{background:var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.btn-settings{width:34px;height:34px;border-radius:var(--r);display:flex;align-items:center;
+  justify-content:center;color:var(--text-dim);transition:all .15s}
+.btn-settings:hover{background:var(--card);color:var(--text)}
+#dashboard-wrap{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px}
+
+/* ── Settings overlay ── */
+#settings-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;
+  display:flex;flex-direction:column;transform:translateY(100%);
+  transition:transform .28s cubic-bezier(.4,0,.2,1)}
+#settings-overlay.open{transform:translateY(0)}
+#settings-topbar{flex-shrink:0;height:52px;display:flex;align-items:center;gap:12px;
+  padding:0 20px;background:var(--surface);border-bottom:1px solid var(--border)}
+.settings-title{flex:1;font-family:var(--sans);font-size:22px;font-weight:700;
+  letter-spacing:1px;color:var(--text)}
+.btn-close-settings{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:var(--r);
+  font-family:var(--sans);font-size:13px;color:var(--text-dim);border:1px solid var(--border);
+  transition:all .15s}
+.btn-close-settings:hover{color:var(--text);border-color:var(--border-hi)}
+#settings-tabs-bar{flex-shrink:0;display:flex;padding:10px 20px 0;
+  border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;gap:2px}
+#settings-tabs-bar::-webkit-scrollbar{display:none}
+.stab{padding:8px 16px;font-family:var(--sans);font-size:15px;font-weight:600;
+  color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;
+  margin-bottom:-1px;white-space:nowrap;transition:all .15s}
+.stab:hover{color:var(--text)}
+.stab.active{color:var(--teal);border-bottom-color:var(--teal)}
+#settings-body{flex:1;overflow-y:auto;padding:24px 20px}
+
+/* ── Common UI ── */
+.page-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+.page-title{font-family:var(--sans);font-size:22px;font-weight:700;letter-spacing:1px;color:var(--text)}
+.page-sub{margin-top:3px;font-size:11px;color:var(--text-dim);font-family:var(--mono)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r);
+  font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.4px;cursor:pointer;
+  border:none;transition:all .15s}
+.btn-primary{background:var(--teal);color:#000}.btn-primary:hover{background:#00ffe0}
+.btn-secondary{background:var(--card-hi);color:var(--text);border:1px solid var(--border-hi)}
+.btn-secondary:hover{border-color:var(--teal);color:var(--teal)}
+.btn-danger{background:rgba(255,71,87,.08);color:var(--red);border:1px solid rgba(255,71,87,.2)}
+.btn-danger:hover{background:rgba(255,71,87,.18)}
+.btn-sm{padding:5px 10px;font-size:12px}.btn-icon{padding:5px}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px}
+.form-control{width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:8px 11px;color:var(--text);font-size:14px;
+  outline:none;transition:border-color .15s}
+.form-control:focus{border-color:var(--teal)}
+.form-control::placeholder{color:var(--text-muted)}
+.form-hint{margin-top:4px;font-size:11px;color:var(--text-dim)}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:20px;
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.badge-teal{background:rgba(0,212,170,.12);color:var(--teal)}
+.badge-amber{background:rgba(255,181,71,.12);color:var(--amber)}
+.badge-red{background:rgba(255,71,87,.12);color:var(--red)}
+.badge-blue{background:rgba(79,195,247,.12);color:var(--blue)}
+.badge-violet{background:rgba(179,157,219,.12);color:var(--violet)}
+.toggle{position:relative;width:42px;height:22px;display:inline-block;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;background:var(--border-hi);border-radius:11px;
+  cursor:pointer;transition:background .2s}
+.toggle-track::after{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;
+  background:#fff;border-radius:50%;transition:transform .2s}
+.toggle input:checked+.toggle-track{background:var(--teal)}
+.toggle input:checked+.toggle-track::after{transform:translateX(20px)}
+.range-slider{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;
+  background:var(--border-hi);outline:none}
+.range-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;
+  border-radius:50%;background:var(--teal);cursor:pointer}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;padding:60px 20px;color:var(--text-muted);text-align:center}
+.empty-state p{font-family:var(--sans);font-size:15px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);
+  z-index:500;display:flex;align-items:center;justify-content:center;animation:fadeIn .15s}
+.modal{background:var(--card);border:1px solid var(--border-hi);border-radius:var(--rl);
+  padding:22px;width:min(460px,92vw);box-shadow:var(--shadow);animation:slideUp .2s ease}
+@keyframes slideUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal-title{font-family:var(--sans);font-size:19px;font-weight:700;color:var(--text)}
+.modal-x{width:26px;height:26px;border-radius:50%;background:var(--card-hi);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--text-dim);font-size:13px;transition:all .15s}
+.modal-x:hover{color:var(--text);background:var(--border-hi)}
+.modal-foot{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+#toast-container{position:fixed;bottom:18px;right:18px;z-index:9999;
+  display:flex;flex-direction:column;gap:7px}
+.toast{background:var(--card-hi);border:1px solid var(--border-hi);border-radius:var(--r);
+  padding:8px 13px;font-family:var(--sans);font-size:13px;color:var(--text);
+  box-shadow:var(--shadow);animation:slideLeft .2s ease;max-width:270px}
+.toast.success{border-color:var(--teal)}.toast.error{border-color:var(--red)}
+@keyframes slideLeft{from{transform:translateX(36px);opacity:0}to{transform:translateX(0);opacity:1}}
+#loading-overlay{position:fixed;inset:0;background:var(--bg);display:flex;
+  align-items:center;justify-content:center;z-index:9998;flex-direction:column;gap:12px}
+.loader{width:34px;height:34px;border:2px solid var(--border);border-top-color:var(--teal);
+  border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:var(--sans);font-size:18px;letter-spacing:3px;
+  color:var(--teal);text-transform:uppercase}
+.scanline{position:fixed;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
+  z-index:9999}
+
+/* ── Dashboard grid ── */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;align-items:start}
+.dash-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;padding:80px 20px;color:var(--text-muted);text-align:center}
+.dash-empty p{font-family:var(--sans);font-size:16px}
+
+/* ── Plugin cards ── */
+.plugin-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);
+  padding:14px;position:relative;transition:border-color .15s;overflow:hidden}
+.plugin-card:hover{border-color:var(--border-hi)}
+.plugin-card.col2{grid-column:span 2}
+.plugin-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,212,170,.3),transparent);
+  opacity:0;transition:opacity .3s}
+.plugin-card:hover::after{opacity:1}
+.plugin-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.plugin-lbl{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--text-dim)}
+
+/* socket */
+.socket-row{display:flex;align-items:center;gap:11px}
+.socket-icon{width:42px;height:42px;border-radius:var(--r);display:flex;align-items:center;
+  justify-content:center;font-size:21px;background:var(--card-hi);transition:all .3s}
+.socket-icon.on{background:rgba(0,212,170,.12)}
+.socket-info{flex:1}
+.socket-name{font-family:var(--sans);font-size:14px;font-weight:600}
+.socket-w{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:1px}
+/* light */
+.light-circle{width:56px;height:56px;border-radius:50%;margin:4px auto 8px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  background:var(--card-hi);border:2px solid transparent;transition:all .3s;cursor:pointer}
+.light-circle.on{background:rgba(255,181,71,.1);border-color:rgba(255,181,71,.3);
+  box-shadow:0 0 18px rgba(255,181,71,.2)}
+.light-dim-row{display:flex;align-items:center;gap:7px;margin-top:8px}
+.light-dim-val{font-family:var(--mono);font-size:11px;width:32px;text-align:right;color:var(--amber)}
+/* temp */
+.temp-val{font-family:var(--mono);font-size:40px;font-weight:700;color:var(--blue);
+  line-height:1;letter-spacing:-2px}
+.temp-u{font-size:16px;color:var(--text-dim)}
+.temp-meta{font-size:10px;color:var(--text-dim);margin-top:3px;font-family:var(--sans)}
+.temp-bar{height:3px;border-radius:2px;margin-top:8px;background:var(--border-hi);overflow:hidden}
+.temp-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width .5s}
+/* humidity */
+.hum-val{font-family:var(--mono);font-size:36px;font-weight:700;color:var(--violet);line-height:1}
+.hum-arc{margin:7px auto 0;width:68px;height:34px;border-radius:68px 68px 0 0;
+  border:2px solid var(--border-hi);border-bottom:none;position:relative;overflow:hidden}
+.hum-arc-fill{position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(180deg,rgba(179,157,219,.4),rgba(179,157,219,.1));transition:height .5s}
+/* energy */
+.energy-val{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--green)}
+.energy-unit{font-size:11px;color:var(--text-dim)}
+.energy-lbl{font-family:var(--sans);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+.energy-bars{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:7px;align-items:end;height:26px}
+.ebar{background:rgba(105,240,174,.2);border-radius:1px;min-height:2px}
+.ebar.cur{background:var(--green)}
+/* thermostat */
+.thermo-ring{width:84px;height:84px;border-radius:50%;margin:5px auto;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--card-hi);border:2px solid var(--border-hi);transition:all .3s}
+.thermo-ring.active{border-color:var(--amber);box-shadow:0 0 14px rgba(255,181,71,.15)}
+.thermo-t{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--amber)}
+.thermo-ctrls{display:flex;justify-content:center;gap:9px;margin-top:7px}
+.thermo-btn{width:28px;height:28px;border-radius:50%;background:var(--card-hi);
+  border:1px solid var(--border-hi);display:flex;align-items:center;justify-content:center;
+  font-size:15px;cursor:pointer;transition:all .15s}
+.thermo-btn:hover{border-color:var(--amber);color:var(--amber)}
+/* sensor */
+.sensor-ico{font-size:20px;margin-bottom:4px}
+.sensor-val{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--teal);margin:5px 0}
+.sensor-lbl{font-size:10px;color:var(--text-dim);font-family:var(--sans);text-transform:uppercase;letter-spacing:1px}
+
+/* ── Settings: panels ── */
+.sp-layout{display:grid;grid-template-columns:210px 1fr;gap:18px;align-items:start}
+@media(max-width:580px){.sp-layout{grid-template-columns:1fr}}
+.panel-list-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden}
+.pli{display:flex;align-items:center;gap:9px;padding:10px 13px;
+  border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.pli:last-child{border-bottom:none}
+.pli:hover{background:var(--card-hi)}
+.pli.active{background:var(--teal-dim);border-left:2px solid var(--teal)}
+.pli-name{flex:1;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--text)}
+.pli-cnt{font-family:var(--mono);font-size:10px;color:var(--text-dim)}
+.panel-editor-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:15px}
+.pe-hdr{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid var(--border)}
+.pe-title{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--text)}
+.widget-list{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.wli{display:flex;align-items:center;gap:9px;padding:9px 11px;
+  background:var(--card-hi);border:1px solid var(--border);border-radius:var(--r)}
+.wli-icon{font-size:17px;width:26px;text-align:center;flex-shrink:0}
+.wli-info{flex:1;min-width:0}
+.wli-name{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--text)}
+.wli-dev{font-size:10px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wli-del{color:var(--red);padding:3px 7px;border-radius:var(--r);font-size:11px;
+  opacity:0;transition:opacity .15s}
+.wli:hover .wli-del{opacity:1}
+
+/* ── Settings: instances ── */
+.inst-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:13px}
+.inst-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);
+  padding:16px;display:flex;flex-direction:column;gap:11px;
+  position:relative;overflow:hidden;transition:border-color .15s}
+.inst-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--teal);opacity:0;transition:opacity .15s}
+.inst-card:hover{border-color:var(--border-hi)}
+.inst-card:hover::before{opacity:1}
+.inst-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.inst-name{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--text)}
+.inst-url{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:2px;word-break:break-all}
+.inst-acts{display:flex;gap:4px;flex-shrink:0}
+.inst-meta{display:flex;gap:5px;flex-wrap:wrap}
+.inst-foot{display:flex;gap:5px}
+
+/* ── Settings: general ── */
+.gen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.gen-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:16px}
+.gen-card-title{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--text);
+  margin-bottom:13px;padding-bottom:9px;border-bottom:1px solid var(--border)}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px 0;border-bottom:1px solid var(--border)}
+.srow:last-child{border-bottom:none}
+.srow-lbl{font-family:var(--sans);font-size:13px;color:var(--text)}
+.srow-desc{font-size:10px;color:var(--text-dim);margin-top:1px}
+
+/* ── Settings: backup ── */
+.bk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.bk-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);
+  padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.bk-ico{font-size:34px}
+.bk-title{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--text)}
+.bk-desc{font-size:11px;color:var(--text-dim);line-height:1.6}
+
+/* plugin picker */
+.pp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pp-item{background:var(--card-hi);border:1px solid var(--border);border-radius:var(--r);
+  padding:11px 7px;text-align:center;cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.pp-item:hover{border-color:var(--teal);color:var(--teal)}
+.pp-ico{font-size:20px;margin-bottom:4px}
+.pp-name{font-size:12px;font-weight:600}
+.pp-desc{font-size:9px;color:var(--text-dim);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+<div id="loading-overlay"><div class="loader"></div><div class="loading-text">HomeyPanel</div></div>
+<div id="toast-container"></div>
+
+<!-- ── App shell ── -->
+<div id="app" style="display:none">
+  <div id="topbar">
+    <div id="logo">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="10" r="8.5" stroke="#00d4aa" stroke-width="1.5"/>
+        <path d="M10 5v5l3 3" stroke="#00d4aa" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Homey<em>Panel</em>
+    </div>
+    <div id="panel-tabs-wrap"><!-- tabs injected --></div>
+    <div id="topbar-right">
+      <div class="conn-pill">
+        <div class="status-dot" id="conn-dot"></div>
+        <span id="conn-label">offline</span>
+      </div>
+      <button class="btn-settings" id="btn-open-settings" title="Impostazioni">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="dashboard-wrap"><!-- dashboard injected --></div>
+</div>
+
+<!-- ── Settings overlay ── -->
+<div id="settings-overlay">
+  <div id="settings-topbar">
+    <button class="btn-close-settings" id="btn-close-settings">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Chiudi
+    </button>
+    <div class="settings-title">Impostazioni</div>
+  </div>
+  <div id="settings-tabs-bar">
+    <div class="stab active" data-stab="panels">📊 Pannelli</div>
+    <div class="stab" data-stab="instances">🔌 Istanze</div>
+    <div class="stab" data-stab="general">⚙ Generali</div>
+    <div class="stab" data-stab="backup">💾 Backup</div>
+  </div>
+  <div id="settings-body"></div>
+</div>
+
+<!-- TEMPLATES -->
+<script type="text/template" id="T-modal-instance">
+<div class="modal-hdr"><div class="modal-title"><%=edit?'Modifica':'Nuova'%> Istanza</div><div class="modal-x js-mx">✕</div></div>
+<div class="form-group"><label class="form-label">Nome</label><input class="form-control" id="f-name" placeholder="Casa, Ufficio..." value="<%=m.name||''%>"></div>
+<div class="form-group"><label class="form-label">Tipo</label>
+  <select class="form-control" id="f-type"><option value="local" <%=m.type==='local'?'selected':''%>>🔌 Locale (IP)</option><option value="cloud" <%=m.type==='cloud'?'selected':''%>>☁ Cloud</option></select></div>
+<div id="f-local-group"><div class="form-group"><label class="form-label">IP / Host</label><input class="form-control" id="f-url" placeholder="192.168.1.x" value="<%=m.url||''%>"></div></div>
+<div class="form-group"><label class="form-label">Bearer Token</label><input class="form-control" id="f-token" type="password" placeholder="••••••••" value="<%=m.token||''%>"><div class="form-hint">Settings → API → Personal Access Token</div></div>
+<div class="modal-foot"><button class="btn btn-secondary js-mx">Annulla</button><button class="btn btn-primary" id="btn-save-inst">Salva</button></div>
+</script>
+
+<script type="text/template" id="T-modal-pick">
+<div class="modal-hdr"><div class="modal-title">Tipo widget</div><div class="modal-x js-mx">✕</div></div>
+<p style="font-size:11px;color:var(--text-dim);margin-bottom:12px">Scegli il tipo di widget da aggiungere</p>
+<div class="pp-grid" id="pp-grid"></div>
+</script>
+
+<script type="text/template" id="T-modal-device">
+<div class="modal-hdr"><div class="modal-title">Configura <%=pname%></div><div class="modal-x js-mx">✕</div></div>
+<div class="form-group"><label class="form-label">Dispositivo</label>
+  <select class="form-control" id="f-device"><option value="">— Seleziona —</option>
+  <% _.each(devs,function(d){%><option value="<%=d.id%>|<%=d.homeyId%>"><%=d.name%> (<%=d.zone%>)</option><%});%></select></div>
+<div class="form-group"><label class="form-label">Etichetta</label><input class="form-control" id="f-label" placeholder="Lascia vuoto = nome dispositivo"></div>
+<div class="modal-foot"><button class="btn btn-secondary" id="btn-pk-back">← Indietro</button><button class="btn btn-primary" id="btn-save-widget">Aggiungi</button></div>
+</script>
+
+<script>
+'use strict';
+
+/* ─ Utils ─ */
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2);
+const toast=(msg,type='info')=>{
+  const el=$('<div class="toast '+type+'">'+msg+'</div>');
+  $('#toast-container').append(el);
+  setTimeout(()=>el.fadeOut(300,()=>el.remove()),3000);
+};
+function fmtVal(cap,v){
+  if(v===null||v===undefined) return '—';
+  switch(cap){
+    case 'measure_temperature': return Number(v).toFixed(1)+' °C';
+    case 'measure_humidity':    return Number(v).toFixed(0)+' %';
+    case 'measure_power':       return Number(v).toFixed(1)+' W';
+    case 'meter_power':         return (Number(v)/1000).toFixed(2)+' kWh';
+    case 'dim':                 return Math.round(Number(v)*100)+' %';
+    case 'onoff':               return v?'ON':'OFF';
+    default:                    return String(v);
+  }
+}
+
+/* ─ Modal ─ */
+let _mo=null;
+function openModal(html,cb){
+  closeModal();
+  _mo=$('<div class="modal-overlay"><div class="modal"></div></div>');
+  _mo.find('.modal').html(html);
+  $('body').append(_mo);
+  _mo.on('click',e=>{if(e.target===_mo[0])closeModal()});
+  _mo.find('.js-mx').on('click',closeModal);
+  if(cb)cb(_mo.find('.modal'));
+  return _mo;
+}
+function closeModal(){if(_mo){_mo.remove();_mo=null;}}
+
+/* ─ Homey API ─ */
+const HomeyAPI={
+  _call(inst,path,method='GET',body){
+    const base=inst.type==='cloud'?'https://api.homey.app/v1':'http://'+inst.url+'/api';
+    return fetch(base+path,{method,
+      headers:{'Authorization':'Bearer '+inst.token,'Content-Type':'application/json'},
+      body:body?JSON.stringify(body):undefined
+    }).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
+  },
+  async getDevices(inst){
+    if(inst.type==='local'){
+      const d=await this._call(inst,'/manager/devices/device/');
+      return Object.values(d).map(x=>this._n(x,inst.id));
+    }
+    const d=await this._call(inst,'/devices');
+    return(d.devices||[]).map(x=>this._n(x,inst.id));
+  },
+  _n(r,hid){return{id:r.id,homeyId:hid,name:r.name,class:r.class||'other',
+    zone:r.zone||r.zoneName||'—',capabilities:r.capabilities||[],
+    capabilitiesObj:r.capabilitiesObj||{},available:r.available!==false}},
+  async setCapability(inst,devId,cap,val){
+    if(inst.type==='local')return this._call(inst,'/manager/devices/device/'+devId+'/capability/'+cap,'PUT',{value:val});
+    return this._call(inst,'/devices/'+devId+'/capabilities/'+cap,'PUT',{value:val});
+  },
+  async getCaps(inst,devId){
+    if(inst.type==='local'){const d=await this._call(inst,'/manager/devices/device/'+devId);return d.capabilitiesObj||{};}
+    return{};
+  },
+  _ws:{},
+  subscribe(inst,cb){if(inst.type!=='local')return;
+    try{const ws=new WebSocket('ws://'+inst.url+'/api/manager/devices/device',['Bearer',inst.token]);
+      ws.onmessage=e=>{try{cb(JSON.parse(e.data))}catch(x){}};ws.onerror=()=>{};
+      this._ws[inst.id]=ws;}catch(e){}},
+  unsubscribe(id){const ws=this._ws[id];if(ws){try{ws.close()}catch(e){} delete this._ws[id];}},
+};
+
+const MOCK=[
+  {id:'d1',name:'Presa Cucina',class:'socket',zone:'Cucina',capabilities:['onoff','measure_power'],capabilitiesObj:{onoff:{value:true},measure_power:{value:312.5}}},
+  {id:'d2',name:'Presa Lavatrice',class:'socket',zone:'Lavanderia',capabilities:['onoff','measure_power'],capabilitiesObj:{onoff:{value:false},measure_power:{value:0}}},
+  {id:'d3',name:'Luce Soggiorno',class:'light',zone:'Soggiorno',capabilities:['onoff','dim'],capabilitiesObj:{onoff:{value:true},dim:{value:.7}}},
+  {id:'d4',name:'Luce Camera',class:'light',zone:'Camera',capabilities:['onoff','dim'],capabilitiesObj:{onoff:{value:false},dim:{value:0}}},
+  {id:'d5',name:'Termostato',class:'thermostat',zone:'Soggiorno',capabilities:['measure_temperature','target_temperature'],capabilitiesObj:{measure_temperature:{value:21.3},target_temperature:{value:22}}},
+  {id:'d6',name:'Temp Balcone',class:'sensor',zone:'Balcone',capabilities:['measure_temperature','measure_humidity'],capabilitiesObj:{measure_temperature:{value:14.8},measure_humidity:{value:68}}},
+  {id:'d7',name:'Umidità Bagno',class:'sensor',zone:'Bagno',capabilities:['measure_humidity'],capabilitiesObj:{measure_humidity:{value:76}}},
+  {id:'d8',name:'Contatore',class:'sensor',zone:'Tecnico',capabilities:['measure_power','meter_power'],capabilitiesObj:{measure_power:{value:1240},meter_power:{value:3240000}}},
+];
+async function fetchDevs(inst){
+  try{return await HomeyAPI.getDevices(inst);}
+  catch(e){return MOCK.map(d=>({...d,homeyId:inst.id}));}
+}
+
+/* ─ Plugin Registry ─ */
+const Reg={_r:{},
+  reg(type,def){this._r[type]={...def,type}},
+  get(type){return this._r[type]},
+  all(){return Object.values(this._r)},
+};
+
+/* ─ Models ─ */
+const HomeyInst=Backbone.Model.extend({defaults:{name:'',type:'local',url:'',token:'',status:'offline',deviceCount:undefined}});
+const HomeyInsts=Backbone.Collection.extend({model:HomeyInst,LS:'hp-instances',
+  initialize(){this._l();this.on('add remove change',this._s,this)},
+  _l(){try{this.reset(JSON.parse(localStorage.getItem(this.LS)||'[]'),{silent:true})}catch(e){}},
+  _s(){localStorage.setItem(this.LS,JSON.stringify(this.toJSON()))}
+});
+const Panel=Backbone.Model.extend({defaults:{name:'',plugins:[]}});
+const Panels=Backbone.Collection.extend({model:Panel,LS:'hp-panels',
+  initialize(){this._l();this.on('add remove change',this._s,this)},
+  _l(){try{this.reset(JSON.parse(localStorage.getItem(this.LS)||'[]'),{silent:true})}catch(e){}},
+  _s(){localStorage.setItem(this.LS,JSON.stringify(this.toJSON()))}
+});
+const Cfg={LS:'hp-config',_d:null,
+  _defs:{activeHomeyId:'',keepAwake:false,refreshInterval:10000},
+  get(k){return this._get()[k]},
+  set(k,v){this._get()[k]=v;this._s()},
+  all(){return{...this._get()}},
+  _get(){return this._d||(this._d={...this._defs,...JSON.parse(localStorage.getItem(this.LS)||'{}')})},
+  _s(){localStorage.setItem(this.LS,JSON.stringify(this._d))}
+};
+
+const instances=new HomeyInsts();
+const panels=new Panels();
+const devices=new Backbone.Collection();
+
+/* ─ Base Plugin View ─ */
+const BasePlugin=Backbone.View.extend({
+  tagName:'div',className:'plugin-card',_timer:null,
+  initialize(o){
+    this.pd=o.pluginData;
+    this.dev=devices.find(d=>d.id===this.pd.deviceId&&d.get('homeyId')===this.pd.homeyId);
+    this._caps=this.dev?_.clone(this.dev.get('capabilitiesObj')):{};
+    this.render();this._startTimer();
+  },
+  cv(cap){return this._caps[cap]?this._caps[cap].value:null},
+  async sv(cap,val){
+    const inst=instances.find(i=>i.id===this.pd.homeyId);
+    if(inst){try{await HomeyAPI.setCapability(inst.attributes,this.pd.deviceId,cap,val)}catch(e){}}
+    if(!this._caps[cap])this._caps[cap]={};
+    this._caps[cap].value=val;this.renderBody();
+    toast('✓ '+fmtVal(cap,val),'success');
+  },
+  async _refresh(){
+    const inst=instances.find(i=>i.id===this.pd.homeyId);
+    if(!inst){this._drift();this.renderBody();return;}
+    try{const c=await HomeyAPI.getCaps(inst.attributes,this.pd.deviceId);if(Object.keys(c).length){this._caps=c;this.renderBody();}}
+    catch(e){this._drift();this.renderBody();}
+  },
+  _drift(){
+    const d=(v,mx,mn)=>Math.min(mx,Math.max(mn,v+(Math.random()-.5)*.4));
+    if(this._caps.measure_temperature)this._caps.measure_temperature.value=d(this._caps.measure_temperature.value,40,-5);
+    if(this._caps.measure_humidity)this._caps.measure_humidity.value=d(this._caps.measure_humidity.value,99,10);
+    if(this._caps.measure_power)this._caps.measure_power.value=Math.max(0,this._caps.measure_power.value+(Math.random()-.45)*20);
+  },
+  _startTimer(){this._timer=setInterval(()=>this._refresh(),Cfg.get('refreshInterval')||10000)},
+  render(){
+    this.$el.empty();
+    const lbl=this.pd.label||(this.dev?this.dev.get('name'):'Widget');
+    this.$el.append('<div class="plugin-hdr"><div class="plugin-lbl">'+lbl+'</div></div><div class="pb"></div>');
+    this.renderBody();return this;
+  },
+  renderBody(){},
+  remove(){clearInterval(this._timer);Backbone.View.prototype.remove.call(this);}
+});
+
+/* ─ Plugin implementations ─ */
+const SocketView=BasePlugin.extend({className:'plugin-card',renderBody(){
+  const on=this.cv('onoff'),w=this.cv('measure_power');
+  this.$('.pb').html(`<div class="socket-row"><div class="socket-icon ${on?'on':''}">🔌</div>
+    <div class="socket-info"><div class="socket-name" style="color:${on?'var(--teal)':'var(--text-dim)'}">${on?'Accesa':'Spenta'}</div>
+    ${w!==null?'<div class="socket-w">'+w.toFixed(1)+' W</div>':''}</div>
+    <label class="toggle"><input type="checkbox" class="js-tog" ${on?'checked':''}><div class="toggle-track"></div></label></div>`);
+  this.$('.js-tog').on('change',e=>this.sv('onoff',e.target.checked));
+}});
+
+const LightView=BasePlugin.extend({className:'plugin-card',renderBody(){
+  const on=this.cv('onoff'),dim=this.cv('dim');
+  this.$('.pb').html(`<div class="light-circle ${on?'on':''}">💡</div>
+    <div style="text-align:center"><label class="toggle" style="margin:0 auto">
+      <input type="checkbox" class="js-tog" ${on?'checked':''}><div class="toggle-track"></div></label></div>
+    ${dim!==null?`<div class="light-dim-row"><span style="font-size:9px;color:var(--text-dim)">DIM</span>
+      <input type="range" class="range-slider js-dim" min="0" max="1" step="0.01" value="${dim}" style="flex:1">
+      <span class="light-dim-val">${Math.round(dim*100)}%</span></div>`:''}`);
+  this.$('.js-tog').on('change',e=>this.sv('onoff',e.target.checked));
+  this.$('.light-circle').on('click',()=>this.sv('onoff',!this.cv('onoff')));
+  this.$('.js-dim').on('input',e=>this.$('.light-dim-val').text(Math.round(parseFloat(e.target.value)*100)+'%'))
+    .on('change',e=>this.sv('dim',parseFloat(e.target.value)));
+}});
+
+const TempView=BasePlugin.extend({className:'plugin-card',renderBody(){
+  const t=this.cv('measure_temperature'),pct=t!==null?Math.min(100,Math.max(0,(t/40)*100)):0;
+  this.$('.pb').html(`<div style="text-align:center">
+    <div class="temp-val">${t!==null?t.toFixed(1):'—'}<span class="temp-u">°C</span></div>
+    <div class="temp-meta">temperatura</div>
+    <div class="temp-bar"><div class="temp-bar-fill" style="width:${pct}%"></div></div></div>`);
+}});
+
+const HumView=BasePlugin.extend({className:'plugin-card',renderBody(){
+  const h=this.cv('measure_humidity');
+  this.$('.pb').html(`<div style="text-align:center">
+    <div class="hum-val">${h!==null?h.toFixed(0):'—'}<span style="font-size:16px;color:var(--text-dim)">%</span></div>
+    <div class="temp-meta">umidità relativa</div>
+    <div class="hum-arc"><div class="hum-arc-fill" style="height:${h||0}%"></div></div></div>`);
+}});
+
+const EnergyView=BasePlugin.extend({className:'plugin-card col2',renderBody(){
+  const w=this.cv('measure_power'),kwh=this.cv('meter_power');
+  const bars=Array.from({length:12},(_,i)=>`<div class="ebar ${i===11?'cur':''}" style="height:${20+Math.random()*80}%"></div>`).join('');
+  this.$('.pb').html(`<div style="display:flex;align-items:baseline;gap:5px;margin-bottom:4px">
+    <span class="energy-val">${w!==null?w.toFixed(0):'—'}</span><span class="energy-unit">W</span>
+    <span style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--text-dim)">${kwh!==null?(kwh/1000).toFixed(1):'—'} kWh</span></div>
+    <div class="energy-lbl">Potenza · Totale</div>
+    <div class="energy-bars">${bars}</div>`);
+}});
+
+const ThermoView=BasePlugin.extend({className:'plugin-card',
+  events:{'click .js-up':'tUp','click .js-dn':'tDn'},
+  tUp(){this.sv('target_temperature',(this.cv('target_temperature')||20)+.5)},
+  tDn(){this.sv('target_temperature',(this.cv('target_temperature')||20)-.5)},
+  renderBody(){
+    const cur=this.cv('measure_temperature'),tgt=this.cv('target_temperature'),heat=cur!==null&&tgt!==null&&cur<tgt;
+    this.$('.pb').html(`<div class="thermo-ring ${heat?'active':''}"><div class="thermo-t">${tgt!==null?tgt.toFixed(1):'—'}°</div></div>
+      <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--text-dim)">corrente: ${cur!==null?cur.toFixed(1):'—'}°C</div>
+      <div class="thermo-ctrls"><button class="thermo-btn js-dn">−</button>
+      <div style="font-size:10px;font-family:var(--sans);color:${heat?'var(--amber)':'var(--text-dim)'}">${heat?'🔥':'✓'}</div>
+      <button class="thermo-btn js-up">+</button></div>`);
+  }
+});
+
+const SensorView=BasePlugin.extend({className:'plugin-card',
+  _primary(){const caps=this.dev?this.dev.get('capabilities'):[];
+    return['measure_temperature','measure_humidity','measure_power','meter_power'].find(c=>caps.includes(c))||caps[0]||null;},
+  renderBody(){
+    const cap=this._primary(),v=cap?this.cv(cap):null;
+    const icons={measure_temperature:'🌡',measure_humidity:'💧',measure_power:'⚡',meter_power:'📊'};
+    this.$('.pb').html(`<div class="sensor-ico">${icons[cap]||'📡'}</div>
+      <div class="sensor-val">${v!==null?fmtVal(cap,v):'—'}</div>
+      <div class="sensor-lbl">${(cap||'').replace('measure_','').replace('meter_','').replace('_',' ')}</div>`);
+  }
+});
+
+/* Register */
+Reg.reg('socket',{name:'Presa',icon:'🔌',desc:'On/off + watt',classes:['socket'],View:SocketView});
+Reg.reg('light',{name:'Luce',icon:'💡',desc:'On/off + dimmer',classes:['light'],View:LightView});
+Reg.reg('temperature',{name:'Temperatura',icon:'🌡',desc:'Misura temp',classes:['sensor','thermostat','*'],View:TempView});
+Reg.reg('humidity',{name:'Umidità',icon:'💧',desc:'Misura umidità',classes:['sensor','*'],View:HumView});
+Reg.reg('energy',{name:'Energia',icon:'⚡',desc:'Potenza + totale',classes:['sensor','socket','*'],View:EnergyView});
+Reg.reg('thermostat',{name:'Termostato',icon:'🌡',desc:'Set temperatura',classes:['thermostat','*'],View:ThermoView});
+Reg.reg('sensor',{name:'Sensore',icon:'📡',desc:'Valore generico',classes:['*'],View:SensorView});
+
+/* ════════════════════
+   MAIN VIEW
+════════════════════ */
+const MainView=Backbone.View.extend({
+  el:'#app',
+
+  initialize(){
+    this._pid=null;   // active panel id
+    this._pvs=[];     // active plugin views
+    this.listenTo(panels,'add remove change:name',this._renderTabs);
+    this.listenTo(panels,'change:plugins',m=>{if(m.id===this._pid)this._renderDash()});
+    this.listenTo(instances,'change',this._updateConn);
+  },
+
+  events:{
+    'click .panel-tab':'_onTab',
+    'click #btn-open-settings':'_openSettings',
+    'click .js-open-settings':'_openSettings',
+  },
+
+  render(){this._renderTabs();if(!this._pid&&panels.length)this._pid=panels.first().id;this._renderDash();this._updateConn();return this},
+
+  _renderTabs(){
+    const w=$('#panel-tabs-wrap');w.empty();
+    panels.each(p=>{
+      const t=$('<div class="panel-tab'+(p.id===this._pid?' active':'')+'" data-id="'+p.id+'">'+p.get('name')+'</div>');
+      w.append(t);
+    });
+    const add=$('<button class="btn-tab-add" title="Nuovo pannello"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>');
+    add.on('click',()=>this._newPanel());
+    w.append(add);
+  },
+
+  _onTab(e){const id=$(e.currentTarget).data('id');if(id){this._pid=id;this._renderTabs();this._renderDash();}},
+
+  _newPanel(){
+    const name=prompt('Nome pannello:','Pannello '+(panels.length+1));if(!name)return;
+    const p=new Panel({id:uid(),name,plugins:[]});panels.add(p);
+    this._pid=p.id;this._renderTabs();this._renderDash();toast('✓ Pannello creato','success');
+  },
+
+  _renderDash(){
+    this._killPlugins();const w=$('#dashboard-wrap');
+    if(!panels.length){
+      w.html('<div class="dash-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><p>Nessun pannello</p><p style="font-size:11px;font-family:var(--mono)">Crea un pannello nelle impostazioni</p><button class="btn btn-primary js-open-settings" style="margin-top:8px">Impostazioni</button></div>');
+      return;
+    }
+    const panel=panels.get(this._pid)||panels.first();this._pid=panel.id;
+    const pls=panel.get('plugins')||[];
+    if(!pls.length){
+      w.html('<div class="dash-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><p>Pannello vuoto</p><p style="font-size:11px;font-family:var(--mono)">Aggiungi widget da Impostazioni → Pannelli</p></div>');
+      return;
+    }
+    const grid=$('<div class="dash-grid"></div>');
+    pls.forEach(p=>{
+      const def=Reg.get(p.type);if(!def)return;
+      const v=new def.View({pluginData:p});grid.append(v.el);this._pvs.push(v);
+    });
+    w.empty().append(grid);
+  },
+
+  _killPlugins(){this._pvs.forEach(v=>v.remove());this._pvs=[]},
+
+  _updateConn(){
+    const id=Cfg.get('activeHomeyId'),inst=instances.get(id),st=inst?inst.get('status'):'offline';
+    $('#conn-dot').attr('class','status-dot '+st);
+    $('#conn-label').text(inst?inst.get('name')+' · '+st:'offline');
+  },
+
+  _openSettings(){Sett.open()},
+  remove(){this._killPlugins();Backbone.View.prototype.remove.call(this);}
+});
+
+/* ════════════════════
+   SETTINGS VIEW
+════════════════════ */
+const SettingsView=Backbone.View.extend({
+  el:'#settings-overlay',
+  _tab:'panels',
+  _spid:null,  // selected panel id in editor
+
+  events:{
+    'click #btn-close-settings':'close',
+    'click .stab':'_switchTab',
+    // panels
+    'click #btn-new-panel':'_newPanel',
+    'click .js-pli':'_selectPanel',
+    'click #btn-rename-panel':'_renamePanel',
+    'click #btn-del-panel':'_delPanel',
+    'click #btn-add-widget':'_addWidget',
+    'click .js-del-w':'_delWidget',
+    // instances
+    'click #btn-add-inst':'_showAddInst',
+    'click .js-edit-inst':'_editInst',
+    'click .js-del-inst':'_delInst',
+    'click .js-connect-inst':'_connectInst',
+    'click .js-set-active':'_setActive',
+    // general
+    'change #g-homey':'_saveGen','change #g-refresh':'_saveGen','change #g-wake':'_saveGen',
+    // backup
+    'click #btn-export':'_export',
+    'change #f-import':'_import',
+    'click #btn-reset':'_reset',
+  },
+
+  open(){this.$el.addClass('open');this._renderTab(this._tab)},
+  close(){this.$el.removeClass('open');Main.render()},
+
+  _switchTab(e){
+    const tab=$(e.currentTarget).data('stab');this._tab=tab;
+    this.$('.stab').removeClass('active');$(e.currentTarget).addClass('active');
+    this._renderTab(tab);
+  },
+
+  _renderTab(tab){
+    $('#settings-body').empty();
+    const map={panels:()=>this._renderPanels(),instances:()=>this._renderInsts(),
+      general:()=>this._renderGen(),backup:()=>this._renderBk()};
+    if(map[tab]) map[tab]();
+  },
+
+  /* ── Panels ── */
+  _renderPanels(){
+    $('#settings-body').html(`
+      <div class="page-hdr"><div><div class="page-title">Pannelli</div><div class="page-sub">${panels.length} pannelli</div></div>
+        <button class="btn btn-primary btn-sm" id="btn-new-panel">+ Nuovo</button></div>
+      <div class="sp-layout">
+        <div class="panel-list-card" id="pl-list"></div>
+        <div id="pe-area"><div class="empty-state" style="padding:40px"><p style="font-size:12px">Seleziona un pannello</p></div></div>
+      </div>`);
+    this._renderPanelList();
+    if(this._spid)this._renderEditor(panels.get(this._spid));
+  },
+
+  _renderPanelList(){
+    const l=$('#pl-list');if(!l.length)return;l.empty();
+    panels.each(p=>{
+      const n=(p.get('plugins')||[]).length;
+      l.append(`<div class="pli js-pli ${p.id===this._spid?'active':''}" data-pid="${p.id}">
+        <div class="pli-name">${p.get('name')}</div><div class="pli-cnt">${n}w</div></div>`);
+    });
+    if(!panels.length)l.html('<div style="padding:14px;font-size:12px;color:var(--text-dim);text-align:center">Nessun pannello</div>');
+  },
+
+  _selectPanel(e){
+    this._spid=$(e.currentTarget).data('pid');
+    this._renderPanelList();this._renderEditor(panels.get(this._spid));
+  },
+
+  _renderEditor(panel){
+    if(!panel)return;
+    const pls=panel.get('plugins')||[];
+    const ea=$('#pe-area');
+    ea.html(`<div class="panel-editor-card">
+      <div class="pe-hdr"><div><div class="pe-title">✎ ${panel.get('name')}</div>
+        <div style="font-size:10px;color:var(--text-dim);margin-top:2px">${pls.length} widget</div></div>
+        <div style="display:flex;gap:5px">
+          <button class="btn btn-secondary btn-sm" id="btn-rename-panel">Rinomina</button>
+          <button class="btn btn-danger btn-sm" id="btn-del-panel">Elimina</button></div></div>
+      <div class="widget-list" id="wl"></div>
+      <button class="btn btn-secondary" id="btn-add-widget" style="width:100%;justify-content:center">+ Aggiungi widget</button>
+    </div>`);
+    const wl=$('#wl');
+    pls.forEach(p=>{
+      const def=Reg.get(p.type),dev=devices.find(d=>d.id===p.deviceId);
+      wl.append(`<div class="wli"><div class="wli-icon">${def?def.icon:'📦'}</div>
+        <div class="wli-info"><div class="wli-name">${p.label||(dev?dev.get('name'):'Widget')}</div>
+        <div class="wli-dev">${def?def.name:p.type}${dev?' · '+dev.get('zone'):''}</div></div>
+        <button class="wli-del js-del-w" data-pid="${p.id}" data-panid="${panel.id}">✕</button></div>`);
+    });
+    if(!pls.length)wl.html('<div style="padding:12px;font-size:12px;color:var(--text-dim);text-align:center">Nessun widget</div>');
+  },
+
+  _newPanel(){
+    const name=prompt('Nome pannello:','Pannello '+(panels.length+1));if(!name)return;
+    const p=new Panel({id:uid(),name,plugins:[]});panels.add(p);
+    this._spid=p.id;this._renderPanels();toast('✓ Pannello creato','success');
+  },
+  _renamePanel(){
+    const p=panels.get(this._spid);if(!p)return;
+    const name=prompt('Nuovo nome:',p.get('name'));if(name){p.set('name',name);this._renderPanels();}
+  },
+  _delPanel(){
+    const p=panels.get(this._spid);if(!p)return;
+    if(!confirm('Eliminare "'+p.get('name')+'"?'))return;
+    panels.remove(p);this._spid=null;this._renderPanels();toast('Pannello eliminato');
+  },
+  _delWidget(e){
+    e.stopPropagation();
+    const pid=$(e.currentTarget).data('pid'),panid=$(e.currentTarget).data('panid');
+    const panel=panels.get(panid);if(!panel)return;
+    panel.set('plugins',(panel.get('plugins')||[]).filter(p=>p.id!==pid));
+    this._renderEditor(panel);this._renderPanelList();toast('Widget rimosso');
+  },
+
+  _addWidget(){
+    const panel=panels.get(this._spid);if(!panel)return;
+    const tpl=_.template($('#T-modal-pick').html());
+    const ov=openModal(tpl({}));
+    const g=ov.find('#pp-grid');
+    Reg.all().forEach(def=>{
+      const item=$(`<div class="pp-item"><div class="pp-ico">${def.icon}</div><div class="pp-name">${def.name}</div><div class="pp-desc">${def.desc}</div></div>`);
+      item.on('click',()=>{closeModal();this._pickDev(panel,def.type,def)});
+      g.append(item);
+    });
+  },
+  _pickDev(panel,type,def){
+    const tpl=_.template($('#T-modal-device').html());
+    const compat=devices.filter(d=>{const c=d.get('class');return!def.classes||def.classes.includes('*')||def.classes.includes(c);});
+    openModal(tpl({pname:def.name,devs:compat.map(d=>({id:d.id,homeyId:d.get('homeyId'),name:d.get('name'),zone:d.get('zone')}))}),m=>{
+      m.find('#btn-pk-back').on('click',()=>{closeModal();this._addWidget()});
+      m.find('#btn-save-widget').on('click',()=>{
+        const val=m.find('#f-device').val();if(!val){toast('Seleziona un dispositivo','error');return;}
+        const [devId,hid]=val.split('|'),lbl=m.find('#f-label').val().trim();
+        const pls=[...(panel.get('plugins')||[]),{id:uid(),type,deviceId:devId,homeyId:hid,label:lbl}];
+        panel.set('plugins',pls);
+        closeModal();this._renderEditor(panel);this._renderPanelList();toast('✓ Widget aggiunto','success');
+      });
+    });
+  },
+
+  /* ── Instances ── */
+  _renderInsts(){
+    $('#settings-body').html(`
+      <div class="page-hdr"><div><div class="page-title">Istanze Homey</div><div class="page-sub">${instances.length} configurate</div></div>
+        <button class="btn btn-primary btn-sm" id="btn-add-inst">+ Aggiungi</button></div>
+      <div class="inst-grid" id="inst-list"></div>`);
+    this._renderInstCards();
+  },
+  _renderInstCards(){
+    const l=$('#inst-list');if(!l.length)return;l.empty();
+    const aid=Cfg.get('activeHomeyId');
+    if(!instances.length){l.html('<div class="empty-state"><p>Nessuna istanza</p></div>');return;}
+    instances.each(inst=>{
+      const isA=inst.id===aid,st=inst.get('status');
+      const c=$(`<div class="inst-card">
+        <div class="inst-hdr">
+          <div><div class="inst-name">${inst.get('name')}</div>
+          <div class="inst-url">${inst.get('type')==='cloud'?'☁ cloud':'🔌 '+inst.get('url')}</div></div>
+          <div class="inst-acts">
+            <button class="btn btn-icon btn-secondary btn-sm js-edit-inst" data-iid="${inst.id}">✎</button>
+            <button class="btn btn-icon btn-danger btn-sm js-del-inst" data-iid="${inst.id}">✕</button></div></div>
+        <div class="inst-meta">
+          <span class="badge ${inst.get('type')==='cloud'?'badge-blue':'badge-teal'}">${inst.get('type')}</span>
+          <span class="badge ${st==='online'?'badge-teal':st==='connecting'?'badge-amber':'badge-red'}">${st}</span>
+          ${inst.get('deviceCount')!==undefined?'<span class="badge badge-violet">'+inst.get('deviceCount')+' dev</span>':''}
+        </div>
+        <div class="inst-foot">
+          <button class="btn btn-secondary btn-sm js-connect-inst" data-iid="${inst.id}">Connetti</button>
+          <button class="btn btn-secondary btn-sm js-set-active" data-iid="${inst.id}" style="${isA?'border-color:var(--teal);color:var(--teal)':''}">
+            ${isA?'✓ Attiva':'Imposta attiva'}</button></div>
+      </div>`);
+      l.append(c);
+    });
+  },
+  _getInst(e){return instances.get($(e.currentTarget).data('iid'))},
+  _showAddInst(){this._instModal(null)},
+  _editInst(e){this._instModal(this._getInst(e))},
+  _instModal(model){
+    const tpl=_.template($('#T-modal-instance').html());
+    openModal(tpl({edit:!!model,m:model?model.toJSON():{}}),m=>{
+      m.find('#f-type').on('change',function(){m.find('#f-local-group').toggle(this.value==='local')}).trigger('change');
+      m.find('#btn-save-inst').on('click',()=>{
+        const name=m.find('#f-name').val().trim(),type=m.find('#f-type').val();
+        const url=m.find('#f-url').val().trim(),token=m.find('#f-token').val().trim();
+        if(!name){toast('Inserisci un nome','error');return;}
+        if(type==='local'&&!url){toast('Inserisci IP','error');return;}
+        if(!token){toast('Inserisci il token','error');return;}
+        if(model){model.set({name,type,url,token,status:'offline'});}
+        else{instances.add({id:uid(),name,type,url,token,status:'offline'});}
+        closeModal();this._renderInsts();toast('✓ Istanza salvata','success');
+      });
+    });
+  },
+  _delInst(e){
+    const inst=this._getInst(e);if(!inst)return;
+    if(!confirm('Eliminare "'+inst.get('name')+'"?'))return;
+    HomeyAPI.unsubscribe(inst.id);instances.remove(inst);this._renderInsts();toast('Istanza eliminata');
+  },
+  async _connectInst(e){
+    const inst=this._getInst(e);if(!inst)return;
+    inst.set('status','connecting');this._renderInstCards();
+    try{
+      const devs=await fetchDevs(inst.attributes);
+      devs.forEach(d=>{if(!devices.get(d.id))devices.add(d)});
+      inst.set({status:'online',deviceCount:devs.length});
+      toast('✓ Connesso: '+devs.length+' dispositivi','success');
+    }catch(err){inst.set('status','offline');toast('Errore connessione: '+err.message,'error');}
+    this._renderInstCards();Main._updateConn();
+  },
+  _setActive(e){
+    const inst=this._getInst(e);if(!inst)return;
+    Cfg.set('activeHomeyId',inst.id);this._renderInstCards();Main._updateConn();
+    toast('✓ Attivo: '+inst.get('name'),'success');
+  },
+
+  /* ── General ── */
+  _renderGen(){
+    const ai=Cfg.get('activeHomeyId'),ri=Cfg.get('refreshInterval'),kw=Cfg.get('keepAwake');
+    $('#settings-body').html(`
+      <div class="page-title" style="margin-bottom:18px">Generali</div>
+      <div class="gen-grid">
+        <div class="gen-card"><div class="gen-card-title">Connessione</div>
+          <div class="srow"><div><div class="srow-lbl">Istanza attiva</div><div class="srow-desc">Usata da widget e dispositivi</div></div>
+            <select class="form-control" id="g-homey" style="width:auto;min-width:120px">
+              <option value="">Nessuna</option>
+              ${instances.map(i=>`<option value="${i.id}" ${i.id===ai?'selected':''}>${i.get('name')}</option>`).join('')}
+            </select></div>
+          <div class="srow"><div><div class="srow-lbl">Intervallo aggiornamento</div><div class="srow-desc">Polling dati dispositivi</div></div>
+            <select class="form-control" id="g-refresh" style="width:auto">
+              ${[[5000,'5 s'],[10000,'10 s'],[30000,'30 s'],[60000,'60 s']].map(([v,l])=>`<option value="${v}" ${ri===v?'selected':''}>${l}</option>`).join('')}
+            </select></div>
+        </div>
+        <div class="gen-card"><div class="gen-card-title">Display</div>
+          <div class="srow"><div><div class="srow-lbl">Mantieni schermo attivo</div><div class="srow-desc">cordova-plugin-insomnia</div></div>
+            <label class="toggle"><input type="checkbox" id="g-wake" ${kw?'checked':''}><div class="toggle-track"></div></label></div>
+        </div>
+      </div>`);
+  },
+  _saveGen(){
+    Cfg.set('activeHomeyId',$('#g-homey').val());
+    Cfg.set('refreshInterval',parseInt($('#g-refresh').val()||10000));
+    Cfg.set('keepAwake',$('#g-wake').is(':checked'));
+    if(window.plugins&&window.plugins.insomnia){
+      Cfg.get('keepAwake')?window.plugins.insomnia.keepAwake():window.plugins.insomnia.allowSleepAgain();
+    }
+    Main._updateConn();toast('✓ Impostazioni salvate','success');
+  },
+
+  /* ── Backup ── */
+  _renderBk(){
+    $('#settings-body').html(`
+      <div class="page-title" style="margin-bottom:18px">Backup & Ripristino</div>
+      <div class="bk-grid">
+        <div class="bk-card"><div class="bk-ico">📤</div><div class="bk-title">Esporta</div>
+          <div class="bk-desc">Scarica un file JSON con tutti i pannelli, widget e impostazioni.<br>I token non vengono esportati per sicurezza.</div>
+          <button class="btn btn-primary" id="btn-export">Esporta JSON</button></div>
+        <div class="bk-card"><div class="bk-ico">📥</div><div class="bk-title">Importa</div>
+          <div class="bk-desc">Ripristina da un file JSON esportato in precedenza.<br>La configurazione attuale verrà sovrascritta.</div>
+          <label class="btn btn-secondary" style="cursor:pointer">Scegli file
+            <input type="file" id="f-import" accept=".json" style="display:none"></label></div>
+        <div class="bk-card"><div class="bk-ico">🗑</div><div class="bk-title">Reset</div>
+          <div class="bk-desc">Elimina tutti i pannelli, widget, istanze e impostazioni.<br>L'app tornerà allo stato iniziale.</div>
+          <button class="btn btn-danger" id="btn-reset">Reset completo</button></div>
+      </div>`);
+  },
+  _export(){
+    const data={version:2,exported:new Date().toISOString(),
+      panels:panels.toJSON(),
+      instances:instances.toJSON().map(i=>({...i,token:''})),
+      config:Cfg.all()};
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+    a.download='homeypanel-'+new Date().toISOString().slice(0,10)+'.json';
+    a.click();URL.revokeObjectURL(a.href);
+    toast('✓ Backup esportato','success');
+  },
+  _import(e){
+    const file=e.target.files[0];if(!file)return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      try{
+        const d=JSON.parse(ev.target.result);
+        if(!d.version||!d.panels)throw new Error('Formato non valido');
+        if(!confirm('I dati attuali verranno sovrascritti. Continuare?'))return;
+        panels.reset(d.panels);
+        if(d.instances&&d.instances.length){
+          instances.reset(d.instances.map(i=>({...i,status:'offline'})));
+          toast('⚠ Reinserisci i token delle istanze','info');
+        }
+        if(d.config){Cfg._d={...Cfg._defs,...d.config};Cfg._s();}
+        this._renderPanels();Main.render();toast('✓ Importato','success');
+      }catch(err){toast('Errore: '+err.message,'error');}
+    };
+    r.readAsText(file);
+  },
+  _reset(){
+    if(!confirm('Eliminare TUTTA la configurazione?'))return;
+    if(!confirm('Operazione irreversibile. Confermi?'))return;
+    ['hp-instances','hp-panels','hp-config'].forEach(k=>localStorage.removeItem(k));
+    location.reload();
+  }
+});
+
+/* ════════════════════
+   BOOT
+════════════════════ */
+let Main,Sett;
+$(function(){
+  setTimeout(()=>{
+    $('#loading-overlay').fadeOut(400);
+    $('#app').fadeIn(400);
+
+    // Demo first-run
+    if(!instances.length){
+      const demo=new HomeyInst({id:uid(),name:'Demo Homey',type:'local',url:'192.168.1.100',token:'demo-token',status:'online',deviceCount:MOCK.length});
+      instances.add(demo);
+      MOCK.forEach(d=>devices.add({...d,homeyId:demo.id}));
+      Cfg.set('activeHomeyId',demo.id);
+      if(!panels.length){
+        const p1=new Panel({id:uid(),name:'Casa',plugins:[
+          {id:uid(),type:'socket',deviceId:'d1',homeyId:demo.id,label:'Presa Cucina'},
+          {id:uid(),type:'light',deviceId:'d3',homeyId:demo.id,label:'Luce Soggiorno'},
+          {id:uid(),type:'temperature',deviceId:'d5',homeyId:demo.id,label:'Temperatura'},
+          {id:uid(),type:'humidity',deviceId:'d6',homeyId:demo.id,label:'Balcone'},
+        ]});
+        const p2=new Panel({id:uid(),name:'Energia',plugins:[
+          {id:uid(),type:'energy',deviceId:'d8',homeyId:demo.id,label:'Contatore'},
+          {id:uid(),type:'thermostat',deviceId:'d5',homeyId:demo.id,label:'Termostato'},
+          {id:uid(),type:'sensor',deviceId:'d7',homeyId:demo.id,label:'Bagno'},
+        ]});
+        panels.add([p1,p2]);
+      }
+      toast('✓ Modalità demo attiva','success');
+    }
+
+    // Auto-connect
+    instances.each(async inst=>{
+      if(inst.get('token')&&inst.get('status')!=='online'){
+        inst.set('status','connecting');
+        const devs=await fetchDevs(inst.attributes);
+        devs.forEach(d=>{if(!devices.get(d.id))devices.add(d)});
+        inst.set({status:'online',deviceCount:devs.length});
+      }
+    });
+
+    Main=new MainView();Main.render();
+    Sett=new SettingsView();
+
+  },700);
+});
+</script>
+</body>
+</html>

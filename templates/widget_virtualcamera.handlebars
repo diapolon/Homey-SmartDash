@@ -1,0 +1,12 @@
+<div class="inner">
+	<div class="content">	
+		<div class="image">
+			{{#if widget.icon}}<div class="placeholder"><span class="mdi mdi-{{{widget.icon}}}"></span></div>{{/if}}
+			<div class="imgbox"><img class="img {{{widget.image.fit}}}" src="{{{widget.url}}}" alt="{{{widget.url}}}" onerror="ImgError(this);" /></div>
+		</div>		
+		{{#ifCond widget.hidename '==' 0}}<div class="name"><div>{{{name}}}</div></div>{{/ifCond}}
+		{{#ifCond widget.hideupdatetime '==' 0}}<div class="update">{{{update}}}</div>{{/ifCond}}
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

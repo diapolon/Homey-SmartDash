@@ -1,0 +1,13 @@
+{{#each buttons_left}}
+	<div class="button btn{{#if css}} {{css}}{{/if}}" data-route="{{route}}">
+		{{#if icon}}<span class="mdi mdi-{{icon}}"></span> {{/if}}{{{name}}}
+	</div>
+{{/each}}
+<div class="content mini">
+	<h3>{{{name}}}</h3>	
+</div>
+{{#each buttons_right}}
+	<div class="button btn{{#if css}} {{css}}{{/if}}" data-route="{{route}}">
+		{{#if icon}}<span class="mdi mdi-{{icon}}"></span> {{/if}}{{{name}}}
+	</div>
+{{/each}}

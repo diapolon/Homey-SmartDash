@@ -1,0 +1,652 @@
+@charset "UTF-8";
+
+@media only screen and (orientation:portrait) {
+	#body.portrait .slide.dashboard #toolbar { height: 8.1% }
+	#body.portrait .slide.dashboard .widgets { height: 92% }
+	
+	#body.portrait .slide.dashboard #toolbar ul,
+	#body.portrait .slide.dashboard ul.rows { left: 2vw; width: 96vw }
+	
+	#body.portrait  .slide.dashboard ul.rows { grid-template-columns: repeat(18, 5.33vw); grid-template-rows: repeat(99, 5.33vw) }
+	#body.portrait .slide.dashboard li.empty { grid-row: span calc(14*2) !important }	
+		
+	#body .slide.dashboard li.widget.dp_1x1 { grid-column: span 2; grid-row: span 2 }
+	#body .slide.dashboard li.widget.dp_2x1 { grid-column: span 4; grid-row: span 2 }
+	#body .slide.dashboard li.widget.dp_3x1 { grid-column: span 6; grid-row: span 2 }
+	#body .slide.dashboard li.widget.dp_4x1 { grid-column: span 8; grid-row: span 2 }
+	#body .slide.dashboard li.widget.dp_4-5x1 { grid-column: span 9; grid-row: span 2 }
+	#body .slide.dashboard li.widget.dp_5x1 { grid-column: span 10; grid-row: span 2 }
+	#body .slide.dashboard li.widget.dp_6x1 { grid-column: span 12; grid-row: span 2 }	
+	#body .slide.dashboard li.widget.dp_7x1 { grid-column: span 14; grid-row: span 2 }	
+	#body .slide.dashboard li.widget.dp_8x1 { grid-column: span 16; grid-row: span 2 }	
+	#body .slide.dashboard li.widget.dp_9x1 { grid-column: span 18; grid-row: span 2 }		
+	#body .slide.dashboard li.widget.dp_1x2 { grid-column: span 2; grid-row: span 4 }
+	#body .slide.dashboard li.widget.dp_2x2 { grid-column: span 4; grid-row: span 4 }
+	#body .slide.dashboard li.widget.dp_3x2 { grid-column: span 6; grid-row: span 4 }
+	#body .slide.dashboard li.widget.dp_4x2 { grid-column: span 8; grid-row: span 4 }
+	#body .slide.dashboard li.widget.dp_4-5x2 { grid-column: span 9; grid-row: span 4 }
+	#body .slide.dashboard li.widget.dp_5x2 { grid-column: span 10; grid-row: span 4 }
+	#body .slide.dashboard li.widget.dp_6x2 { grid-column: span 12; grid-row: span 4 }	
+	#body .slide.dashboard li.widget.dp_7x2 { grid-column: span 14; grid-row: span 4 }	
+	#body .slide.dashboard li.widget.dp_8x2 { grid-column: span 16; grid-row: span 4 }	
+	#body .slide.dashboard li.widget.dp_9x2 { grid-column: span 18; grid-row: span 4 }		
+	#body .slide.dashboard li.widget.dp_1x3 { grid-column: span 2; grid-row: span 6 }
+	#body .slide.dashboard li.widget.dp_2x3 { grid-column: span 4; grid-row: span 6 }
+	#body .slide.dashboard li.widget.dp_3x3 { grid-column: span 6; grid-row: span 6 }
+	#body .slide.dashboard li.widget.dp_4x3 { grid-column: span 8; grid-row: span 6 }
+	#body .slide.dashboard li.widget.dp_4-5x3 { grid-column: span 9; grid-row: span 6 }
+	#body .slide.dashboard li.widget.dp_5x3 { grid-column: span 10; grid-row: span 6 }
+	#body .slide.dashboard li.widget.dp_6x3 { grid-column: span 12; grid-row: span 6 }	
+	#body .slide.dashboard li.widget.dp_7x3 { grid-column: span 14; grid-row: span 6 }	
+	#body .slide.dashboard li.widget.dp_8x3 { grid-column: span 16; grid-row: span 6 }	
+	#body .slide.dashboard li.widget.dp_9x3 { grid-column: span 18; grid-row: span 6 }		
+	#body .slide.dashboard li.widget.dp_1x4 { grid-column: span 2; grid-row: span 8 }
+	#body .slide.dashboard li.widget.dp_2x4 { grid-column: span 4; grid-row: span 8 }
+	#body .slide.dashboard li.widget.dp_3x4 { grid-column: span 6; grid-row: span 8 }
+	#body .slide.dashboard li.widget.dp_4x4 { grid-column: span 8; grid-row: span 8 }
+	#body .slide.dashboard li.widget.dp_4-5x4 { grid-column: span 9; grid-row: span 8 }
+	#body .slide.dashboard li.widget.dp_5x4 { grid-column: span 10; grid-row: span 8 }
+	#body .slide.dashboard li.widget.dp_6x4 { grid-column: span 12; grid-row: span 8 }	
+	#body .slide.dashboard li.widget.dp_7x4 { grid-column: span 14; grid-row: span 8 }	
+	#body .slide.dashboard li.widget.dp_8x4 { grid-column: span 16; grid-row: span 8 }	
+	#body .slide.dashboard li.widget.dp_9x4 { grid-column: span 18; grid-row: span 8 }			
+	#body .slide.dashboard li.widget.dp_1x5 { grid-column: span 2; grid-row: span 10 }
+	#body .slide.dashboard li.widget.dp_2x5 { grid-column: span 4; grid-row: span 10 }
+	#body .slide.dashboard li.widget.dp_3x5 { grid-column: span 6; grid-row: span 10 }
+	#body .slide.dashboard li.widget.dp_4x5 { grid-column: span 8; grid-row: span 10 }
+	#body .slide.dashboard li.widget.dp_4-5x5 { grid-column: span 9; grid-row: span 10 }
+	#body .slide.dashboard li.widget.dp_5x5 { grid-column: span 10; grid-row: span 10 }
+	#body .slide.dashboard li.widget.dp_6x5 { grid-column: span 12; grid-row: span 10 }	
+	#body .slide.dashboard li.widget.dp_7x5 { grid-column: span 14; grid-row: span 10 }	
+	#body .slide.dashboard li.widget.dp_8x5 { grid-column: span 16; grid-row: span 10 }	
+	#body .slide.dashboard li.widget.dp_9x5 { grid-column: span 18; grid-row: span 10 }		
+	#body .slide.dashboard li.widget.dp_1x6 { grid-column: span 2; grid-row: span 12 }
+	#body .slide.dashboard li.widget.dp_2x6 { grid-column: span 4; grid-row: span 12 }
+	#body .slide.dashboard li.widget.dp_3x6 { grid-column: span 6; grid-row: span 12 }
+	#body .slide.dashboard li.widget.dp_4x6 { grid-column: span 8; grid-row: span 12 }
+	#body .slide.dashboard li.widget.dp_5x6 { grid-column: span 10; grid-row: span 12 }
+	#body .slide.dashboard li.widget.dp_6x6 { grid-column: span 12; grid-row: span 12 }	
+	#body .slide.dashboard li.widget.dp_7x6 { grid-column: span 14; grid-row: span 12 }	
+	#body .slide.dashboard li.widget.dp_8x6 { grid-column: span 16; grid-row: span 12 }	
+	#body .slide.dashboard li.widget.dp_9x6 { grid-column: span 18; grid-row: span 12 }		
+	#body .slide.dashboard li.widget.dp_1x7 { grid-column: span 2; grid-row: span 14 }
+	#body .slide.dashboard li.widget.dp_2x7 { grid-column: span 4; grid-row: span 14 }
+	#body .slide.dashboard li.widget.dp_3x7 { grid-column: span 6; grid-row: span 14 }
+	#body .slide.dashboard li.widget.dp_4x7 { grid-column: span 8; grid-row: span 14 }
+	#body .slide.dashboard li.widget.dp_4-5x7 { grid-column: span 9; grid-row: span 14 }
+	#body .slide.dashboard li.widget.dp_5x7 { grid-column: span 10; grid-row: span 14 }
+	#body .slide.dashboard li.widget.dp_6x7 { grid-column: span 12; grid-row: span 14 }	
+	#body .slide.dashboard li.widget.dp_7x7 { grid-column: span 14; grid-row: span 14 }	
+	#body .slide.dashboard li.widget.dp_8x7 { grid-column: span 16; grid-row: span 14 }	
+	#body .slide.dashboard li.widget.dp_9x7 { grid-column: span 18; grid-row: span 14 }		
+	#body .slide.dashboard li.widget.dp_1x8 { grid-column: span 2; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_2x8 { grid-column: span: 4; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_3x8 { grid-column: span 6; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_4x8 { grid-column: span 8; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_4-5x8 { grid-column: span 9; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_5x8 { grid-column: span 10; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_6x8 { grid-column: span 12; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_7x8 { grid-column: span 14; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_8x8 { grid-column: span 16; grid-row: span 16 }
+	#body .slide.dashboard li.widget.dp_9x8 { grid-column: span 18; grid-row: span 16 }	
+			
+	#body.square .slide.dashboard #toolbar { height: 11.11111110vw }	
+	#body.square .slide.dashboard .widgets { height: calc(100vh - 11.11111110vw) }		
+	#body.square .slide.dashboard #toolbar li > div .mdi { font-size: 140% }
+	#body.square .slide.dashboard #toolbar li > div .mdi.mdi-lock { font-size: 100% }
+	#body.square .slide.dashboard #toolbar ul,	
+	#body.square .slide.dashboard ul.rows { left: 0; width: 100vw }	
+	#body.square .slide.dashboard ul.rows { grid-template-columns: repeat(18, 5.55555555vw); grid-template-rows: repeat(99, 5.55555555vw) }
+	#body.square .slide.dashboard li.empty { grid-row: span 14 !important }	
+	
+	.slide.dashboard li.widget.dp_1x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_2x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_3x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_4x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_4-5x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_5x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_6x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_7x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_8x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_9x1 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_1x2 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_1x3 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_1x4 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_1x5 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_1x6 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_1x7 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_1x8 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_2x2 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_3x2 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_4x2 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_4-5x2 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_5x2 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_6x2 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_7x2 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_8x2 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_9x2 .content .image .placeholder .mdi,	
+	.slide.dashboard li.widget.dp_2x3 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_2x4 .content .image .placeholder .mdi, 
+	.slide.dashboard li.widget.dp_2x5 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_2x6 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_2x7 .content .image .placeholder .mdi,
+	.slide.dashboard li.widget.dp_2x8 .content .image .placeholder .mdi { font-size: 150% } 
+		
+	.slide.dashboard li.widget.dp_1x1 .content .box .state, 
+	.slide.dashboard li.widget.dp_2x1 .content .box .state, 
+	.slide.dashboard li.widget.dp_3x1 .content .box .state, 
+	.slide.dashboard li.widget.dp_4x1 .content .box .state, 
+	.slide.dashboard li.widget.dp_4-5x1 .content .box .state, 
+	.slide.dashboard li.widget.dp_5x1 .content .box .state, 
+	.slide.dashboard li.widget.dp_6x1 .content .box .state,
+	.slide.dashboard li.widget.dp_7x1 .content .box .state,
+	.slide.dashboard li.widget.dp_8x1 .content .box .state,
+	.slide.dashboard li.widget.dp_9x1 .content .box .state,
+	.slide.dashboard li.widget.dp_1x2 .content .box .state, 
+	.slide.dashboard li.widget.dp_1x3 .content .box .state, 
+	.slide.dashboard li.widget.dp_1x4 .content .box .state, 
+	.slide.dashboard li.widget.dp_1x5 .content .box .state, 
+	.slide.dashboard li.widget.dp_1x6 .content .box .state,
+	.slide.dashboard li.widget.dp_1x7 .content .box .state,
+	.slide.dashboard li.widget.dp_1x8 .content .box .state { font-size: 150% }
+	
+	.slide.dashboard li.widget.dp_1x1 .content .value { font-size: 100% }
+	
+	.slide.dashboard li.widget.dp_2x1 .content .value, 
+	.slide.dashboard li.widget.dp_3x1 .content .value,
+	.slide.dashboard li.widget.dp_4x1 .content .value, 
+	.slide.dashboard li.widget.dp_4-5x1 .content .value, 
+	.slide.dashboard li.widget.dp_5x1 .content .value,
+	.slide.dashboard li.widget.dp_6x1 .content .value,
+	.slide.dashboard li.widget.dp_7x1 .content .value,
+	.slide.dashboard li.widget.dp_8x1 .content .value,
+	.slide.dashboard li.widget.dp_9x1 .content .value,
+	.slide.dashboard li.widget.dp_1x2 .content .value, 
+	.slide.dashboard li.widget.dp_1x3 .content .value,
+	.slide.dashboard li.widget.dp_1x4 .content .value, 
+	.slide.dashboard li.widget.dp_1x5 .content .value,
+	.slide.dashboard li.widget.dp_1x6 .content .value,
+	.slide.dashboard li.widget.dp_1x7 .content .value,
+	.slide.dashboard li.widget.dp_1x8 .content .value { font-size: 120% }
+		
+	.slide.dashboard li.widget.dp_2x2 .content .value, 
+	.slide.dashboard li.widget.dp_3x2 .content .value,
+	.slide.dashboard li.widget.dp_4x2 .content .value, 
+	.slide.dashboard li.widget.dp_4-5x2 .content .value, 
+	.slide.dashboard li.widget.dp_5x2 .content .value,
+	.slide.dashboard li.widget.dp_6x2 .content .value,
+	.slide.dashboard li.widget.dp_7x2 .content .value,
+	.slide.dashboard li.widget.dp_8x2 .content .value,
+	.slide.dashboard li.widget.dp_9x2 .content .value,	
+	.slide.dashboard li.widget.dp_2x3 .content .value,
+	.slide.dashboard li.widget.dp_2x4 .content .value, 
+	.slide.dashboard li.widget.dp_2x5 .content .value,
+	.slide.dashboard li.widget.dp_2x6 .content .value,
+	.slide.dashboard li.widget.dp_2x7 .content .value,
+	.slide.dashboard li.widget.dp_2x8 .content .value { font-size: 140% }
+	
+	.slide.dashboard li.widget.dp_6x4 .content .value, 
+	.slide.dashboard li.widget.dp_6x5 .content .value, 
+	.slide.dashboard li.widget.dp_6x6 .content .value, 
+	.slide.dashboard li.widget.dp_6x7 .content .value, 
+	.slide.dashboard li.widget.dp_6x8 .content .value,
+	.slide.dashboard li.widget.dp_7x4 .content .value, 
+	.slide.dashboard li.widget.dp_7x5 .content .value, 
+	.slide.dashboard li.widget.dp_7x6 .content .value, 
+	.slide.dashboard li.widget.dp_7x7 .content .value, 
+	.slide.dashboard li.widget.dp_7x8 .content .value,
+	.slide.dashboard li.widget.dp_8x4 .content .value, 
+	.slide.dashboard li.widget.dp_8x5 .content .value, 
+	.slide.dashboard li.widget.dp_8x6 .content .value, 
+	.slide.dashboard li.widget.dp_8x7 .content .value, 
+	.slide.dashboard li.widget.dp_8x8 .content .value,
+	.slide.dashboard li.widget.dp_9x4 .content .value, 
+	.slide.dashboard li.widget.dp_9x5 .content .value, 
+	.slide.dashboard li.widget.dp_9x6 .content .value, 
+	.slide.dashboard li.widget.dp_9x7 .content .value, 
+	.slide.dashboard li.widget.dp_9x8 .content .value { font-size: 200% }
+	
+	.slide.dashboard li.widget.dp_1x1 .content .capability, 
+	.slide.dashboard li.widget.dp_2x1 .content .capability, 
+	.slide.dashboard li.widget.dp_3x1 .content .capability, 
+	.slide.dashboard li.widget.dp_4x1 .content .capability, 
+	.slide.dashboard li.widget.dp_4-5x1 .content .capability, 
+	.slide.dashboard li.widget.dp_5x1 .content .capability, 
+	.slide.dashboard li.widget.dp_6x1 .content .capability,
+	.slide.dashboard li.widget.dp_7x1 .content .capability,
+	.slide.dashboard li.widget.dp_8x1 .content .capability,
+	.slide.dashboard li.widget.dp_9x1 .content .capability,
+	.slide.dashboard li.widget.dp_1x2 .content .capability, 
+	.slide.dashboard li.widget.dp_1x3 .content .capability, 
+	.slide.dashboard li.widget.dp_1x4 .content .capability, 
+	.slide.dashboard li.widget.dp_1x5 .content .capability, 
+	.slide.dashboard li.widget.dp_1x6 .content .capability,
+	.slide.dashboard li.widget.dp_1x7 .content .capability,
+	.slide.dashboard li.widget.dp_1x8 .content .capability { font-size: 60% }
+	
+	.slide.dashboard li.widget.dp_1x1 .range.v .slider, 
+	.slide.dashboard li.widget.dp_2x1 .range.v .slider, 
+	.slide.dashboard li.widget.dp_3x1 .range.v .slider, 
+	.slide.dashboard li.widget.dp_4x1 .range.v .slider, 
+	.slide.dashboard li.widget.dp_4-5x1 .range.v .slider, 
+	.slide.dashboard li.widget.dp_5x1 .range.v .slider, 
+	.slide.dashboard li.widget.dp_6x1 .range.v .slider, 
+	.slide.dashboard li.widget.dp_7x1 .range.v .slider, 
+	.slide.dashboard li.widget.dp_8x1 .range.v .slider,
+	.slide.dashboard li.widget.dp_9x1 .range.v .slider { width: auto; max-width: 5vw }
+	
+	.slide.dashboard li.widget.dp_1x2 .range.v .slider, 
+	.slide.dashboard li.widget.dp_2x2 .range.v .slider, 
+	.slide.dashboard li.widget.dp_3x2 .range.v .slider, 
+	.slide.dashboard li.widget.dp_4x2 .range.v .slider, 
+	.slide.dashboard li.widget.dp_4-5x2 .range.v .slider, 
+	.slide.dashboard li.widget.dp_5x2 .range.v .slider, 
+	.slide.dashboard li.widget.dp_6x2 .range.v .slider, 
+	.slide.dashboard li.widget.dp_7x2 .range.v .slider, 
+	.slide.dashboard li.widget.dp_8x2 .range.v .slider,
+	.slide.dashboard li.widget.dp_9x2 .range.v .slider { width: auto; max-width: 10vw }
+		
+	.slide.dashboard li.widget.dp_1x3 .range.v .slider, 
+	.slide.dashboard li.widget.dp_1x4 .range.v .slider, 
+	.slide.dashboard li.widget.dp_1x5 .range.v .slider, 
+	.slide.dashboard li.widget.dp_1x6 .range.v .slider, 
+	.slide.dashboard li.widget.dp_1x7 .range.v .slider, 
+	.slide.dashboard li.widget.dp_1x8 .range.v .slider { width: auto; max-width: 15vw }
+	
+	.slide.dashboard li.widget.dp_3x3 .range.v .slider,
+	.slide.dashboard li.widget.dp_3x4 .range.v .slider,
+	.slide.dashboard li.widget.dp_3x5 .range.v .slider { width: auto; max-width: 15vw }
+	
+	.slide.dashboard li.widget.dp_1x2 .col6.row12, 
+	.slide.dashboard li.widget.dp_1x3 .col6.row12, 
+	.slide.dashboard li.widget.dp_1x4 .col6.row12, 
+	.slide.dashboard li.widget.dp_1x5 .col6.row12, 
+	.slide.dashboard li.widget.dp_1x6 .col6.row12, 
+	.slide.dashboard li.widget.dp_1x7 .col6.row12, 
+	.slide.dashboard li.widget.dp_1x8 .col6.row12, 	
+	.slide.dashboard li.widget.dp_2x2 .col6.row12, 
+	.slide.dashboard li.widget.dp_2x3 .col6.row12, 
+	.slide.dashboard li.widget.dp_2x4 .col6.row12, 
+	.slide.dashboard li.widget.dp_2x5 .col6.row12, 
+	.slide.dashboard li.widget.dp_2x6 .col6.row12, 
+	.slide.dashboard li.widget.dp_2x7 .col6.row12, 
+	.slide.dashboard li.widget.dp_2x8 .col6.row12,
+	.slide.dashboard li.widget.dp_3x3 .col6.row12, 
+	.slide.dashboard li.widget.dp_3x4 .col6.row12, 
+	.slide.dashboard li.widget.dp_3x5 .col6.row12, 
+	.slide.dashboard li.widget.dp_3x6 .col6.row12, 
+	.slide.dashboard li.widget.dp_3x7 .col6.row12, 
+	.slide.dashboard li.widget.dp_3x8 .col6.row12 { width: 100%; height: 49.99999% }
+	
+	.slide.dashboard li.widget.dp_2x1 .content .buttons.vertical .button, 
+	.slide.dashboard li.widget.dp_3x1 .content .buttons.vertical .button, 
+	.slide.dashboard li.widget.dp_4x1 .content .buttons.vertical .button, 
+	.slide.dashboard li.widget.dp_4-5x1 .content .buttons.vertical .button, 
+	.slide.dashboard li.widget.dp_5x1 .content .buttons.vertical .button, 
+	.slide.dashboard li.widget.dp_6x1 .content .buttons.vertical .button,
+	.slide.dashboard li.widget.dp_7x1 .content .buttons.vertical .button,
+	.slide.dashboard li.widget.dp_8x1 .content .buttons.vertical .button,
+	.slide.dashboard li.widget.dp_9x1 .content .buttons.vertical .button { padding: 1% 0 }
+	
+	/*
+	.slide.dashboard li.widget.dp_2x2 .content .fl.col6 .state { font-size: 250% }
+	.slide.dashboard li.widget.dp_2x2 .content .col6 .value { font-size: 120% }
+	*/
+	
+	.slide.dashboard li.widget.clock.dp_2x2 .date,
+	.slide.dashboard li.widget.clock.dp_3x2 .date,
+	.slide.dashboard li.widget.clock.dp_4x2 .date,
+	.slide.dashboard li.widget.clock.dp_4-5x2 .date, 
+	.slide.dashboard li.widget.clock.dp_5x2 .date { font-size: 80% }				
+	.slide.dashboard li.widget.clock.dp_1x1 .date,
+	.slide.dashboard li.widget.clock.dp_2x1 .date,
+	.slide.dashboard li.widget.clock.dp_3x1 .date,
+	.slide.dashboard li.widget.clock.dp_4x1 .date,
+	.slide.dashboard li.widget.clock.dp_4-5x1 .date, 
+	.slide.dashboard li.widget.clock.dp_5x1 .date,
+	.slide.dashboard li.widget.clock.dp_1x2 .date { display: none }			
+	.slide.dashboard li.widget.clock.dp_6x1 .date,
+	.slide.dashboard li.widget.clock.dp_7x1 .date,
+	.slide.dashboard li.widget.clock.dp_8x1 .date,
+	.slide.dashboard li.widget.clock.dp_9x1 .date,		
+	.slide.dashboard li.widget.clock.dp_6x2 .date,
+	.slide.dashboard li.widget.clock.dp_7x2 .date,
+	.slide.dashboard li.widget.clock.dp_8x2 .date,
+	.slide.dashboard li.widget.clock.dp_9x2 .date { bottom: 0; right: 2%; text-align: right; display: flex; justify-content: flex-end; align-items: center; height: 100% }	
+	.slide.dashboard li.widget.clock.dp_4x4 .time, 
+	.slide.dashboard li.widget.clock.dp_4-5x4 .time, 
+	.slide.dashboard li.widget.clock.dp_5x4 .time, 
+	.slide.dashboard li.widget.clock.dp_6x4 .time,
+	.slide.dashboard li.widget.clock.dp_7x4 .time,
+	.slide.dashboard li.widget.clock.dp_8x4 .time,
+	.slide.dashboard li.widget.clock.dp_9x4 .time,
+	.slide.dashboard li.widget.clock.dp_4x5 .time, 
+	.slide.dashboard li.widget.clock.dp_5x5 .time, 
+	.slide.dashboard li.widget.clock.dp_6x5 .time,
+	.slide.dashboard li.widget.clock.dp_7x5 .time,
+	.slide.dashboard li.widget.clock.dp_8x5 .time,
+	.slide.dashboard li.widget.clock.dp_9x5 .time,
+	.slide.dashboard li.widget.clock.dp_4x6 .time, 
+	.slide.dashboard li.widget.clock.dp_5x6 .time, 
+	.slide.dashboard li.widget.clock.dp_6x6 .time,
+	.slide.dashboard li.widget.clock.dp_7x6 .time,
+	.slide.dashboard li.widget.clock.dp_8x6 .time,
+	.slide.dashboard li.widget.clock.dp_9x6 .time,
+	.slide.dashboard li.widget.clock.dp_4x7 .time, 
+	.slide.dashboard li.widget.clock.dp_5x7 .time, 
+	.slide.dashboard li.widget.clock.dp_6x7 .time,
+	.slide.dashboard li.widget.clock.dp_7x7 .time,
+	.slide.dashboard li.widget.clock.dp_8x7 .time,
+	.slide.dashboard li.widget.clock.dp_9x7 .time,
+	.slide.dashboard li.widget.clock.dp_4x8 .time, 
+	.slide.dashboard li.widget.clock.dp_5x8 .time, 
+	.slide.dashboard li.widget.clock.dp_6x8 .time,
+	.slide.dashboard li.widget.clock.dp_7x8 .time,
+	.slide.dashboard li.widget.clock.dp_8x8 .time,
+	.slide.dashboard li.widget.clock.dp_9x8 .time { font-size: 180% }
+
+	.slide.dashboard li.widget.genericcapability.dp_1x1 .fl.col6, 
+	.slide.dashboard li.widget.genericcapability.dp_2x1 .fl.col6, 
+	.slide.dashboard li.widget.genericcapability.dp_1x2 .fl.col6, 
+	.slide.dashboard li.widget.genericcapability.dp_2x2 .fl.col6,
+	.slide.dashboard li.widget.genericcapability.dp_3x2 .fl.col6 { display: none }
+	.slide.dashboard li.widget.genericcapability.dp_1x1 .fr.col6, 
+	.slide.dashboard li.widget.genericcapability.dp_2x1 .fr.col6, 
+	.slide.dashboard li.widget.genericcapability.dp_1x2 .fr.col6, 
+	.slide.dashboard li.widget.genericcapability.dp_2x2 .fr.col6,
+	.slide.dashboard li.widget.genericcapability.dp_3x2 .fr.col6 { width: 100% }
+	
+	.slide.dashboard li.widget.blindcurtain.dp_1x1 .fl, 	
+	.slide.dashboard li.widget.blindcurtain.dp_1x2 .fl, 
+	.slide.dashboard li.widget.blindcurtain.dp_1x3 .fl.col6.row12, 
+	.slide.dashboard li.widget.blindcurtain.dp_2x1 .fl, 
+	.slide.dashboard li.widget.blindcurtain.dp_2x2 .fl,	
+	.slide.dashboard li.widget.blindcurtain.dp_2x3 .fl.col6.row12, 
+	.slide.dashboard li.widget.blindcurtain.dp_3x1 .fl,
+	.slide.dashboard li.widget.blindcurtain.dp_3x2 .fl.col12.row6,
+	.slide.dashboard li.widget.blindcurtain.dp_3x3 .fl.col6.row12,
+	.slide.dashboard li.widget.blindcurtain.dp_4x1 .fl,
+	.slide.dashboard li.widget.blindcurtain.dp_4x2 .fl.col12.row6 { display: none }
+	.slide.dashboard li.widget.blindcurtain.dp_1x1 .fr, 	 
+	.slide.dashboard li.widget.blindcurtain.dp_1x2 .fr, 
+	.slide.dashboard li.widget.blindcurtain.dp_1x3 .fr.col6.row12, 
+	.slide.dashboard li.widget.blindcurtain.dp_2x1 .fr,
+	.slide.dashboard li.widget.blindcurtain.dp_2x2 .fr,
+	.slide.dashboard li.widget.blindcurtain.dp_2x3 .fr.col6.row12, 
+	.slide.dashboard li.widget.blindcurtain.dp_3x1 .fr,
+	.slide.dashboard li.widget.blindcurtain.dp_3x2 .fr.col12.row6,
+	.slide.dashboard li.widget.blindcurtain.dp_3x3 .fr.col6.row12,
+	.slide.dashboard li.widget.blindcurtain.dp_4x1 .fr,
+	.slide.dashboard li.widget.blindcurtain.dp_4x2 .fr.col12.row6 { width: 100%; height: 100% }
+	
+	.slide.dashboard li.widget.blindcurtain.dp_5x2 .fl.col12.row6, 
+	.slide.dashboard li.widget.blindcurtain.dp_6x2 .fl.col12.row6, 
+	.slide.dashboard li.widget.blindcurtain.dp_7x2 .fl.col12.row6, 
+	.slide.dashboard li.widget.blindcurtain.dp_8x2 .fl.col12.row6, 
+	.slide.dashboard li.widget.blindcurtain.dp_9x2 .fl.col12.row6 { width: 33%; height: 100% }
+	
+	.slide.dashboard li.widget.blindcurtain.dp_5x2 .fr.col12.row6, 
+	.slide.dashboard li.widget.blindcurtain.dp_6x2 .fr.col12.row6, 
+	.slide.dashboard li.widget.blindcurtain.dp_7x2 .fr.col12.row6, 
+	.slide.dashboard li.widget.blindcurtain.dp_8x2 .fr.col12.row6, 
+	.slide.dashboard li.widget.blindcurtain.dp_9x2 .fr.col12.row6 { width: 66%; height: 100% }
+	
+	.slide.dashboard li.widget.blindcurtain.dp_2x4 .col6.row12, 
+	.slide.dashboard li.widget.blindcurtain.dp_2x5 .col6.row12, 
+	.slide.dashboard li.widget.blindcurtain.dp_2x6 .col6.row12, 
+	.slide.dashboard li.widget.blindcurtain.dp_2x7 .col6.row12, 
+	.slide.dashboard li.widget.blindcurtain.dp_2x8 .col6.row12 { width: 100%; height: 49.99999% }
+	
+	.slide.dashboard li.widget.genericlight.dp_1x1 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_1x2 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_2x1 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_2x2 .fl,
+	.slide.dashboard li.widget.genericlight.dp_3x1 .fl,	
+	.slide.dashboard li.widget.genericlight.dp_3x2 .fl { display: none }
+	.slide.dashboard li.widget.genericlight.dp_1x1 .fr, 
+	.slide.dashboard li.widget.genericlight.dp_1x2 .fr, 
+	.slide.dashboard li.widget.genericlight.dp_2x1 .fr, 
+	.slide.dashboard li.widget.genericlight.dp_2x2 .fr,
+	.slide.dashboard li.widget.genericlight.dp_3x1 .fr, 
+	.slide.dashboard li.widget.genericlight.dp_3x2 .fr { width: 100% }	
+		
+	.slide.dashboard li.widget.genericlight.dp_1x3 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_1x4 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_1x5 .fl,
+	.slide.dashboard li.widget.genericlight.dp_1x6 .fl,
+	.slide.dashboard li.widget.genericlight.dp_1x7 .fl,
+	.slide.dashboard li.widget.genericlight.dp_1x8 .fl,
+	.slide.dashboard li.widget.genericlight.dp_1x2 .fr,
+	.slide.dashboard li.widget.genericlight.dp_1x3 .fr,
+	.slide.dashboard li.widget.genericlight.dp_1x4 .fr,
+	.slide.dashboard li.widget.genericlight.dp_1x5 .fr,
+	.slide.dashboard li.widget.genericlight.dp_1x6 .fr,
+	.slide.dashboard li.widget.genericlight.dp_1x7 .fr,
+	.slide.dashboard li.widget.genericlight.dp_1x8 .fr,
+	.slide.dashboard li.widget.genericlight.dp_2x3 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_2x4 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_2x5 .fl,
+	.slide.dashboard li.widget.genericlight.dp_2x6 .fl,
+	.slide.dashboard li.widget.genericlight.dp_2x7 .fl,
+	.slide.dashboard li.widget.genericlight.dp_2x8 .fl,	
+	.slide.dashboard li.widget.genericlight.dp_2x3 .fr,
+	.slide.dashboard li.widget.genericlight.dp_2x4 .fr,
+	.slide.dashboard li.widget.genericlight.dp_2x5 .fr,
+	.slide.dashboard li.widget.genericlight.dp_2x6 .fr,
+	.slide.dashboard li.widget.genericlight.dp_2x7 .fr,
+	.slide.dashboard li.widget.genericlight.dp_2x8 .fr,	
+	.slide.dashboard li.widget.genericlight.dp_3x3 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_3x4 .fl, 
+	.slide.dashboard li.widget.genericlight.dp_3x5 .fl,
+	.slide.dashboard li.widget.genericlight.dp_3x6 .fl,
+	.slide.dashboard li.widget.genericlight.dp_3x7 .fl,
+	.slide.dashboard li.widget.genericlight.dp_3x8 .fl,	
+	.slide.dashboard li.widget.genericlight.dp_4x3 .fl,	
+	.slide.dashboard li.widget.genericlight.dp_4x4 .fl,	
+	.slide.dashboard li.widget.genericlight.dp_4x5 .fl,	
+	.slide.dashboard li.widget.genericlight.dp_4x6 .fl,	
+	.slide.dashboard li.widget.genericlight.dp_4x7 .fl,	
+	.slide.dashboard li.widget.genericlight.dp_4x8 .fl,
+	.slide.dashboard li.widget.genericlight.dp_3x3 .fr,
+	.slide.dashboard li.widget.genericlight.dp_3x4 .fr,
+	.slide.dashboard li.widget.genericlight.dp_3x5 .fr,
+	.slide.dashboard li.widget.genericlight.dp_3x6 .fr,
+	.slide.dashboard li.widget.genericlight.dp_3x7 .fr,
+	.slide.dashboard li.widget.genericlight.dp_3x8 .fr,
+	.slide.dashboard li.widget.genericlight.dp_4x3 .fr,
+	.slide.dashboard li.widget.genericlight.dp_4x4 .fr,
+	.slide.dashboard li.widget.genericlight.dp_4x5 .fr,
+	.slide.dashboard li.widget.genericlight.dp_4x6 .fr,
+	.slide.dashboard li.widget.genericlight.dp_4x7 .fr,
+	.slide.dashboard li.widget.genericlight.dp_4x8 .fr { width: 100%; height: 49.99999% }	
+	.slide.dashboard li.widget.genericlight.dp_1x3 .fl,
+	.slide.dashboard li.widget.genericlight.dp_2x3 .fl,
+	.slide.dashboard li.widget.genericlight.dp_3x3 .fl { height: 66.666666% }	
+	.slide.dashboard li.widget.genericlight.dp_1x3 .fr,
+	.slide.dashboard li.widget.genericlight.dp_2x3 .fr,
+	.slide.dashboard li.widget.genericlight.dp_3x3 .fr { height: 33.333333% }	
+	
+	.slide.dashboard li.widget.lightrgb.dp_1x4 .fl, 
+	.slide.dashboard li.widget.lightrgb.dp_1x5 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_1x6 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_1x7 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_1x8 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_2x3 .fl, 
+	.slide.dashboard li.widget.lightrgb.dp_2x4 .fl, 
+	.slide.dashboard li.widget.lightrgb.dp_2x5 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_2x6 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_2x7 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_2x8 .fl,	
+	.slide.dashboard li.widget.lightrgb.dp_3x3 .fl, 
+	.slide.dashboard li.widget.lightrgb.dp_3x4 .fl, 
+	.slide.dashboard li.widget.lightrgb.dp_3x5 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_3x6 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_3x7 .fl,
+	.slide.dashboard li.widget.lightrgb.dp_3x8 .fl,	
+	.slide.dashboard li.widget.lightrgb.dp_4x3 .fl,	
+	.slide.dashboard li.widget.lightrgb.dp_4x4 .fl,	
+	.slide.dashboard li.widget.lightrgb.dp_4x5 .fl,	
+	.slide.dashboard li.widget.lightrgb.dp_4x6 .fl,	
+	.slide.dashboard li.widget.lightrgb.dp_4x7 .fl,	
+	.slide.dashboard li.widget.lightrgb.dp_4x8 .fl { width: 100%; height: 58.333333% }			
+	.slide.dashboard li.widget.lightrgb.dp_3x4 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_3x5 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_3x6 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_3x7 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_3x8 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_4x3 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_4x4 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_4x5 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_4x6 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_4x7 .fr,
+	.slide.dashboard li.widget.lightrgb.dp_4x8 .fr { width: 100%; height: 41.666666% }	
+		
+	.slide.dashboard li.widget.thermostat.dp_7x4 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_7x5 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_7x6 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_7x7 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_7x8 .content .value,
+	.slide.dashboard li.widget.thermostat.dp_8x4 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_8x5 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_8x6 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_8x7 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_8x8 .content .value,
+	.slide.dashboard li.widget.thermostat.dp_9x4 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_9x5 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_9x6 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_9x7 .content .value, 
+	.slide.dashboard li.widget.thermostat.dp_9x8 .content .value { font-size: 250% }
+	
+	.slide.dashboard li.widget.thermostat.dp_6x4 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_6x5 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_6x6 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_6x7 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_6x8 .content .buttons,
+	.slide.dashboard li.widget.thermostat.dp_7x4 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_7x5 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_7x6 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_7x7 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_7x8 .content .buttons,
+	.slide.dashboard li.widget.thermostat.dp_8x4 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_8x5 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_8x6 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_8x7 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_8x8 .content .buttons,
+	.slide.dashboard li.widget.thermostat.dp_9x4 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_9x5 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_9x6 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_9x7 .content .buttons, 
+	.slide.dashboard li.widget.thermostat.dp_9x8 .content .buttons { width: 50% }
+	
+	.slide.dashboard li.widget.powerwall.dp_4x3 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_4x4 .content .value, 	
+	.slide.dashboard li.widget.powerwall.dp_4x5 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_4x6 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_4x7 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_4x8 .content .value,
+	.slide.dashboard li.widget.powerwall.dp_4-5x3 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_4-5x4 .content .value, 	
+	.slide.dashboard li.widget.powerwall.dp_4-5x5 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_4-5x6 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_4-5x7 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_4-5x8 .content .value { font-size: 210% }
+	.slide.dashboard li.widget.powerwall.dp_5x3 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_5x4 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_5x5 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_5x6 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_5x7 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_5x8 .content .value { font-size: 220% }
+	.slide.dashboard li.widget.powerwall.dp_6x3 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_6x4 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_6x5 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_6x6 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_6x7 .content .value, 
+	.slide.dashboard li.widget.powerwall.dp_6x8 .content .value { font-size: 230% }
+	
+	.slide.dashboard li.widget.weather.dp_2x2 .value { font-size: 100% }
+	.slide.dashboard li.widget.weather.dp_2x2 .conditions, 
+	.slide.dashboard li.widget.weather.dp_2x2 .infos { display: none }
+	.slide.dashboard li.widget.weather.dp_2x2 .row9, 
+	.slide.dashboard li.widget.weather.dp_2x2 .row3,
+	.slide.dashboard li.widget.weather.dp_2x3 .row9, 
+	.slide.dashboard li.widget.weather.dp_2x3 .row3,
+	.slide.dashboard li.widget.weather.dp_2x4 .row9, 
+	.slide.dashboard li.widget.weather.dp_2x4 .row3,
+	.slide.dashboard li.widget.weather.dp_2x5 .row9, 
+	.slide.dashboard li.widget.weather.dp_2x5 .row3,
+	.slide.dashboard li.widget.weather.dp_2x6 .row9, 
+	.slide.dashboard li.widget.weather.dp_2x6 .row3,
+	.slide.dashboard li.widget.weather.dp_2x7 .row9, 
+	.slide.dashboard li.widget.weather.dp_2x7 .row3,
+	.slide.dashboard li.widget.weather.dp_2x8 .row9, 
+	.slide.dashboard li.widget.weather.dp_2x8 .row3 { height: 49.99999% }
+	.slide.dashboard li.widget.weather.dp_2x2 .row3 .fl, 
+	.slide.dashboard li.widget.weather.dp_2x3 .row3 .fl, 
+	.slide.dashboard li.widget.weather.dp_2x4 .row3 .fl, 
+	.slide.dashboard li.widget.weather.dp_2x5 .row3 .fl, 
+	.slide.dashboard li.widget.weather.dp_2x6 .row3 .fl, 
+	.slide.dashboard li.widget.weather.dp_2x7 .row3 .fl, 
+	.slide.dashboard li.widget.weather.dp_2x8 .row3 .fl { width: 100%; padding: 2px 0; font-size: 80% }
+	.slide.dashboard li.widget.weather.dp_2x4 .conditions, 
+	.slide.dashboard li.widget.weather.dp_2x5 .conditions, 
+	.slide.dashboard li.widget.weather.dp_2x6 .conditions, 
+	.slide.dashboard li.widget.weather.dp_2x7 .conditions, 
+	.slide.dashboard li.widget.weather.dp_2x8 .conditions { font-size: 90% }
+	.slide.dashboard li.widget.weather.dp_4x2 .col12, 
+	.slide.dashboard li.widget.weather.dp_5x2 .col12, 
+	.slide.dashboard li.widget.weather.dp_6x2 .col12 { height: 100% }
+	.slide.dashboard li.widget.weather.dp_4x2 .fl.col12, 
+	.slide.dashboard li.widget.weather.dp_5x2 .fl.col12, 
+	.slide.dashboard li.widget.weather.dp_6x2 .fl.col12 { width: 34% }
+	.slide.dashboard li.widget.weather.dp_4x2 .fr.col12, 
+	.slide.dashboard li.widget.weather.dp_5x2 .fr.col12, 
+	.slide.dashboard li.widget.weather.dp_6x2 .fr.col12 { width: 66% }
+	.slide.dashboard li.widget.weather.dp_4x2 .row3 .fl, 
+	.slide.dashboard li.widget.weather.dp_5x2 .row3 .fl, 
+	.slide.dashboard li.widget.weather.dp_6x2 .row3 .fl { width: 100%; padding: 2px 0; font-size: 80% }
+		
+	#body.square .slide.dashboard li.widget.dp_2x2 .content .box, 
+	#body.square .slide.dashboard li.widget.dp_3x2 .content .box, 
+	#body.square .slide.dashboard li.widget.dp_4x2 .content .box, 
+	#body.square .slide.dashboard li.widget.dp_4-5x2 .content .box, 
+	#body.square .slide.dashboard li.widget.dp_5x2 .content .box, 
+	#body.square .slide.dashboard li.widget.dp_6x2 .content .box { top: 15%; height: 70% }
+	#body.square .slide.dashboard li.widget.dp_2x2 .content .state, 
+	#body.square .slide.dashboard li.widget.dp_3x2 .content .state, 
+	#body.square .slide.dashboard li.widget.dp_4x2 .content .state, 
+	#body.square .slide.dashboard li.widget.dp_4-5x2 .content .state, 
+	#body.square .slide.dashboard li.widget.dp_5x2 .content .state, 
+	#body.square .slide.dashboard li.widget.dp_6x2 .content .state { font-size: 250% }
+	
+	#body.square .slide.dashboard li.widget.dp_1x1 .content .button.curtain,
+	#body.square .slide.dashboard li.widget.dp_1x2 .content .button.curtain,
+	#body.square .slide.dashboard li.widget.dp_1x3 .content .button.curtain,
+	#body.square .slide.dashboard li.widget.dp_1x4 .content .button.curtain,
+	#body.square .slide.dashboard li.widget.dp_1x5 .content .button.curtain,
+	#body.square .slide.dashboard li.widget.dp_1x6 .content .button.curtain,
+	#body.square .slide.dashboard li.widget.dp_1x7 .content .button.curtain,
+	#body.square .slide.dashboard li.widget.dp_1x8 .content .button.curtain { font-size: 80% }
+
+	#body.square .slide.dashboard li.widget.dp_2x1 .content .value,
+	#body.square .slide.dashboard li.widget.dp_3x1 .content .value,
+	#body.square .slide.dashboard li.widget.dp_4x1 .content .value,
+	#body.square .slide.dashboard li.widget.dp_2x2 .content .value { font-size: 100% }
+	#body.square .slide.dashboard li.widget.dp_3x2 .content .value, 
+	#body.square .slide.dashboard li.widget.dp_4x2 .content .value, 
+	#body.square .slide.dashboard li.widget.dp_4-5x2 .content .value, 
+	#body.square .slide.dashboard li.widget.dp_5x2 .content .value, 
+	#body.square .slide.dashboard li.widget.dp_6x2 .content .value { font-size: 120% }
+	#body.square .slide.dashboard li.widget.dp_2x2 .content .capability, 
+	#body.square .slide.dashboard li.widget.dp_3x2 .content .capability, 
+	#body.square .slide.dashboard li.widget.dp_4x2 .content .capability, 
+	#body.square .slide.dashboard li.widget.dp_4-5x2 .content .capability, 
+	#body.square .slide.dashboard li.widget.dp_5x2 .content .capability, 
+	#body.square .slide.dashboard li.widget.dp_6x2 .content .capability { font-size: 50% }
+		
+	#body.square .slide.dashboard li.widget.dp_2x2 .content .buttons.vertical .button, 
+	#body.square .slide.dashboard li.widget.dp_3x2 .content .buttons.vertical .button, 
+	#body.square .slide.dashboard li.widget.dp_4x2 .content .buttons.vertical .button, 
+	#body.square .slide.dashboard li.widget.dp_4-5x2 .content .buttons.vertical .button, 
+	#body.square .slide.dashboard li.widget.dp_5x2 .content .buttons.vertical .button, 
+	#body.square .slide.dashboard li.widget.dp_6x2 .content .buttons.vertical .button { padding: 1% 0 }
+}

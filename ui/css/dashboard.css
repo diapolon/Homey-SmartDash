@@ -1,0 +1,322 @@
+@charset "UTF-8";
+
+@-webkit-keyframes mdi-blink { 0% { opacity: 1 } 14% { opacity: 0.25 } 28% { opacity: 0.5 } 42% { opacity: 0.75 } 56% { opacity: 0 } 70% { opacity: 0.75 } 84% { opacity: 0.5 } 100% { opacity: 0.25 } }
+@keyframes mdi-blink { 0% { opacity: 1 } 14% { opacity: 0.25 } 28% { opacity: 0.5 } 42% { opacity: 0.75 } 56% { opacity: 0 } 70% { opacity: 0.75 } 84% { opacity: 0.5 } 100% { opacity: 0.25 } }
+@-webkit-keyframes img-anim { 0%{ opacity: 0 } 10% { opacity: 1 } 90% { opacity: 1 } 100% { opacity: 0 } }
+@keyframes img-anim { 0%{ opacity: 0 } 10% { opacity: 1 } 90% { opacity: 1 } 100% { opacity: 0 } }
+
+.slide.dashboard { background-color: #000000; background-repeat: no-repeat; background-size: cover; background-position: center top }
+
+.slide.dashboard sup { vertical-align: top }
+.slide.dashboard inf { vertical-align: bottom }
+
+.slide.dashboard .panel { position: absolute; top: 0; le2ft: -120%; width: 100%; height: 100%; font-size: 90%; z-index: -1; opacity: 0 }
+.slide.dashboard .panel.show { z-index: 1; le2ft: 0; -webkit-transition: 1s; transition: 1s; opacity: 1 }
+
+.slide.dashboard #toolbar { position: absolute; top: 0; left: 0; width: 100%; height: 10.1%; z-index: 2 }
+.slide.dashboard #toolbar ul { position: absolute; top: 0; left: 2%; width: 96%; height: 100%; color: #ffffff }
+.slide.dashboard #toolbar li { display: table; float: left; width: 11%; height: 100% }
+.slide.dashboard #toolbar li > div { display: table-cell; width: 100%; height: 100%; text-align: center; vertical-align: middle }
+.slide.dashboard #toolbar li > div .mdi { font-size: 160% }
+.slide.dashboard #toolbar li > div .mdi.mdi-lock { font-size: 100%; color: #fbbd06; display: none; position: absolute; margin-left: -5px }
+.slide.dashboard #toolbar li.locked div .mdi.mdi-lock { display: inline-block }
+.slide.dashboard #toolbar li.fr { float: right }
+.slide.dashboard #toolbar li span.on { color: #ffffff; font-weight: bold;  font-size: 90% }
+.slide.dashboard #toolbar li.on { color: #fbbd06 }
+.slide.dashboard #toolbar li.disabled { display: none }
+.slide.dashboard #toolbar li.online { color: #78c350 }
+.slide.dashboard #toolbar li.error { color: #ff9800 }
+.slide.dashboard #toolbar li.offline { color: #f7531f }
+
+.slide.dashboard .widgets { position: absolute; bottom: 0; left: 0; width: 100%; height: 90%; font-size: 90%; z-index: 1 }
+.slide.dashboard ul.rows { position: absolute; top: 0; left: 2%; width: 96%; height: 100% }
+.slide.dashboard li.widget .inner { display: table; width: 100%; height: 100%; padding: 1px; overflow: hidden }
+
+.slide.dashboard li.empty { color: #ffffff }
+.slide.dashboard li.empty .inner { display: table; width: 100%; height: 100% }
+.slide.dashboard li.empty .content { display: table-cell; text-align: center; vertical-align: middle; font-size: 150%; width: 100%; height: 100% }
+.slide.dashboard li.empty .content .mdi { font-size: 250% }
+
+.slide.dashboard li.widget .content { display: table-cell; text-align: center; vertical-align: middle; font-size: 90%; position: relative; width: 100%; height: 100%; background-color: #ffffff; color: #666666; border: 0; box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px }
+.slide.dashboard li.widget .content .box { z-index: 1; position: absolute; top: 15%; left: 0; width: 100%; height: 70% }
+.slide.dashboard li.widget .content .box.f { top: 0; height: 100%; padding: 5% }
+.slide.dashboard li.widget .content .update { z-index: 2; position: absolute; bottom: 2px; width: 100%; font-size: 75%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.slide.dashboard li.widget .content .battery { z-index: 2; position: absolute; top: 2px; right: 2px }
+.slide.dashboard li.widget .content .image { position: relative; top: 0; left: 0; width: 100%; height: 100%; padding: 4px }
+.slide.dashboard li.widget .content .image .placeholder { display: flex; z-index: 1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; align-items: center; justify-content: center }
+.slide.dashboard li.widget .content .image .placeholder .mdi { font-size: 400% }
+.slide.dashboard li.widget .content .image .imgbox { display: flex; position: relative; width: 100%; height: 100%; text-align: center; overflow: hidden }
+.slide.dashboard li.widget .content .image img { position: absolute; z-index: 1; flex: 1; width: 100%; height: 100% }
+.slide.dashboard li.widget .content .image img.contain { object-fit: contain }
+.slide.dashboard li.widget .content .image img.fill { object-fit: fill }
+.slide.dashboard li.widget .content .image img.cover { object-fit: cover }
+  
+.slide.dashboard li.widget .content .status { z-index: 2; position: absolute; bottom: 20%; width: 100%; font-size: 90% }
+.slide.dashboard li.widget .content .name { z-index: 2; padding: 2px 15px; position: absolute; top: 0; left: 0; width: 100%; font-size: 110%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.slide.dashboard li.widget .content .info { z-index: 2; position: absolute; bottom: 5px; right: 5px }
+.slide.dashboard li.widget .content .value { font-size: 170%; col2or: #000000 }
+.slide.dashboard li.widget .content .capability { text-transform: uppercase; font-size: 75% }
+.slide.dashboard li.widget .content .alarm { display: none; z-index: 2; position: absolute; top: 5px; left: 0 }
+.slide.dashboard li.widget .content .alarm { color: #f5413b }
+.slide.dashboard li.widget .content .state { col2or: #000000; font-size: 300% }
+.slide.dashboard li.widget .content .buttons { display: table; width: 70%; background: #ffffff; opacity: 0.8; color: #000000; border-radius: 5px; margin: 0 auto; overflow: hidden }
+.slide.dashboard li.widget .content .buttons.l { margin: 0 }
+.slide.dashboard li.widget .content .buttons.r { margin: 0 0 0 auto }
+.slide.dashboard li.widget .content .buttons .button { display: table-cell; padding: 4px 0 }
+.slide.dashboard li.widget .content .buttons .button .mdi { font-size: 140% }
+.slide.dashboard li.widget .content .buttons.vertical { display: flex; flex-direction: column; width: 60% }
+.slide.dashboard li.widget .content .buttons.vertical .button { display: block; padding: 12% 0 }
+.slide.dashboard li.widget .content .buttons.vertical .button .mdi { font-size: 180% }
+
+.slide.dashboard li.widget.fs_-2 .box { font-size: 80% }
+.slide.dashboard li.widget.fs_-1 .box { font-size: 90% }
+.slide.dashboard li.widget.fs_0 .box { font-size: 100% }
+.slide.dashboard li.widget.fs_1 .box { font-size: 110% }
+.slide.dashboard li.widget.fs_2 .box { font-size: 120% }
+.slide.dashboard li.widget.fs_3 .box { font-size: 130% }
+.slide.dashboard li.widget.fs_4 .box { font-size: 140% }
+.slide.dashboard li.widget.fs_5 .box { font-size: 150% }
+
+.slide.dashboard li.widget.bg_transparent .content { background-color: rgba(255, 255, 255, .25); c2olor: #edfbfb }
+.slide.dashboard li.widget.bg_white .content { background-color: #ffffff; co2lor: #969696 }
+.slide.dashboard li.widget.bg_blue .content { background-color: #4d6ab4; col2or: #edfbfb }
+.slide.dashboard li.widget.bg_green .content { background-color: #00b765; co2lor: #edfbfb }
+.slide.dashboard li.widget.bg_red .content { background-color: #f5413b; col2or: #edfbfb }
+.slide.dashboard li.widget.bg_orange .content { background-color: #febb1b; co2lor: #111111 }
+.slide.dashboard li.widget.bg_yellow .content { background-color: #f5ec06; co2lor: #111111 }
+.slide.dashboard li.widget.bg_violet .content { background-color: #a066ae; co2lor: #edfbfb }
+.slide.dashboard li.widget.bg_grey .content { background-color: #969696; colo2r: #edfbfb }
+.slide.dashboard li.widget.bg_black .content { background-color: #39393a; col2or: #d0cfd2 }
+
+.slide.dashboard li.widget.c_white .content { color: #ffffff }
+.slide.dashboard li.widget.c_blue .content { color: #4d6ab4 }
+.slide.dashboard li.widget.c_green .content { color: #00b765 }
+.slide.dashboard li.widget.c_red .content { color: #f5413b }
+.slide.dashboard li.widget.c_orange .content { color: #febb1b }
+.slide.dashboard li.widget.c_yellow .content { color: #f5ec06 }
+.slide.dashboard li.widget.c_violet .content { color: #a066ae }
+.slide.dashboard li.widget.c_grey .content { color: #969696 }
+.slide.dashboard li.widget.c_black .content { color: #39393a }
+
+.slide.dashboard li.widget.opacity .content { opacity: 0.9 }
+
+.slide.dashboard li.widget .locked { z-index: 9999; position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0.3 }
+.slide.dashboard li.widget .locked .mdi { position: absolute; bottom: 5px; left: 5px; font-size: 120% }
+
+.slide.dashboard li.widget .mask { display: none; z-index: 999; position: absolute; left: 0; top: 0; width: 100%; height: 100% }
+.slide.dashboard li.widget .mask.black { background: #000000; opacity: 0.1 }
+.slide.dashboard li.widget .mask .mdi { font-size: 300% }
+.slide.dashboard li.widget.shadow .mask { display: flex; align-items: center; justify-content: center }
+
+.slide.dashboard li.widget .button.active { color: #00b765 }
+
+.slide.dashboard li.widget .content .buttons .button.active { background-color: #00b765; color: #ffffff }
+.slide.dashboard li.widget .content .buttons .button.active.off { background-color: #000000 }
+
+.slide.dashboard li.widget .range { position: relative; width: 100%; height: auto; margin: 0 auto }
+.slide.dashboard li.widget .range .flex { width: 100%; height: 100%; align-items: center; justify-content: center }
+.slide.dashboard li.widget .range .slider { -webkit-appearance: none; appearance: none; width: 100%; height: 3.5vw; border: 1px solid #cecece; padding: 0; margin: 0; border-radius: 5px; background: #ffffff; outline: none; opacity: 1; -webkit-transition: 0.2s; transition: 0.2s }
+.slide.dashboard li.widget .range .slider:focus { outline: none }
+.slide.dashboard li.widget .range .slider:hover { opacity: 0.7 }
+.slide.dashboard li.widget .range .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 6vw; height: 6vw; border-radius: 50%; border: 6px solid #00b765; background: #ffffff; cursor: pointer }
+.slide.dashboard li.widget .range .slider::after { display: none; position: absolute; right: 0; z-index: 2; color: #212121; content: attr(data-value) }
+.slide.dashboard li.widget .range .slider::after { font-size: 90%; padding: 4px; border-radius: 10px; background-color: #ffffff; margin-top: -8vw; box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 5px }
+.slide.dashboard li.widget .range .slider.tapped::after { display: block }
+.slide.dashboard li.widget .range .slider.readonly::-webkit-slider-thumb { display: none }
+.slide.dashboard li.widget .range.h { width: 80%; height: auto }
+.slide.dashboard li.widget .range.h.f { width: 100% }
+.slide.dashboard li.widget .range.v .slider { position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%) rotate(-90deg); transform: translate(-50%, -50%) rotate(-90deg); -webkit-transform-origin: center; transform-origin: center }
+.slide.dashboard li.widget .range.v .slider::after { margin-top: 4vw; -webkit-transform: rotate(90deg); transform: rotate(90deg) }
+
+.slide.dashboard li.widget .gauge {
+  background: transparent;
+  border: 2px solid #D7ECA6;
+  border-radius: 50%;
+  height: 100%;
+  position: relative;
+  width: auto;  
+}
+
+.slide.dashboard li.widget.bg_white .content .buttons { background-color: #cecece }
+.slide.dashboard li.widget.bg_green .content .buttons .button.active { background-color: #a066ae }
+.slide.dashboard li.widget.bg_green .content .buttons .button.active.off { background-color: #000000 }
+
+.slide.dashboard li.widget.bg_wh2ite .color_white { color: #969696 }
+.slide.dashboard li.widget.bg_yel2low .color_white, .slide.dashboard li.widget.bg_ora2nge .color_white { color: #111111 }
+
+.slide.dashboard li.widget.bg_blue .content .value, 
+.slide.dashboard li.widget.bg_green .content .value, 
+.slide.dashboard li.widget.bg_red .content .value, 
+.slide.dashboard li.widget.bg_violet .content .value, 
+.slide.dashboard li.widget.bg_grey .content .value, 
+.slide.dashboard li.widget.bg_black .content .value,
+.slide.dashboard li.widget.bg_transparent .content .value { co2lor: #ffffff }
+
+.slide.dashboard li.widget.bg_blue .content .state, 
+.slide.dashboard li.widget.bg_green .content .state, 
+.slide.dashboard li.widget.bg_red .content .state, 
+.slide.dashboard li.widget.bg_violet .content .state, 
+.slide.dashboard li.widget.bg_grey .content .state, 
+.slide.dashboard li.widget.bg_black .content .state,
+.slide.dashboard li.widget.bg_transparent .content .state { c2olor: #ffffff }
+
+.slide.dashboard li.widget.on .content .state { color: #febb1b; text-shadow: 0 0 25px #ffe75a }
+.slide.dashboard li.widget.active .content .state { color: #febb1b }
+.slide.dashboard li.widget.alarm .content .state { color: #f5413b; -webkit-animation: mdi-blink 1.5s infinite; animation: mdi-blink 1.5s infinite }
+
+.slide.dashboard li.widget.genericalert.on .content { background-color: #f5413b; color: #edfbfb }
+.slide.dashboard li.widget.genericalert.bg_red.on .content { background-color: #00b765 }
+.slide.dashboard li.widget.genericalert.on .content .value { color: #ffffff }
+
+.slide.dashboard li.widget.bg_orange.on .content .state { color: #ffffff }
+.slide.dashboard li.widget.bg_orange.active .content .state { color: #ffffff }
+
+.slide.dashboard li.widget.bg_white .range .slider { background: #d3d3d3 }
+
+.slide.dashboard li.widget.alarm .content .alarm.hide { display: block }
+
+.slide.dashboard li.widget.tapped .content { border: 1px solid: #666666 }
+.slide.dashboard li.widget.tapped .shadow { display: block }
+
+.slide.dashboard li.widget.iframe .iframe { position: relative; width: 100%; height: 100%; overflow: hidden }
+.slide.dashboard li.widget.iframe .iframe iframe { position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%;  pointer-events: none }
+
+.slide.dashboard li.widget.insight .canvas { top: 5%; left: 2%; position: relative; width: 96%; height: 90% }
+.slide.dashboard li.widget.insight .canvas canvas { posi2tion: absolute; le2ft: 0; ri2ght: 0; marg2in: 0 auto; max-width: 100%; max-height: 100% }
+
+.slide.dashboard li.widget.lightrgb .buttons { width: 100%; border-radius: 0; background-color: transparent }
+.slide.dashboard li.widget.lightrgb .buttons .button { width: 20%; background-color: #c0c0c0 }
+.slide.dashboard li.widget.lightrgb .buttons .button.onoff { width: 60%; border-right: 10px solid #ffffff }
+.slide.dashboard li.widget.lightrgb.on .buttons .button.onoff { background-color: #febb1b; color: #ffffff }
+.slide.dashboard li.widget.lightrgb .bo2x { padding: 0 5% }
+.slide.dashboard li.widget.lightrgb .range.h { width: 100% }
+.slide.dashboard li.widget.lightrgb .range .slider.hue { background-image: linear-gradient(to right, #ff0000 0%, #fe7023 6%, #ffc836 12%, #d4ff42 20%, #1efe43 36%, #12d3fc 53%, #004ef9 61%, #e80ff9 82%, #ff0000 100%) }
+.slide.dashboard li.widget.lightrgb .range .slider.temp { background-image: linear-gradient(to right, #cffbfe 13%, #e4ffff 25%, #f7ffff 38%, #ffffff 50%, #fff4d5 63%, #ffeab3 75%, #fedd7f 88%, #ffdb74 100%) }
+.slide.dashboard li.widget.lightrgb .range .slider.hue.tapped::after, .slide.dashboard li.widget.lightrgb .range .slider.temp.tapped::after { display: none }
+.slide.dashboard li.widget.lightrgb .range .slider.hue::-webkit-slider-thumb, .slide.dashboard li.widget.lightrgb .range .slider.temp::-webkit-slider-thumb { background: transparent  }
+
+.slide.dashboard li.widget.timeline .content { vertical-align: top }
+.slide.dashboard li.widget.timeline .box { top: 10%; height: 88% }
+.slide.dashboard li.widget.timeline .list { text-align: left; padding: 5px }
+.slide.dashboard li.widget.timeline .list li { padding: 5px; border-left: 5px solid #ffffff; border-bottom: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 5px }
+.slide.dashboard li.widget.timeline .list li div { color: #ffffff; padding-bottom: 5px }
+.slide.dashboard li.widget.timeline.bg_white .list li, .slide.dashboard li.widget.timeline.bg_yellow .list li, .slide.dashboard li.widget.timeline.bg_orange .list li { border-color: rgba(0, 0, 0, 0.2) }
+.slide.dashboard li.widget.timeline.bg_white .list li div, .slide.dashboard li.widget.timeline.bg_yellow .list li div, .slide.dashboard li.widget.timeline.bg_orange .list li div { color: #000000 }
+
+.slide.dashboard li.widget.jsonvariable .content { vertical-align: top }
+.slide.dashboard li.widget.jsonvariable .list { text-align: left; padding: 5px }
+.slide.dashboard li.widget.jsonvariable .list li { padding: 5px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 5px }
+.slide.dashboard li.widget.jsonvariable .list li div { color: #ffffff; padding-bottom: 5px }
+.slide.dashboard li.widget.jsonvariable.bg_white .list li, .slide.dashboard li.widget.jsonvariable.bg_yellow .list li, .slide.dashboard li.widget.jsonvariable.bg_orange .list li { border-color: rgba(0, 0, 0, 0.2) }
+.slide.dashboard li.widget.jsonvariable.bg_white .list li div, .slide.dashboard li.widget.jsonvariable.bg_yellow .list li div, .slide.dashboard li.widget.jsonvariable.bg_orange .list li div { color: #000000 }
+
+.slide.dashboard li.widget.comfortsensor .b1b { border-bottom: 1px solid rgba(0,0,0,0.1) }
+
+.slide.dashboard li.widget.speaker .content .track { font-weight: bold }
+.slide.dashboard li.widget.speaker .content .range .slider { height: 2vw }
+.slide.dashboard li.widget.speaker .content .range .slider::-webkit-slider-thumb { width: 4vw; height: 4vw; border: 0; background: #00b765 }
+.slide.dashboard li.widget.speaker .content .range .slider::after { display: none; top: 3vw; font-size: 90% }
+.slide.dashboard li.widget.speaker .content .range .slider.mute { background: #dfdfdf }
+.slide.dashboard li.widget.speaker .content .range .slider.mute::-webkit-slider-thumb { display: none }
+.slide.dashboard li.widget.speaker .content .range.position { width: 100%; height: auto; overflow: hidden }
+.slide.dashboard li.widget.speaker .content .range.position .slider { height: 2px; cursor: row-resize }
+.slide.dashboard li.widget.speaker .content .range.position .slider::-webkit-slider-thumb { width: 0; border: none; box-shadow: -20rem 0 0 20rem #07acf0 }
+.slide.dashboard li.widget.speaker .content .buttons { color: #d7d7d7; background: transparent; width: auto; opacity: 1; height: 100%; border-radius: 0 }
+.slide.dashboard li.widget.speaker .content .buttons .button, 
+.slide.dashboard li.widget.speaker .content .buttons .spacer { height: 100%; vertical-align: middle; padding: 0 2px; border-radius: 0 }
+.slide.dashboard li.widget.speaker .content .buttons .button.active { color: #ffffff; background-color: transparent }
+.slide.dashboard li.widget.speaker .content .image { padding: 0 }
+.slide.dashboard li.widget.speaker .content .image.fullscreen { position: absolute; z-index: -1; opacity: 0.6 }
+.slide.dashboard li.widget.speaker.bg_white .content .buttons { color: #969696 }
+.slide.dashboard li.widget.speaker.bg_white .content .buttons .button.active { color: #1e1e1e }
+.slide.dashboard li.widget.speaker.bg_yellow .content .buttons { color: #969696 }
+.slide.dashboard li.widget.speaker.bg_yellow .content .buttons .button.active { color: #1e1e1e }
+.slide.dashboard li.widget.speaker.bg_orange .content .buttons { color: #969696 }
+.slide.dashboard li.widget.speaker.bg_orange .content .buttons .button.active { color: #1e1e1e }
+
+.slide.dashboard li.widget.speaker .content .buttons .button.xl .mdi { font-size: 160% }
+.slide.dashboard li.widget.speaker .content .buttons.vertical .button { height: auto }
+.slide.dashboard li.widget.speaker .content .buttons.vertical .button.up { padding: 0 0 4px 0 }
+.slide.dashboard li.widget.speaker .content .buttons.vertical .button.down { padding: 4px 0 0 0 }
+.slide.dashboard li.widget.speaker .content .buttons.vertical .button .mdi { font-size: 200% }
+
+.slide.dashboard li.widget.virtualcamera .content, .slide.dashboard li.widget.iframe .content { overflow: hidden }
+.slide.dashboard li.widget.virtualcamera .name, .slide.dashboard li.widget.iframe .name { padding: 4px }
+.slide.dashboard li.widget.virtualcamera .update, .slide.dashboard li.widget.iframe .update { padding: 2px 4px }
+.slide.dashboard li.widget.virtualcamera .name div, .slide.dashboard li.widget.iframe .name div,
+.slide.dashboard li.widget.virtualcamera .update div, .slide.dashboard li.widget.iframe .update div { padding: 2px; background-color: rgba(0,0,0,0.5); color: #efefef }
+
+.slide.dashboard li.widget.clock .date { position: absolute; bottom: 5%; width: 100%; text-align: center }
+
+.slide.dashboard li.widget.title { background-color: transparent } 
+.slide.dashboard li.widget.title .content { box-shadow: none; border: 0; background-color: transparent; text-align: left; padding-top: 3%; font-size: 130% } 
+
+.slide.dashboard li.widget.dummy { background-color: transparent} 
+.slide.dashboard li.widget.dummy .content { border: 0; border-radius: 0; box-shadow: none; background-color: transparent } 
+
+#body .slide.dashboard li.empty { grid-column: span 18 !important; grid-row: span 12 !important }
+
+/* colors */ 
+.slide.dashboard.black { background-color: #000000 }
+.slide.dashboard.graydark { background-color: #2e464e }
+
+.slide.dashboard.graylight { background-color: #fbfbfb }
+.slide.dashboard.graylight #toolbar ul { color: #72909d }
+.slide.dashboard.graylight #toolbar li.on { color: #2c2c2c }
+.slide.dashboard.graylight li.widget .content { box-shadow: none }
+.slide.dashboard.graylight li.empty { color: #2c2c2c }
+.slide.dashboard.graylight li.widget.title .content { color: #2c2c2c } 
+.slide.dashboard.graylight li.widget.bg_transp2arent .content .state { color: #000000 }
+.slide.dashboard.graylight li.widget.bg_transp2arent .content .value { color: #000000 }
+
+.slide.dashboard.blue { background-color: #005164 }
+.slide.dashboard.gradient1 { background: radial-gradient(ellipse at 20% 20%, #35234b 0%, transparent 70%), radial-gradient(ellipse at 60% 20%, #2975bf 0%, transparent 70%), radial-gradient(ellipse at 100% 20%, #3d54b1 0%, transparent 70%), radial-gradient(ellipse at 100% 100%, #9f3c54 0%, transparent 70%), radial-gradient(ellipse at 20% 100%, #362d6f 0%, transparent 70%); background-blend-mode: screen }
+.slide.dashboard.gradient2 { background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%) }
+.slide.dashboard.gradient3 { background: radial-gradient(circle at 10% 20%, rgb(151, 10, 130) 0%, rgb(33, 33, 33) 100.2%) }
+.slide.dashboard.image1 { background-image: url("../images/bg/1.jpg") }
+
+/* themes */
+.slide.dashboard li.widget.squared2 .inner,
+.slide.dashboard li.widget.rounded .inner,
+.slide.dashboard li.widget.rounded2 .inner,
+.slide.dashboard li.widget.mushroom .inner { padding: 5px }
+.slide.dashboard li.widget.rounded .content,
+.slide.dashboard li.widget.rounded2 .content,
+.slide.dashboard li.widget.mushroom .content { border-radius: 8px }
+.slide.dashboard li.widget.squared2 .content, 
+.slide.dashboard li.widget.rounded2 .content { border: 1px solid #ffffff }
+.slide.dashboard li.widget.title.squared2 .content, 
+.slide.dashboard li.widget.title.rounded2 .content,
+.slide.dashboard li.widget.title.mushroom .content { border: 0 }
+.slide.dashboard li.widget.dummy.squared2 .content, 
+.slide.dashboard li.widget.dummy.rounded2 .content,
+.slide.dashboard li.widget.dummy.mushroom .content { border: 0 }
+
+.slide.dashboard li.widget.mushroom .content { border: 1px solid #ededed; box-shadow: none }
+.slide.dashboard li.widget.bg_white.mushroom .content, 
+.slide.dashboard li.widget.bg_blue.mushroom .content, 
+.slide.dashboard li.widget.bg_green.mushroom .content, 
+.slide.dashboard li.widget.bg_violet.mushroom .content, 
+.slide.dashboard li.widget.bg_orange.mushroom .content, 
+.slide.dashboard li.widget.bg_yellow.mushroom .content, 
+.slide.dashboard li.widget.bg_red.mushroom .content, 
+.slide.dashboard li.widget.bg_grey.mushroom .content, 
+.slide.dashboard li.widget.bg_black.mushroom .content, 
+.slide.dashboard li.widget.bg_transparent.mushroom .content { background-color: #ffffff; color: #969696 }
+
+.slide.dashboard li.widget.title.mushroom .content, .slide.dashboard li.widget.dummy.mushroom .content { background-color: transparent } 
+.slide.dashboard li.widget.mushroom .content .value { color: #3c3c3c }
+.slide.dashboard li.widget.mushroom .content .state { width: 10vw; height: 10vw; max-width: 100%; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto; background: #f6f6f6; color: #c9c9c9; font-size: 200% }
+.slide.dashboard li.widget.mushroom.on .content .state { text-shadow: none }
+.slide.dashboard li.widget.bg_white.mushroom.on .content .state { color: #39393a; background-color: #ffffff; border: 1px solid #ededed }
+.slide.dashboard li.widget.bg_blue.mushroom.on .content .state { background-color: #dfeefe; color: #4d6ab4 }
+.slide.dashboard li.widget.bg_green.mushroom.on .content .state { background-color: #e4f2e4; color: #00b765 }
+.slide.dashboard li.widget.bg_violet.mushroom.on .content .state { background-color: #f1def3; color: #a066ae }
+.slide.dashboard li.widget.bg_orange.mushroom.on .content .state { background-color: #ffefdc; color: #febb1b }
+.slide.dashboard li.widget.bg_yellow.mushroom.on .content .state { background-color: #fefbe2; color: #ffc23d }
+.slide.dashboard li.widget.bg_red.mushroom.on .content .state { background-color: #ffdcda; color: #f5413b }
+.slide.dashboard li.widget.bg_grey.mushroom.on .content .state { background-color: #969696; color: #ffffff }
+.slide.dashboard li.widget.bg_black.mushroom.on .content .state { background-color: #39393a; color: #ffffff }
+.slide.dashboard li.widget.bg_transparent.mushroom.on .content .state { background-color: rgba(0, 0, 0, .25); color: #ffffff }
+
+.slide.dashboard li.widget.mushroom .range .slider { background: #d3d3d3 }

@@ -1,0 +1,7 @@
+<div class="content mini">
+	{{#if link}}<span class="external" href="{{link}}">{{/if}}
+	{{{name}}}
+	{{#if link}}</span>{{/if}}
+	<input {{#if id}}id="{{{id}}}" {{/if}}class="hidden" type="hidden" value="{{{value}}}" />
+</div>
+<div class="icon{{#if readonly}}{{else}} button{{/if}} checkbox"><span class="check mdi mdi-{{{checked}}}"></span></div>

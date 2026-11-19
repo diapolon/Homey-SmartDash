@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+/* list */
+ul.rows { width: 100%; height: 100% }
+li.row { display: table; width: 100%; height: 20%; border-bottom: 1px solid #ededed }
+
+li.row .icon { display: table-cell; text-align: center; vertical-align: middle; width: 13%; height: 100% }
+li.row .icon .mdi { font-size: 160% }
+li.row .icon .mdi.off { color: #d9534f }
+li.row .icon .mdi-toggle-switch { color: #dddddd }
+
+li.row .image { display: table-cell; text-align: center; vertical-align: middle; width: 33%; padding: 0 10px; height: auto }
+li.row .image img { width: 100%; height: auto }
+
+li.row .content { color: #666666; display: table-cell; vertical-align: middle; width: 100%; height: 100%; padding: 0 5% }
+li.row .content.mini { width: 87%; padding: 0 0 0 2% }
+
+li.row.menuitem .content { vertical-align: middle }
+
+li.row.html { height: auto; padding: 5% 0 }
+li.row.html .content { width: 100% }
+
+li.row.html .content p { padding-bottom: 5px }
+li.row.html .content ul { padding: 10px 10px 10px 20px; list-style: disc outside none }
+li.row.html .content ul li { padding-bottom: 5px }
+li.row.html .content ol { padding: 10px 10px 10px 20px; list-style: decimal outside none }
+li.row.html .content ol li { padding-bottom: 5px }
+
+li.row.pushbutton .content.mini { width: 74% }
+li.row.pushbutton .btn { display: table-cell; width: 13%; height: 100%; vertical-align: middle; text-align: center }
+li.row.pushbutton .blue { color: #007bff }
+li.row.pushbutton .mdi { font-size: 160% }
+
+li.row.empty { text-align: center; border-bottom: 0 }
+
+li.row.tapped { border-color: #dcdcdc; background-color: #dcdcdc }
+
+li.row.disabled.tapped { background-color: transparent }
+li.row.disabled .button .mdi { color: #cdcdcd }
+li.row.disabled .button .btn { background-color: #cdcdcd }
+
+li.row.hide { display: none }
+
+li.row .bookmarks { position: absolute; right: 2px; top: 2px }
+li.row .bookmarks .mdi { z-index: 2; position: absolute; right: 5px; top: 0 }
+
+/* forms*/
+ul.form { width: 100%; height: 100% }
+li.field { z-index: 1; position: relative; display: table; width: 100%; height: auto; border-bottom: 1px solid #d9dbdc }
+li.field.hide { display: none }
+
+li.field .icon { display: table-cell; text-align: right; vertical-align: middle; width: 15%; height: 100% }
+li.field .icon .mdi { font-size: 200%; color: #dddddd }
+li.field .icon .mdi.check { font-size: 300% }
+li.field .icon .mdi.mdi-toggle-switch { color: #67b73c }
+
+li.field .content { color: #666666; display: table-cell; vertical-align: top; width: 100%; height: 100%; padding: 0 5% }
+li.field .content.mini { width: 85%; padding: 0 2% }
+
+li.field.textbox, li.field.textarea { border-bottom: 0 }
+li.field.textbox .content, li.field.textarea .content { vertical-align: middle; height: 100% }
+li.field.textbox input, li.field.textarea textarea { color: #666666; background: transparent; width: 100%; margin: 0; padding: 0; border: 0; outline: none }
+li.field.textbox input::placeholder, li.field.textarea textarea::placeholder { color: #666666 }
+li.field.textbox input:focus, li.field.textarea textarea:focus,
+li.field.textbox input:hover, li.field.textarea textarea:hover { color: #888f92 }
+li.field.textbox.required input, li.field.textarea.required textarea { border-bottom: 1px solid #000000 }
+
+li.field.hidden { display: none }
+
+li.field.password .button { z-index: 5; display: table; position: absolute; right: 0; top: 0; width: 20%; height: 100% }
+li.field.password .button span { display: table-cell; width: 100%; height: 100%; text-align: center; vertical-align: middle; text-transform: uppercase; font-weight: bold; font-size: 80% }
+
+li.field.page { margin-bottom: 10px }
+li.field.page h3 { padding-top: 10px }
+li.field.page .icon .mdi { color: #666666 }
+
+li.field.checkbox .content, li.field.iconpicker .content, li.field.colorpicker .content { vertical-align: middle }
+
+li.field.optionbox .content { vertical-align: middle; text-align: center }
+li.field.optionbox .content .mdi { font-size: 200%; color: #dddddd }
+li.field.optionbox .content .mdi.mdi-toggle-switch { color: #67b73c }
+li.field.optionbox .content.l { width: 50% }
+li.field.optionbox .content.m { width: 33% }
+li.field.optionbox .content.s { width: 25% }
+
+.forms li.field.icon .content { padding-left: 1% }
+li.field.icon .button { float: left; width: 12%; height: 50px; line-height: 50px; background: #ffffff; border: 1px solid #dddddd; margin: 1% }
+li.field.icon .button .mdi { font-size: 150% }
+li.field.icon .button .mdi.checked { color: #67b73c }
+
+li.field.iconpicker {  z-index: 5 }
+li.field.iconpicker .content input.input { float: left; color: #666666; width: 60%; border: 1px solid #efefef; font-size: 80%; outline: none }
+li.field.iconpicker .content .button { float: left; color: #ffffff; width: auto; height: 100%; background-color: #0094d9; padding: 12px; margin-left: 5px; vertical-align: middle; text-align: center; text-transform: uppercase; font-weight: bold }
+li.field.iconpicker .content .button.delete { background-color: #000000 }
+li.field.iconpicker .icon { text-align: center }
+li.field.iconpicker .icon .mdi { font-size: 180% }
+li.field.iconpick2er .icons { position: absolute; z-index: 2; right: 10px; left: 10px; top: 50%; background-color: #efefef; border: 1px solid #dddddd }
+li.field.iconpicker .icons { position: absolute; z-index: 2; left: 0; top: 100%; width: 100%; height: auto; padding: 0 10px 20px 10px }
+li.field.iconpicker .icons > div { background-color: #efefef; border: 1px solid #dddddd; border-radius: 5px }
+li.field.iconpicker .icons .button { float: left; width: 12.5%; padding: 10px 5px }
+li.field.iconpicker .icons .button .mdi { font-size: 180% }
+
+li.field.colorpicker {  z-index: 5 }
+li.field.colorpicker.z3 {  z-index: 6 }
+li.field.colorpicker .icon { text-align: right }
+li.field.colorpicker .icon .preview.color_transparent { color: #dddddd !important }
+li.field.colorpicker .colors { position: fixed; z-index: 2; left: 0; top: auto; width: 100%; height: auto; padding: 20px }
+li.field.colorpicker .colors > div { background-color: #efefef; border: 1px solid #dddddd; border-radius: 5px }
+li.field.colorpicker .colors.hide { display: none }
+li.field.colorpicker .colors .button { display: flex; align-items: center; width: 100%; padding: 5px 2px }
+li.field.colorpicker .colors .button .mdi { font-size: 180%; margin-right: 10px }
+
+li.field.html .content p { line-height: 1.6 }
+
+li.field.selectlist select { -webkit-appearance: none; color: #666666; background-color: transparent; font-size: 100%; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; outline: none }
+li.field.selectlist select { background-image: url("../images/select.png"); background-repeat: no-repeat; background-position: right center; background-size: auto 30% }
+li.field.selectlist select.multiple { background-position-y: 5px }
+li.field.selectlist select option { height: 100% }
+li.field.selectlist select:focus { color: #888f92 }
+li.field.required select { border-bottom: 1px solid #dc176f }
+
+li.field.size .fl { width: 50%; padding-right: 5px }
+li.field.size .fr { width: 50%; padding-left: 5px }
+
+li.field.pushbutton { text-transform: uppercase; background-color: transparent; font-weight: bold }
+li.field.pushbutton .btn { color: #ffffff; display: table-cell; width: 100%; height: 100%; background-color: #0094d9; padding: 15px 0; vertical-align: middle; text-align: center; box-shadow: rgba(0, 0, 0, 0.2) 0 3px 1px -2px, rgba(0, 0, 0, 0.14) 0 2px 2px 0, rgba(0, 0, 0, 0.12) 0 1px 5px 0 }
+li.field.pushbutton .btn.l { width: 50% }
+li.field.pushbutton .btn.xl { width: 64% }
+li.field.pushbutton .btn.m { width: 33% }
+li.field.pushbutton .btn.s { width: 25% }
+li.field.pushbutton .btn.first { border-right: 5px solid #ffffff }
+li.field.pushbutton .btn.last { border-left: 5px solid #ffffff }
+li.field.pushbutton .btn.blue { background-color: #007bff }
+li.field.pushbutton .btn.blue-dark { background-color: #0069d9 }
+li.field.pushbutton .btn.green { background-color: #28a745 }
+li.field.pushbutton .btn.red { background-color: #dc3545 }
+li.field.pushbutton .btn.r2ed { background-color: transparent; color: #dc3545 }
+li.field.pushbutton .btn.orange { background-color: #ffc107 }
+li.field.pushbutton .btn.violet { background-color: #17a2b8 }
+li.field.pushbutton .btn.grey { background-color: #868e96 }
+li.field.pushbutton .btn.grey-dark { background-color: #b0b5ba }
+li.field.pushbutton .btn.grey-light { background-color: #b0b5ba }
+li.field.pushbutton .btn.white { background-color: #ffffff; color: #007bff }
+li.field.pushbutton .btn.black { background-color: #000000 }
+li.field.pushbutton .btn.transparent { background-color: transparent; text-transform: none; color: #999999; font-size: 90% }
+
+@media only screen and (orientation:landscape) {
+	.forms li.field.x2 { width: 49.999999% !important; float: left }
+	.forms li.field.x3 { width: 33.333333% !important; float: left }
+	.forms li.field.x1 { width: 66.666666% !important; float: left }
+	li.field .icon { width: 10% }
+	li.field .content.mini { width: 90% }	
+	li.field.select2list select { background-position: 98% center; background-size: 6% auto }
+}

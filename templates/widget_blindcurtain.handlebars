@@ -1,0 +1,64 @@
+<div class="inner">
+	<div class="content">				
+		<div class="box f">
+			{{#if data.windowcoverings_state}}
+				{{#if widget.icon}}
+					<div class="fl flex c col12 row6">
+						<div class="state"><span class="mdi mdi-{{{widget.icon}}}"></span></div>	
+					</div>
+					<div class="fr flex c col12 row6">
+				{{else}}
+					<div class="flex c col12 row12">
+				{{/if}}
+					<div class="buttons">
+						<div class="button curtain{{#ifCond data.windowcoverings_state.value '==' 'up'}} active{{/ifCond}}" data-op="up">
+							<span class="mdi mdi-chevron-up"></span> 						
+						</div>
+						<div class="button curtain{{#ifCond data.windowcoverings_state.value '==' 'idle'}} active{{/ifCond}}" data-op="idle">
+							<span class="mdi mdi-stop"></span> 
+						</div>
+						<div class="button curtain{{#ifCond data.windowcoverings_state.value '==' 'down'}} active{{/ifCond}}" data-op="down">
+							<span class="mdi mdi-chevron-down"></span> 
+						</div>
+					</div>
+				</div>
+			{{else}}			
+				{{#if data.windowcoverings_set}}							
+					{{#ifCond widget.theme '==' 'horizontal'}}
+						{{#if widget.icon}}
+							<div class="fl flex c col3 row12">
+								<div class="button state" data-op="set" data-value="{{#if data.windowcoverings_set.value}}0{{else}}100{{/if}}"><span class="mdi mdi-{{{widget.icon}}}"></span></div>	
+							</div>		
+							<div class="fr flex c col9 row12">
+						{{else}}
+							<div class="flex c col12 row12">
+						{{/if}}							
+							<div class="range h">
+								<input class="slider covering" data-op="covering" type="range" min="0" max="1" step="0.01" data-value="{{{toPercent data.windowcoverings_set.value}}}%" value="{{{data.windowcoverings_set.value}}}" />
+							</div>						
+						</div>				
+						<div class="clear"></div>			
+					{{else}}					
+						{{#if widget.icon}}
+							<div class="fl flex c col6 row12">
+								<div class="button state" data-op="set" data-value="{{#if data.windowcoverings_set.value}}0{{else}}100{{/if}}"><span class="mdi mdi-{{{widget.icon}}}"></span></div>	
+							</div>
+							<div class="fr flex c col6 row12">
+						{{else}}
+							<div class="flex c col12 row12">
+						{{/if}}	
+							<div class="range v">
+								<input class="slider covering" data-op="covering" type="range" min="0" max="1" step="0.01" data-value="{{{toPercent data.windowcoverings_set.value}}}%" value="{{{data.windowcoverings_set.value}}}" />								
+							</div>												
+						</div>
+					{{/ifCond}}
+				{{/if}}	
+			{{/if}}
+			<div class="clear"></div>
+		</div>	
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}		
+		{{#if data.measure_battery}}<div class="battery"><span class="mdi mdi-battery{{#ifCond data.measure_battery.value '<' 10}}-outline color_red{{else}}{{#ifCond data.measure_battery.value '>' 70}} color_green{{else}}-50 color_orange{{/ifCond}}{{/ifCond}} mdi-rotate-270"></span></div>{{/if}}	
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

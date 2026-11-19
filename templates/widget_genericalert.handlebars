@@ -1,0 +1,14 @@
+<div class="inner">
+	<div class="content">		
+		<div class="box f">
+			<div class="flex c col12 row12">
+				<div class="value"><span class="strong">{{{capability.value}}}</span>{{#if capability.units}} <span class="size_xs">{{{capability.units}}}</span>{{/if}}</div>		
+			</div>
+		</div>			
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}
+		{{#ifCond widget.hideupdatetime '==' 0}}<div class="update">{{{update}}}</div>{{/ifCond}}
+		{{#if data.measure_battery}}<div class="battery"><span class="mdi mdi-battery{{#ifCond data.measure_battery.value '<' 10}}-outline color_red{{else}}{{#ifCond data.measure_battery.value '>' 70}} color_green{{else}}-50 color_orange{{/ifCond}}{{/ifCond}} mdi-rotate-270"></span></div>{{/if}}	
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

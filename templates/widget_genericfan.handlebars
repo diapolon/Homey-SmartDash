@@ -1,0 +1,29 @@
+<div class="inner">
+	<div class="content">			
+		<div class="box f">
+			{{#if data.dim}}						
+				<div class="fl flex c col3 row12">
+					<div class="button state">							
+						<span class="mdi mdi-{{#if widget.icon}}{{{widget.icon}}}{{else}}fan{{/if}}"></span> 
+					</div>	
+				</div>		
+				<div class="fr flex c col9 row12">
+					<div class="range h">
+						<input class="slider dim" data-op="dim" type="range" min="0" max="1" step="0.01" data-value="{{{toPercent data.dim.value}}}%" value="{{{data.dim.value}}}" />							
+					</div>						
+				</div>								
+				<div class="clear"></div>			
+			{{else}}
+				<div class="flex c col12 row12">
+					<div class="button state">	
+						<span class="mdi mdi-{{#if widget.icon}}{{{widget.icon}}}{{else}}fan{{/if}}"></span> 					
+					</div>	
+				</div>
+			{{/if}}															
+		</div>	
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}
+		{{#if data.measure_power}}<div class="info"><span class="strong">{{{data.measure_power.value}}}</span> <span class="size_xs">{{{data.measure_power.units}}}</span></div>{{/if}}												
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

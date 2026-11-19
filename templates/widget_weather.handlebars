@@ -1,0 +1,60 @@
+<div class="inner">
+	<div class="content">
+		<div class="box">
+			{{#ifCond weather.icon '==' '-'}}
+				<div class="fr table col12 row10">
+					<div class="cell middle">	
+						<div class="fl col4 p10l">
+							<div class="size_xxl strong">{{{weather.temperature}}}&deg;</div>
+						</div>
+						<div class="fl col8 left p10l">
+							<div class="conditions size_l strong">{{{weather.condition}}}</div>
+							<div class="infos p5t">{{{weather.temperature_minmax}}}</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>			
+			{{else}}
+			<div class="fl table col12 row8">
+				<div class="cell middle">
+					<div class="value">
+						<span class="mdi mdi-{{{weather.icon}}} size_xxxl"></span> 
+					</div>	
+				</div>
+			</div>		
+			<div class="fr table col12 row2">
+				<div class="cell middle">	
+					<div class="fl col4 p10l">
+						<div class="size_xxl strong">{{{weather.temperature}}}&deg;</div>
+					</div>
+					<div class="fl col8 left p10l">
+						<div class="conditions size_l strong">{{{weather.condition}}}</div>
+						<div class="infos p5t">{{{weather.temperature_minmax}}}</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>						
+			{{/ifCond}}	
+			<div class="clear"></div>	
+			<div class="table col12 row2">
+				<div class="cell middle">	
+					<div class="fl col4">
+						<i class="mdi mdi-weather-windy"></i> {{{weather.wind}}}
+					</div>
+					<div class="fl col4">
+						<i class="mdi mdi-water-outline"></i> {{{weather.humidity}}}%
+					</div>
+					<div class="fl col4">
+						<i class="mdi mdi-thermometer"></i> {{{weather.temperature_feelslike}}}&deg;
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>			
+			<div class="clear"></div>
+		</div>	
+		{{#ifCond widget.hidename '==' 0}}<div class="name">{{{name}}}</div>{{/ifCond}}		
+		{{#if data.measure_battery}}<div class="battery"><span class="mdi mdi-battery{{#ifCond data.measure_battery.value '<' 10}}-outline color_red{{else}}{{#ifCond data.measure_battery.value '>' 70}} color_green{{else}}-50 color_orange{{/ifCond}}{{/ifCond}} mdi-rotate-270"></span></div>{{/if}}	
+		<div class="mask"><span class="mdi mdi-dots-circle mdi-spin"></span></div>
+		<div class="locked{{#ifCond widget.locked '==' 0}} hide{{/ifCond}}"><span class="mdi mdi-lock"></span></div>
+	</div>
+</div>

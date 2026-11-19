@@ -1,0 +1,5 @@
+{{#each buttons}}
+	<div {{#if id}}id="{{id}}"{{/if}}class="button btn{{#if css}} {{css}}{{/if}}" rel="{{@index}}">
+		{{#if icon}}<span class="mdi mdi-{{icon}}"></span> {{/if}}{{{name}}}
+	</div>
+{{/each}}
