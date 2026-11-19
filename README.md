@@ -39,8 +39,8 @@ index.html    entry point
 
 ## Build
 
-1. Install the third-party libraries and fonts listed in
-   [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) at the paths shown there.
+1. The third-party libraries and fonts are already included (see
+   [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).
 2. Compile the templates (requires `npm install -g handlebars`):
 
    ```sh
@@ -63,4 +63,6 @@ The automatic APK update check is **disabled** (`HOMEY.update.url` is empty in
 
 ## License
 
-[MIT](LICENSE) © Koghisoft. Third-party components keep their own licenses.
+[MIT](LICENSE) © Koghisoft. The bundled third-party components keep their own
+licenses — see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and
+[LICENSES/](LICENSES/).

@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular-webfont.woff') format('woff'),
+         url('Roboto-Regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.font_roboto, .font_roboto tr, .font_roboto td, .font_roboto th, .font_roboto select, .font_roboto textarea, .font_roboto option, .font_roboto input { font-family: 'Roboto', Helvetica, sans-serif }
